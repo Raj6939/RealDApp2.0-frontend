@@ -133,14 +133,19 @@ return{
   },
   propList:[],
    det:{
-   id:'',
-   did:'',
-   name:'',
-   email:'',
-   isApproved:false,
-   isPending:false,
-   props:[]
-    },
+   _id:'',
+   prop_id:'',
+   prop_area:'',
+   prop_house_no:'',
+   prop_landmark:'',
+   prop_city:'',
+   prop_state:'',
+   prop_price:'',
+   prop_document:'',
+   prop_surveyNumber:'',
+  //  isApproved:false,
+  //  isPending:false,
+  },
     id:3,
 }
 },
@@ -161,7 +166,7 @@ methods:{
       this.selected = prop
   },
   async detail(){
-        let result = await axios.get(`http://localhost:3000/users/2`,{
+        let result = await axios.get(`http://localhost:3000/property_upload`,{
          
         });
         this.det=  result.data;
@@ -180,7 +185,7 @@ async saveProperty(){
   // this.propList.push(this.selected);
   // this.user.props = this.propList
   console.log(this.user);
-        const result = await axios.post(`http://localhost:3000/users/${this.id}`,{
+        const result = await axios.post(`http://localhost:3000/property_upload`,{
          props:this.selected
          })
          if(!result.ok){

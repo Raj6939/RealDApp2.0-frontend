@@ -1,0 +1,138 @@
+{
+    "detils": [
+      {
+        "points": 100,
+        "entries": 120,
+        "days": 2
+      },
+      {
+        "id": 1,
+        "points": 100,
+        "entries": 120,
+        "days": 2
+      }
+    ],
+    "users": [
+      {
+        "id": 1,
+        "did": "did2t273t2t",
+        "name": "yash",
+        "email": "yash@gmail.com",
+        "props": [
+          {
+            "propId": 1,
+            "propAddress": "Kolhapur",
+            "propName": "Yash Vila",
+            "propPrice": "10000000",
+            "propSym": "YV",
+            "isApproved": false,
+            "isPending": true
+          },
+          {
+            "propId": 2,
+            "propAddress": "Banglore",
+            "propName": "Raj Vila",
+            "propPrice": "150000000",
+            "propSym": "RV",
+            "isApproved": true,
+            "isPending": false
+          },
+          {
+            "propId": 3,
+            "propAddress": "Pune",
+            "propName": "Rakesh Vila",
+            "propPrice": "150000000",
+            "propSym": "RV",
+            "isApproved": true,
+            "isPending": false
+          },
+          {
+            "propId": 4,
+            "propAddress": "Solapur",
+            "propName": "Veer Vila",
+            "propPrice": "150000000",
+            "propSym": "VV",
+            "isApproved": true,
+            "isPending": false
+          },
+          {
+            "propId": 5,
+            "propAddress": "Goa",
+            "propName": "Ratan Vila",
+            "propPrice": "150000000",
+            "propSym": "RV",
+            "isApproved": true,
+            "isPending": false
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "did": "did2t273t2t",
+        "name": "Raj",
+        "email": "raj@gmail.com",
+        "props": [
+          {
+            "propId": 1,
+            "propAddress": "Kolhapur",
+            "propName": "Yash Vila",
+            "propPrice": "10000000",
+            "propSym": "YV",
+            "isApproved": false,
+            "isPending": true
+          },
+          {
+            "propId": 2,
+            "propAddress": "Banglore",
+            "propName": "Raj Vila",
+            "propPrice": "150000000",
+            "propSym": "RV",
+            "isApproved": true,
+            "isPending": false
+          },
+          {
+            "propId": 3,
+            "propAddress": "Pune",
+            "propName": "Rakesh Vila",
+            "propPrice": "130000000",
+            "propSym": "RV",
+            "isApproved": true,
+            "isPending": false
+          },
+          {
+            "propId": 4,
+            "propAddress": "Mumbai",
+            "propName": "Darshan Vila",
+            "propPrice": "150000000",
+            "propSym": "DV",
+            "isApproved": true,
+            "isPending": false
+          },
+          {
+            "propId": 5,
+            "propAddress": "Goa",
+            "propName": "Ratan Vila",
+            "propPrice": "160000000",
+            "propSym": "RV",
+            "isApproved": true,
+            "isPending": false
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "did": "did2t273t2t",
+        "name": "Raj",
+        "email": "raj@gmail.com",
+        "props": {
+          "propId": 2,
+          "propAddress": "Kolhapur",
+          "propName": "KOP Vila",
+          "propPrice": "10000000",
+          "propSym": "YV",
+          "isApproved": false,
+          "isPending": true
+        }
+      }
+    ]
+  }
