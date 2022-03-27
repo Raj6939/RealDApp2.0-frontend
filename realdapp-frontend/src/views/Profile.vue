@@ -8,40 +8,63 @@
      id="sidebar-right"
      :title="isPropEditing ? 'Edit Property' : 'Create Property'"
      right shadow
-     width="50%"
      no-close-on-backdrop
      backdrop-variant="dark"
      >
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
         <div class=" text-left col-lg-3 col-md-3 text-left" >
-          <label for="propertyName" class="col-form-label">Property Name<span style="color: red">*</span>: </label>
+          <label for="propertyName" class="col-form-label">Property Area<span style="color: red">*</span>: </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
-          <input  type="text" v-model="selected.propName"  id="title" class="form-control w-100" placeholder="Please enter property name" >
+          <input  type="text" v-model="selected.prop_area"  id="title" class="form-control w-100" placeholder="Please enter property area" >
         </div>  
       </div>
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
         <div class=" text-left col-lg-3 col-md-3 text-left">
-          <label for="propertyName" class="col-form-label">Property Address<span style="color: red">*</span>: </label>
+          <label for="propertyName" class="col-form-label">Property No or House No<span style="color: red">*</span>: </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
-          <input  type="text" v-model="selected.propAddress"  id="title" class="form-control w-100" placeholder="Please enter property name" >
+          <input  type="text" v-model="selected.prop_house_no"  id="title" class="form-control w-100" placeholder="Please enter property number" >
         </div>  
       </div>
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
         <div class=" text-left col-lg-3 col-md-3 text-left">
-          <label for="propertyName" class="col-form-label">Property Symbol<span style="color: red">*</span>: </label>
+          <label for="propertyName" class="col-form-label">Property Landmark<span style="color: red">*</span>: </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
-          <input  type="text"  v-model="selected.propSym" id="title" class="form-control w-100" placeholder="Please enter property name" >
+          <input  type="text"  v-model="selected.prop_landmark" id="title" class="form-control w-100" placeholder="Please enter property landmark" >
         </div>  
       </div>
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
         <div class=" text-left col-lg-3 col-md-3 text-left">
-          <label for="propertyName" class="col-form-label">Property price<span style="color: red">*</span>: </label>
+          <label for="propertyName" class="col-form-label">Property City<span style="color: red">*</span>: </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
-          <input  type="text"  v-model="selected.propPrice" id="title" class="form-control w-100" placeholder="Please enter property name" >
+          <input  type="text"  v-model="selected.prop_city" id="title" class="form-control w-100" placeholder="Please enter property city" >
+        </div>  
+      </div>
+      <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+        <div class=" text-left col-lg-3 col-md-3 text-left">
+          <label for="propertyName" class="col-form-label">Property State<span style="color: red">*</span>: </label>
+        </div>
+        <div class="col-lg-9 col-md-9 px-0">
+          <input  type="text"  v-model="selected.prop_state" id="title" class="form-control w-100" placeholder="Please enter property state" >
+        </div>  
+      </div>
+      <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+        <div class=" text-left col-lg-3 col-md-3 text-left">
+          <label for="propertyName" class="col-form-label">Property Survey Number<span style="color: red">*</span>: </label>
+        </div>
+        <div class="col-lg-9 col-md-9 px-0">
+          <input  type="text"  v-model="selected.prop_surveyNumber" id="title" class="form-control w-100" placeholder="Please enter property servey number" >
+        </div>  
+      </div>
+      <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+        <div class=" text-left col-lg-3 col-md-3 text-left">
+          <label for="propertyName" class="col-form-label">Property Price<span style="color: red">*</span>: </label>
+        </div>
+        <div class="col-lg-9 col-md-9 px-0">
+          <input  type="number"  v-model="selected.prop_price" id="title" class="form-control w-100" placeholder="Please enter property servey number" >
         </div>  
       </div>
         <button
@@ -56,40 +79,51 @@
    <section style="margin-left: 10px;">
     <div class="container-fluid">
       <div class="row" id="main">
-        <div class="col-md-4 py-2" v-for="properties in det.props"
-        :key="properties.propId">
+        <div class="col-md-4 py-2" v-for="properties in user.properties"
+        :key="properties._id">
           <div class="card h-100">
             <!-- <img class="card-img-top" src="assets/logo.png" height="50vh"> -->
-             <div class="sold_status" v-if="properties.isPending">
+             <div class="sold_status" v-if="properties.prop_isApproved==false">
                <span>Comming Soon</span>
                 <!-- <h2 v-if="properties.isPending"><b-badge>Sold out</b-badge></h2> -->
                 </div>
-                <div class="sold_status_availabe" v-if="properties.isPending==false">
+                <div class="sold_status_availabe" v-if="properties.prop_isApproved">
                <span>Available</span>
                 <!-- <h2 v-if="properties.isPending"><b-badge>Sold out</b-badge></h2> -->
                 </div>
             <div class="card-body d-flex flex-column align-items-center">
-              <h5 class="card-title">{{properties.propName}} </h5>
-              <p class="card-text" style="font-weight:bold">{{properties.propAddress}}</p>
-              <p class="card-text"> Price {{properties.propPrice}}</p>
+              <h5 class="card-title">{{properties.prop_landmark}} </h5>
+              <p class="card-text" style="font-weight:bold">{{properties.prop_area}}sq.ft</p>
+              <p class="card-text" style="font-weight:bold">{{properties.prop_city}}</p>
+              <p class="card-text"> Price {{properties.prop_price}}</p>
               <!-- <button v-on:click="addProductToCart(properties)" class="btn btn-primary mt-auto">Enquire now</button> -->
             
               <div>
-                <b-badge pill variant="success"  v-if="properties.isApproved" title="Approved by Government"
+                <b-badge pill variant="success"  v-if="properties.prop_isApproved" title="Approved by Government"
                 >Verified</b-badge>
                 <b-badge pill variant="warning" v-else title="Not yet approved by Government"
                 >Pending</b-badge>
                 </div>
              
             </div>
-               <div class="enquireBt" v-if="properties.isApproved && !properties.isPending">
-             <button  v-on:click="addProductToCart(properties)"
-             class="btn btn-primary" style="width:200px;">Deploy Property</button>
+            <div class="enquireBt" v-if="properties.prop_isApproved">
+               <button  v-on:click="addProductToCart(properties)"
+               class="btn btn-primary" style="width:200px;"
+               >Deploy Property</button>
             </div>
-            <div class="edit" v-if="properties.isApproved && !properties.isPending">
-            <!-- <i class="fas fa-edit" 
-            v-on:click="editProp(properties)"
-            title="Edit your property details"></i> -->
+            <div class="enquireBt" v-else>
+              <button
+              class="btn btn-primary" style="width:200px;"
+              disabled
+              >Deploy Property</button>
+            </div>
+            <div class="edit" v-if="properties.prop_isApproved">
+           <b-icon icon="pencil-square" font-scale="1.5"
+           v-on:click="editProp(properties)"
+            title="Edit your property details"
+           ></b-icon>
+           </div>
+            <div class="edit" v-else>
            <b-icon icon="pencil-square" font-scale="1.5"
            v-on:click="editProp(properties)"
             title="Edit your property details"
@@ -118,32 +152,25 @@ data(){
 return{
   isPropEditing:false,
   user:{
-    id:1, 
-    did:"did2t273t2t",
-    name:"yash",
-    email:"yash@gmail.com",
-    props:[]
+    _id:'',
+    name:'',
+    email:'',
+    metaAddress:'',
+    properties:[]
   },
   selected:{
-    propId: 6,
-    propAddress:'',
-    propName:'',
-    propPrice:'',
-    propSym:'',
-    isApproved:false,
-    isPending:true
+    metaAddress:'0x39613B3F3B4260287537AA25FD40aFe1BE371D98',
+    propId: 5,
+    prop_area:'',
+    prop_house_no:'',
+    prop_landmark:'',
+    prop_city:'',
+    prop_state:'',
+    prop_price:'',
+    prop_document:'ABC',
+    prop_surveyNumber:'',
+    isApproved:true,
   },
-  propList:[],
-   det:{
-   id:'',
-   did:'',
-   name:'',
-   email:'',
-   isApproved:false,
-   isPending:false,
-   props:[]
-    },
-    id:3,
 }
 },
 async mounted(){
@@ -163,12 +190,11 @@ methods:{
       this.selected = prop
   },
   async detail(){
-        let result = await axios.get(`http://localhost:3000/users/2`,{
-         
-        });
-        this.det=  result.data;
-        
-        console.log(this.det);
+        let result = await axios.get(`http://localhost:3000/get_user/0x39613B3F3B4260287537AA25FD40aFe1BE371D98`);
+        console.log(result.data)
+        this.user=  result.data
+        // console.log(this.user.props);
+        // console.log(this.propList);
    },
 openSlider(){
   this.isPropEditing = false;
@@ -182,12 +208,11 @@ async saveProperty(){
   // this.propList.push(this.selected);
   // this.user.props = this.propList
   console.log(this.user);
-        const result = await axios.post(`http://localhost:3000/users/${this.id}`,{
+        const result = await axios.post(`http://localhost:3000/property_upload`,{
+        // "Content-Type": "application/json",
          props:this.selected
          })
-         if(!result.ok){
-           alert("not okay")
-         }else{
+         {
           // const res= await result.json();
           const res = result
           console.log(res)
@@ -205,14 +230,17 @@ async saveProperty(){
 // },
 clearAll(){
   this.selected={
-    
-     propId: 6,
-    propAddress:'',
-    propName:'',
-    propPrice:'',
-    propSym:'',
-    isApproved:false,
-    isPending:true
+    metaAddress:'0x39613B3F3B4260287537AA25FD40aFe1BE371D98',
+    prop_id: 0,
+    prop_area:'',
+    prop_house_no:'',
+    prop_landmark:'',
+    prop_city:'',
+    prop_state:'',
+    prop_price:'',
+    prop_surveyNumber:'',
+    prop_document:'',
+    isApproved:true,
   },
   this.propList=[]
 }
@@ -244,6 +272,9 @@ clearAll(){
     margin-left: -1rem;
     padding: 2rem;
 }
+#sidebar-right{
+    width: 50%;
+  }
  @media only screen and (max-width: 600px) {
   #main {
       display: flex;
@@ -254,7 +285,12 @@ clearAll(){
   }
   .edit{
   margin-top: 20px;
-  margin-right: -10px;
+  margin-right: 20px;
+  display: flex;
+  justify-content:right;
+  }
+  #sidebar-right{
+    width: 70%;
   }
 }
 .col-md-4{
@@ -272,7 +308,7 @@ clearAll(){
     overflow: hidden;
     border-radius: .5rem;
     transition: 0.2s ease-in-out;
-    cursor:pointer;
+    width: 100%;
 }
 .card:before{
  width: 0;
@@ -293,6 +329,8 @@ clearAll(){
     box-shadow: 0px 20px 40px 0px rgba(61, 65, 84, 0.15);
 }
 .edit{
+  margin-top:20px;
+  cursor: pointer;
   display: flex;
   justify-content:right;
 

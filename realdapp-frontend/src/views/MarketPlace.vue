@@ -104,6 +104,21 @@ return{
    isPending:false,
    props:[]
     },
+  // det:{
+  //  _id:'',
+  //  prop_id:'',
+  //  prop_area:'',
+  //  prop_house_no:'',
+  //  prop_landmark:'',
+  //  prop_city:'',
+  //  prop_state:'',
+  //  prop_price:'',
+  //  prop_document:'',
+  //  prop_surveyNumber:'',
+  // //  isApproved:false,
+  // //  isPending:false,
+  // },
+  // det:{},
     id:2,
 }
 }, async mounted(){
@@ -114,12 +129,10 @@ methods:{
     alert(JSON.stringify(prop))
   },
    async detail(){
-        let result = await axios.get(`http://localhost:3000/users/${this.id}`,{
-         
-        });
-        this.det=  result.data;
+        let result = await axios.get(`http://localhost:3000/property_upload`);
+        this.det.props=  result.data;
         
-        console.log(this.det);
+        console.log(this.det.props);
    },
 }
 }
