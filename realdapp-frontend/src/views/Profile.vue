@@ -146,6 +146,8 @@
 
 <script>
 import axios from 'axios'
+import loadweb3 from '../utils/getWeb3'
+import {abi,address} from '../utils/contractAbi'
 export default {
 name:'Profile',
 data(){
@@ -155,11 +157,11 @@ return{
     _id:'',
     name:'',
     email:'',
-    metaAddress:'',
+    metamask_address:'',
     properties:[]
   },
   selected:{
-    metaAddress:'0x39613B3F3B4260287537AA25FD40aFe1BE371D98',
+    metamask_address:'0x39613B3F3B4260287537AA25FD40aFe1BE371D98',
     propId: 5,
     prop_area:'',
     prop_house_no:'',
@@ -169,7 +171,6 @@ return{
     prop_price:'',
     prop_document:'ABC',
     prop_surveyNumber:'',
-    isApproved:true,
   },
 }
 },
@@ -190,7 +191,18 @@ methods:{
       this.selected = prop
   },
   async detail(){
-        let result = await axios.get(`http://localhost:3000/get_user/0x39613B3F3B4260287537AA25FD40aFe1BE371D98`);
+        const web3 =await loadweb3();
+        const accounts = await web3.eth.getAccounts();
+        const contract = new web3.eth.Contract(abi,address);
+        const res = await contract.methods.connectMetamask(accounts[0]).call();
+        console.log(res);
+        // await contract.methods.createProperty(1, '5', 'abc', 'abc', 'abc', 100000, 'abc').send({from:accounts[0]});
+        // // await contract.methods.sellProperty(accounts[0],'0xc47f5B4C41e6dF65B60A6d4c36Cf6e8a2310ae53',1).send({from:accounts[0]});
+        // await contract.methods.buyProperty('0x17c416329270CE5B2b791F7BdbA384895dcA74Ea',1).send({from:accounts[0],value:'100000000'});
+        // const bal = await contract.methods.getBalance(accounts[0]).call();
+        // console.log(bal);
+        console.log(accounts[0]);
+        let result = await axios.get(`http://localhost:3000/get_user/${accounts[0]}`);
         console.log(result.data)
         this.user=  result.data
         // console.log(this.user.props);
@@ -230,8 +242,8 @@ async saveProperty(){
 // },
 clearAll(){
   this.selected={
-    metaAddress:'0x39613B3F3B4260287537AA25FD40aFe1BE371D98',
-    prop_id: 0,
+    metamask_address:'0x39613B3F3B4260287537AA25FD40aFe1BE371D98',
+    prop_id: 5,
     prop_area:'',
     prop_house_no:'',
     prop_landmark:'',
@@ -239,8 +251,7 @@ clearAll(){
     prop_state:'',
     prop_price:'',
     prop_surveyNumber:'',
-    prop_document:'',
-    isApproved:true,
+    prop_document:'ABC'
   },
   this.propList=[]
 }
