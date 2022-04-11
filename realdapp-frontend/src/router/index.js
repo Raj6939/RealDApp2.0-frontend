@@ -40,14 +40,6 @@ const routes = [
       title:'RealDApp-About'
     }
   },
-  {
-    path: '/appliedproperties',
-    name: 'AppliedProperties',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AppliedProperties.vue'),
-    meta:{
-      title:'RealDApp-AppliedProperties'
-    }
-  }
 ]
 
 const router = new VueRouter({

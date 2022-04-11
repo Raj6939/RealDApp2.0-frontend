@@ -146,6 +146,7 @@
 
 <script>
 import axios from 'axios'
+// import invokeMetamask from "../mixins/calls"
 import loadweb3 from '../utils/getWeb3'
 import {abi,address} from '../utils/contractAbi'
 export default {
@@ -175,6 +176,7 @@ return{
 }
 },
 async mounted(){
+  //  await invokeMetamask()
   await this.detail();
 },
 methods:{
@@ -190,11 +192,13 @@ methods:{
       // this.$root.$emit("callClearFromProject");'
       this.selected = prop
   },
+ 
   async detail(){
+   
         const web3 =await loadweb3();
         const accounts = await web3.eth.getAccounts();
         const contract = new web3.eth.Contract(abi,address);
-        const res = await contract.methods.connectMetamask(accounts[0]).call();
+        const res =  contract.methods.connectMetamask(accounts[0]).call();
         console.log(res);
         // await contract.methods.createProperty(1, '5', 'abc', 'abc', 'abc', 100000, 'abc').send({from:accounts[0]});
         // // await contract.methods.sellProperty(accounts[0],'0xc47f5B4C41e6dF65B60A6d4c36Cf6e8a2310ae53',1).send({from:accounts[0]});

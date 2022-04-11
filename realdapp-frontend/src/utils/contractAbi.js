@@ -439,7 +439,7 @@ const abi = [
 	}
 ]
 
-const address = '0xc0d9caeeff0273c55619f16ad7c9c822a3d8027f';
+const address = '0x73a01d1badE9e21673Bd50eB90013e7A20049eB6';
 
 export {
     abi,

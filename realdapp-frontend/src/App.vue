@@ -9,7 +9,6 @@
         <b-nav-item  href="/">Home</b-nav-item>
         <b-nav-item  href="/marketplace">MarketPlace</b-nav-item>
         <b-nav-item  href="/about">About</b-nav-item>
-        <b-nav-item  href="/appliedproperties">Applied Properties</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto"  >
         <b-nav-form>
