@@ -10,6 +10,7 @@ async function loadWeb3()  {
       return window.web3;
     }else{
       window.alert("Non-Ethereum browser detected");
+      return null;
     }
 }
 

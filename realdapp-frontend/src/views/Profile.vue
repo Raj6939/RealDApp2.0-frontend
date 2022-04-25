@@ -67,6 +67,14 @@
           <input  type="number"  v-model="selected.prop_price" id="title" class="form-control w-100" placeholder="Please enter property servey number" >
         </div>  
       </div>
+      <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+        <div class=" text-left col-lg-3 col-md-3 text-left">
+          <label for="propertyName" class="col-form-label">Property Document<span style="color: red">*</span>: </label>
+        </div>
+        <div class="col-lg-9 col-md-9 px-0">
+          <input type="file" ref="file" @change="selectFile" id="title" class="form-control w-100">
+        </div>  
+      </div>
         <button
           class="btn btn-primary mt-3 button-theme"
           type="button"
@@ -163,16 +171,17 @@ return{
   },
   selected:{
     metamask_address:'0x39613B3F3B4260287537AA25FD40aFe1BE371D98',
-    propId: 5,
+    // prop_id: '',
     prop_area:'',
     prop_house_no:'',
     prop_landmark:'',
     prop_city:'',
     prop_state:'',
     prop_price:'',
-    prop_document:'ABC',
+    prop_document:'',
     prop_surveyNumber:'',
   },
+  accounts:[]
 }
 },
 async mounted(){
@@ -180,6 +189,9 @@ async mounted(){
   await this.detail();
 },
 methods:{
+  selectFile(){
+    this.selected.prop_document = this.$refs.file.files[0];
+  },
   addProductToCart(prop){
     alert(JSON.stringify(prop))
   },
@@ -196,20 +208,24 @@ methods:{
   async detail(){
    
         const web3 =await loadweb3();
-        const accounts = await web3.eth.getAccounts();
+         this.accounts = await web3.eth.getAccounts();
         const contract = new web3.eth.Contract(abi,address);
-        const res =  contract.methods.connectMetamask(accounts[0]).call();
+        const res =  contract.methods.connectMetamask(this.accounts[0]).call();
         console.log(res);
         // await contract.methods.createProperty(1, '5', 'abc', 'abc', 'abc', 100000, 'abc').send({from:accounts[0]});
         // // await contract.methods.sellProperty(accounts[0],'0xc47f5B4C41e6dF65B60A6d4c36Cf6e8a2310ae53',1).send({from:accounts[0]});
         // await contract.methods.buyProperty('0x17c416329270CE5B2b791F7BdbA384895dcA74Ea',1).send({from:accounts[0],value:'100000000'});
         // const bal = await contract.methods.getBalance(accounts[0]).call();
         // console.log(bal);
-        console.log(accounts[0]);
-        let result = await axios.get(`http://localhost:3000/get_user/${accounts[0]}`);
+        console.log(this.accounts[0]);
+        let result = await axios.get(`http://localhost:3000/get_user/${this.accounts[0]}`);
         console.log(result.data)
-        this.user=  result.data
+        this.user=  result.data;
+        console.log(this.user.metamask_address);
+        // this.selected.metamask_address=this.user.metamask_address;
         // console.log(this.user.props);
+        console.log(this.selected);
+
         // console.log(this.propList);
    },
 openSlider(){
@@ -218,12 +234,14 @@ openSlider(){
 //  this.$root.$emit("bv::toggle::collapse", "sidebar-right");
 },
 async saveProperty(){
-  console.log(this.selected)
     // if(this.isValidate()){
   // this.user.props= this.selected
   // this.propList.push(this.selected);
   // this.user.props = this.propList
   console.log(this.user);
+   const formData = new FormData();
+   formData.append('file',this.selected.prop_document)
+   console.log(this.selected)
         const result = await axios.post(`http://localhost:3000/property_upload`,{
         // "Content-Type": "application/json",
          props:this.selected
@@ -232,6 +250,7 @@ async saveProperty(){
           // const res= await result.json();
           const res = result
           console.log(res)
+          // this.detail();
          }
     // }
     this.clearAll()
@@ -247,7 +266,7 @@ async saveProperty(){
 clearAll(){
   this.selected={
     metamask_address:'0x39613B3F3B4260287537AA25FD40aFe1BE371D98',
-    prop_id: 5,
+    // prop_id: '',
     prop_area:'',
     prop_house_no:'',
     prop_landmark:'',
@@ -255,7 +274,7 @@ clearAll(){
     prop_state:'',
     prop_price:'',
     prop_surveyNumber:'',
-    prop_document:'ABC'
+    prop_document:'',
   },
   this.propList=[]
 }

@@ -35,7 +35,7 @@ data(){
   }
 },
 async mounted(){
-await this.invokeMetamask();
+// await this.invokeMetamask();
 // this.checkWeb3Injection()
 },
 methods:{
@@ -50,36 +50,17 @@ methods:{
     //   }
     // },
   async invokeMetamask(){
-
-//     if (typeof window.ethereum !== 'undefined') {
-//   console.log('MetaMask is installed!');
-//   const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-// const account = accounts[0];
-// console.log(account);
-// }
-
-///////////////////////////////////////////////////////
-  //  if(window.ethereum){
-  //     window.web3 = new Web3(window.ethereum);
-  //     await window.ethereum.request({ method: "eth_requestAccounts" });
-  //     console.log(window.web3);
-  //     return window.web3;
-  //   }else if(window.web3){
-  //     window.web3 = new Web3(window.web3.currentProvider);
-  //     console.log(window.web3);
-  //     return window.web3;
-  //   }else{
-  //     window.alert("Non-Ethereum browser detected");
-  //   }
-
-/////////////////////////////////////////////////
-   const web3 =await loadweb3();
-        const accounts = await web3.eth.getAccounts();
+        const web3 =await loadweb3();
+		if(web3!==null){
+ const accounts = await web3.eth.getAccounts();
         console.log(accounts);
         const contract = new web3.eth.Contract(abi,address);
         const resp = await contract.methods.connectMetamask(accounts[0]).call();
 //  const resp = await contract.methods.createProperty().send({from:accounts[0]});
 console.log(resp);
+		}
+
+  
         
   }
 }
