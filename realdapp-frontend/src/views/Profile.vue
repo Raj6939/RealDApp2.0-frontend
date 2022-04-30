@@ -191,6 +191,7 @@ async mounted(){
 methods:{
   selectFile(){
     this.selected.prop_document = this.$refs.file.files[0];
+    console.log(this.selected.prop_document);
   },
   addProductToCart(prop){
     alert(JSON.stringify(prop))
@@ -234,6 +235,7 @@ openSlider(){
 //  this.$root.$emit("bv::toggle::collapse", "sidebar-right");
 },
 async saveProperty(){
+  console.log("IHJHBHB ");
     // if(this.isValidate()){
   // this.user.props= this.selected
   // this.propList.push(this.selected);
@@ -241,10 +243,22 @@ async saveProperty(){
   console.log(this.user);
    const formData = new FormData();
    formData.append('file',this.selected.prop_document)
+   formData.append('metamask_address','0x39613B3F3B4260287537AA25FD40aFe1BE371D98');
+   formData.append('prop_house_no',this.selected.prop_house_no);
+   formData.append('prop_landmark',this.selected.prop_landmark);
+   formData.append('prop_area',this.selected.prop_area);
+   formData.append('prop_city',this.selected.prop_city);
+   formData.append('prop_state',this.selected.prop_state);
+   formData.append('prop_price',this.selected.prop_price);
+   formData.append('prop_surveyNumber',this.selected.prop_surveyNumber);
+
+   console.log("JO");
+   console.log(formData)
    console.log(this.selected)
-        const result = await axios.post(`http://localhost:3000/property_upload`,{
-        // "Content-Type": "application/json",
-         props:this.selected
+        const result = await axios.post(`http://localhost:3000/property_upload`,formData,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
          })
          {
           // const res= await result.json();
