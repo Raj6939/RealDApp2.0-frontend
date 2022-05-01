@@ -1,12 +1,9 @@
 <template>
 <div>
-    <h1>Hi, {{this.user.name}} this is your Profile</h1>
-    <b-button v-b-tooltip.hover title="Create your Property" 
-    v-b-toggle.sidebar-right variant="primary" class="bt" 
-    @click="openSlider">Create Property</b-button>
+    <h1>Hi, This is moderator</h1>
     <b-sidebar 
      id="sidebar-right"
-     :title="isPropEditing ? 'Edit Property' : 'Create Property'"
+     :title="isPropEditing ? 'Moderator Approval' : ''"
      right shadow
      no-close-on-backdrop
      backdrop-variant="dark"
@@ -16,7 +13,7 @@
           <label for="propertyName" class="col-form-label">Property Area<span style="color: red">*</span>: </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
-          <input  type="text" v-model="selected.prop_area"  id="title" class="form-control w-100" placeholder="Please enter property area" >
+          <input disabled type="text" v-model="selected.prop_area"  id="title" class="form-control w-100" placeholder="Please enter property area" >
         </div>  
       </div>
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
@@ -24,7 +21,7 @@
           <label for="propertyName" class="col-form-label">Property No or House No<span style="color: red">*</span>: </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
-          <input  type="text" v-model="selected.prop_house_no"  id="title" class="form-control w-100" placeholder="Please enter property number" >
+          <input disabled type="text" v-model="selected.prop_house_no"  id="title" class="form-control w-100" placeholder="Please enter property number" >
         </div>  
       </div>
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
@@ -32,7 +29,7 @@
           <label for="propertyName" class="col-form-label">Property Landmark<span style="color: red">*</span>: </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
-          <input  type="text"  v-model="selected.prop_landmark" id="title" class="form-control w-100" placeholder="Please enter property landmark" >
+          <input disabled type="text"  v-model="selected.prop_landmark" id="title" class="form-control w-100" placeholder="Please enter property landmark" >
         </div>  
       </div>
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
@@ -40,7 +37,7 @@
           <label for="propertyName" class="col-form-label">Property City<span style="color: red">*</span>: </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
-          <input  type="text"  v-model="selected.prop_city" id="title" class="form-control w-100" placeholder="Please enter property city" >
+          <input disabled type="text"  v-model="selected.prop_city" id="title" class="form-control w-100" placeholder="Please enter property city" >
         </div>  
       </div>
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
@@ -48,7 +45,7 @@
           <label for="propertyName" class="col-form-label">Property State<span style="color: red">*</span>: </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
-          <input  type="text"  v-model="selected.prop_state" id="title" class="form-control w-100" placeholder="Please enter property state" >
+          <input disabled type="text"  v-model="selected.prop_state" id="title" class="form-control w-100" placeholder="Please enter property state" >
         </div>  
       </div>
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
@@ -56,7 +53,7 @@
           <label for="propertyName" class="col-form-label">Property Survey Number<span style="color: red">*</span>: </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
-          <input  type="text"  v-model="selected.prop_surveyNumber" id="title" class="form-control w-100" placeholder="Please enter property servey number" >
+          <input disabled type="text"  v-model="selected.prop_surveyNumber" id="title" class="form-control w-100" placeholder="Please enter property servey number" >
         </div>  
       </div>
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
@@ -64,29 +61,50 @@
           <label for="propertyName" class="col-form-label">Property Price<span style="color: red">*</span>: </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
-          <input  type="number"  v-model="selected.prop_price" id="title" class="form-control w-100" placeholder="Please enter property servey number" >
+          <input disabled type="number"  v-model="selected.prop_price" id="title" class="form-control w-100" placeholder="Please enter property servey number" >
         </div>  
       </div>
-      <div class="row g-3 align-items-center w-100 mt-4" id="titles" v-if="!isPropEditing">
+      <div class="row g-3 align-items-center w-100 mt-4" id="titles">
         <div class=" text-left col-lg-3 col-md-3 text-left">
           <label for="propertyName" class="col-form-label">Property Document<span style="color: red">*</span>: </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
-          <input type="file" ref="file" @change="selectFile" id="title" class="form-control w-100">
-        </div>  
-      </div>
-       <div class="row g-3 align-items-center w-100 mt-4" id="titles" v-if="selected.prop_document">
-        <div class=" text-left col-lg-3 col-md-3 text-left">
-          <label for="propertyName" class="col-form-label">Preview Document<span style="color: red">*</span>: </label>
-        </div>
-        <button
+           <button
           class="btn btn-primary mt-3 button-theme"
           type="button"
           @click="preview"
         >
           Preview
-        </button> 
+        </button>
+        </div>  
       </div>
+      <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+        <div class=" text-left col-lg-3 col-md-3 text-left">
+          <label for="propertyName" class="col-form-label">Approve<span style="color: red">*</span>: </label>
+        </div>
+        <div class="col-lg-9 col-md-9 px-0">
+          <!-- <input  type="boolean"  v-model="selected.prop_approved" id="title" class="form-control w-100" placeholder="Please enter property servey number" > -->
+            <b-form-checkbox v-model="selected.prop_approved" name="check-button" switch>
+            </b-form-checkbox>
+        </div>  
+      </div>
+      <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+        <div class=" text-left col-lg-3 col-md-3 text-left">
+          <label for="propertyName" class="col-form-label">Reject<span style="color: red">*</span>: </label>
+        </div>
+        <div class="col-lg-9 col-md-9 px-0">
+          <!-- <input  type="boolean"  v-model="selected.prop_approved" id="title" class="form-control w-100" placeholder="Please enter property servey number" > -->
+            <b-form-checkbox v-model="selected.prop_reject" name="check-button" switch>
+            </b-form-checkbox>
+        </div>  
+      </div>
+      <!-- <div class="col-lg-9 col-md-9 px-0">
+          <div class=" text-left col-lg-3 col-md-3 text-left">
+          <label for="propertyName" class="col-form-label">Property Status<span style="color: red">*</span>: </label>
+        </div> 
+                <b-form-checkbox v-model="selected.prop_approved" name="check-button" switch>
+                </b-form-checkbox>
+              </div>   -->
         <button
           class="btn btn-primary mt-3 button-theme"
           type="button"
@@ -99,15 +117,15 @@
    <section style="margin-left: 10px;">
     <div class="container-fluid">
       <div class="row" id="main">
-        <div class="col-md-4 py-2" v-for="properties in user.properties"
+        <div class="col-md-4 py-2" v-for="properties in allProperties"
         :key="properties._id">
           <div class="card h-100">
             <!-- <img class="card-img-top" src="assets/logo.png" height="50vh"> -->
-             <div class="sold_status" v-if="properties.prop_approved==false">
+             <div class="sold_status" v-if="properties.prop_isApproved==false">
                <span>Comming Soon</span>
                 <!-- <h2 v-if="properties.isPending"><b-badge>Sold out</b-badge></h2> -->
                 </div>
-                <div class="sold_status_availabe" v-if="properties.prop_approved">
+                <div class="sold_status_availabe" v-if="properties.prop_isApproved">
                <span>Available</span>
                 <!-- <h2 v-if="properties.isPending"><b-badge>Sold out</b-badge></h2> -->
                 </div>
@@ -119,28 +137,28 @@
               <!-- <button v-on:click="addProductToCart(properties)" class="btn btn-primary mt-auto">Enquire now</button> -->
             
               <div>
-                <b-badge pill variant="success"  v-if="properties.prop_approved" title="Approved by Government"
+                <b-badge pill variant="success"  v-if="properties.prop_isApproved" title="Approved by Government"
                 >Verified</b-badge>
                 <b-badge pill variant="warning" v-else title="Not yet approved by Government"
                 >Pending</b-badge>
                 </div>
              
             </div>
-            <div class="enquireBt" v-if="properties.prop_approved">
+            <div class="enquireBt" v-if="properties.prop_isApproved">
                <button  v-on:click="addProductToCart(properties)"
                class="btn btn-primary" style="width:200px;"
                >Deploy Property</button>
             </div>
             <div class="enquireBt" v-else>
               <button
-              class="btn btn-primary" style="width:200px;"
+              class="btn btn-white" style="width:200px;"
               disabled
-              >Deploy Property</button>
+              ></button>
             </div>
-            <div class="edit" v-if="properties.prop_approved">
+            <div class="edit" v-if="properties.prop_isApproved">
            <b-icon icon="pencil-square" font-scale="1.5"
            v-on:click="editProp(properties)"
-            title="Edit your property details"
+            title="View property details"
            ></b-icon>
            </div>
             <div class="edit" v-else>
@@ -159,7 +177,6 @@
       </div>
     </div>
    </section>
-  
 </div>
  
 </template>
@@ -170,17 +187,11 @@ import axios from 'axios'
 import loadweb3 from '../utils/getWeb3'
 import {abi,address} from '../utils/contractAbi'
 export default {
-name:'Profile',
+name:'Moderator',
 data(){
 return{
+    allProperties:[],
   isPropEditing:false,
-  user:{
-    _id:'',
-    name:'',
-    email:'',
-    metamask_address:'',
-    properties:[]
-  },
   selected:{
     metamask_address:'0x39613B3F3B4260287537AA25FD40aFe1BE371D98',
     // prop_id: '',
@@ -192,6 +203,8 @@ return{
     prop_price:'',
     prop_document:'',
     prop_surveyNumber:'',
+    prop_approved:false,
+    prop_reject:false
   },
   accounts:[]
 }
@@ -201,30 +214,20 @@ async mounted(){
   await this.detail();
 },
 methods:{
-  preview(){
-    console.log(this.selected.prop_document);
-    this.$swal.fire({
-  position:'center',
-  title: 'Sweet!',
-  text: this.selected.prop_document,
-  imageUrl: 'https://unsplash.it/400/200',
-  imageWidth: 400,
-  imageHeight: 200,
-  imageAlt: 'Custom image',
-})
-  },
-  selectFile(){
-    this.selected.prop_document = this.$refs.file.files[0];
-    console.log(this.selected.prop_document);
-    
-  },
+//   selectFile(){
+//     this.selected.prop_document = this.$refs.file.files[0];
+//     console.log(this.selected.prop_document);
+//   },
+async preview(){
+console.log(this.selected.prop_document);
+const result = await axios.get(`http://localhost:3000/file/${this.selected.prop_document}`);
+console.log(result);
+},
   addProductToCart(prop){
     alert(JSON.stringify(prop))
   },
-  editProp(prop){
+   editProp(prop){
     this.isPropEditing = true;
-    // const img=await axios.get(`http://localhost:3000/file/${prop.prop_document}`);
-    // console.log(img)
     // prop.isApproved= false;
     // console.log(prop.isApproved);
     console.log(prop)
@@ -236,7 +239,7 @@ methods:{
   async detail(){
    
         const web3 =await loadweb3();
-        this.accounts = await web3.eth.getAccounts();
+         this.accounts = await web3.eth.getAccounts();
         const contract = new web3.eth.Contract(abi,address);
         const res =  contract.methods.connectMetamask(this.accounts[0]).call();
         console.log(res);
@@ -246,10 +249,10 @@ methods:{
         // const bal = await contract.methods.getBalance(accounts[0]).call();
         // console.log(bal);
         console.log(this.accounts[0]);
-        let result = await axios.get(`http://localhost:3000/get_user/${this.accounts[0]}`);
+        let result = await axios.get(`http://localhost:3000/unapproved_properties`);
         console.log(result.data)
-        this.user=  result.data;
-        console.log(this.user.metamask_address);
+        this.allProperties= result.data
+        // console.log(this.user.metamask_address);
         // this.selected.metamask_address=this.user.metamask_address;
         // console.log(this.user.props);
         console.log(this.selected);
@@ -267,25 +270,27 @@ async saveProperty(){
   // this.user.props= this.selected
   // this.propList.push(this.selected);
   // this.user.props = this.propList
-  console.log(this.user);
-   const formData = new FormData();
-   formData.append('file',this.selected.prop_document)
-   formData.append('metamask_address','0x39613B3F3B4260287537AA25FD40aFe1BE371D98');
-   formData.append('prop_house_no',this.selected.prop_house_no);
-   formData.append('prop_landmark',this.selected.prop_landmark);
-   formData.append('prop_area',this.selected.prop_area);
-   formData.append('prop_city',this.selected.prop_city);
-   formData.append('prop_state',this.selected.prop_state);
-   formData.append('prop_price',this.selected.prop_price);
-   formData.append('prop_surveyNumber',this.selected.prop_surveyNumber);
+//    const formData = new FormData();
+//    formData.append('file',this.selected.prop_document)
+//    formData.append('metamask_address',this.selected.metamask_address);
+//    formData.append('prop_house_no',this.selected.prop_house_no);
+//    formData.append('prop_landmark',this.selected.prop_landmark);
+//    formData.append('prop_area',this.selected.prop_area);
+//    formData.append('prop_city',this.selected.prop_city);
+//    formData.append('prop_state',this.selected.prop_state);
+//    formData.append('prop_price',this.selected.prop_price);
+//    formData.append('prop_price',this.selected.prop_approved);
+//    formData.append('prop_price',this.selected.prop_reject);
+//    formData.append('prop_surveyNumber',this.selected.prop_surveyNumber);
 
    console.log("JO");
-   console.log(formData)
+//    console.log(formData)
    console.log(this.selected)
-        const result = await axios.post(`http://localhost:3000/property_upload`,formData,{
+        const result = await axios.post(`http://localhost:3000/approved_property_upload`,{
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
+          obj:this.selected
          })
          {
           // const res= await result.json();
@@ -317,6 +322,8 @@ clearAll(){
     prop_price:'',
     prop_surveyNumber:'',
     prop_document:'',
+    prop_reject:false,
+    prop_approved:false
   },
   this.propList=[]
 }

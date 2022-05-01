@@ -40,6 +40,14 @@ const routes = [
       title:'RealDApp-About'
     }
   },
+  {
+    path: '/moderator',
+    name: 'Moderator',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Moderator.vue'),
+    meta:{
+      title:'RealDApp-Moderator'
+    }
+  },
 ]
 
 const router = new VueRouter({
