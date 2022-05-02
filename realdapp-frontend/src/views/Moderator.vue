@@ -305,7 +305,7 @@ async saveProperty(){
           // const res= await result.json();
           const res = result
           console.log(res)
-          this.detail();
+        //   this.detail();
           // this.detail();
          }
     // }

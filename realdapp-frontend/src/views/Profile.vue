@@ -104,7 +104,7 @@
           <div class="card h-100">
             <div>
             <!-- <img src="../assets/prop1.jpeg" class="py-2" alt="Kitten" height="100" width="200" title="RealDApp2.0"> -->
-             <b-carousel class="story-carousel py-2" controls indicators :interval="false">
+             <b-carousel class="story-carousel py-2" controls indicators :interval="0">
                 <b-carousel-slide v-for="n in 4" :text="'RealDApp ' + n" :key="n">
                   <template #img>
                     <b-img class="imgslide"
@@ -172,10 +172,11 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 // import invokeMetamask from "../mixins/calls"
 import loadweb3 from '../utils/getWeb3'
 import {abi,address} from '../utils/contractAbi'
+import allApi from "../mixins/allApi"
 export default {
 name:'Profile',
 data(){
@@ -234,10 +235,11 @@ methods:{
     // console.log(img)
     // prop.isApproved= false;
     // console.log(prop.isApproved);
-    console.log(prop)
+    // console.log(prop)
     this.$root.$emit("bv::toggle::collapse", "sidebar-right");
       // this.$root.$emit("callClearFromProject");'
-      this.selected = prop
+      this.selected = {...prop}
+      console.log(this.selected)
   },
  
   async detail(){
@@ -253,13 +255,18 @@ methods:{
         // const bal = await contract.methods.getBalance(accounts[0]).call();
         // console.log(bal);
         console.log(this.accounts[0]);
-        let result = await axios.get(`http://localhost:3000/get_user/${this.accounts[0]}`);
-        console.log(result.data)
-        this.user=  result.data;
-        console.log(this.user.metamask_address);
+        // let result = await axios.get(`http://localhost:3000/get_user/${this.accounts[0]}`);
+        // console.log(result.data)
+        const url = `http://localhost:3000/get_user/${this.accounts[0]}`;
+        const result = await fetch(url, {
+          method: "GET",
+        });
+        this.user = await result.json();
+        console.log(this.user);
+        // this.user=  result.data;
+        // console.log(this.user.metamask_address);
         // this.selected.metamask_address=this.user.metamask_address;
         // console.log(this.user.props);
-        console.log(this.selected);
 
         // console.log(this.propList);
    },
@@ -269,12 +276,6 @@ openSlider(){
 //  this.$root.$emit("bv::toggle::collapse", "sidebar-right");
 },
 async saveProperty(){
-  console.log("IHJHBHB ");
-    // if(this.isValidate()){
-  // this.user.props= this.selected
-  // this.propList.push(this.selected);
-  // this.user.props = this.propList
-  console.log(this.user);
    const formData = new FormData();
    formData.append('file',this.selected.prop_document)
    formData.append('metamask_address','0x39613B3F3B4260287537AA25FD40aFe1BE371D98');
@@ -285,20 +286,32 @@ async saveProperty(){
    formData.append('prop_state',this.selected.prop_state);
    formData.append('prop_price',this.selected.prop_price);
    formData.append('prop_surveyNumber',this.selected.prop_surveyNumber);
-
-   console.log("JO");
    console.log(formData)
-   console.log(this.selected)
-        const result = await axios.post(`http://localhost:3000/property_upload`,formData,{
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-         })
+  //  console.log(this.selected)
+
+  let method = "POST";
+  let url = `http://localhost:3000/property_upload`;
+   if(this.isPropEditing==true){
+     method = "PUT"
+     url = `http://localhost:3000/property_update`;
+   }
+        // const result = await axios.post(`http://localhost:3000/property_upload`,formData,{
+        //   headers: {
+        //     "Content-Type": "multipart/form-data",
+        //   },
+        //  })
+            let headers = {
+              "Content-Type": "multipart/form-data",
+            };
+            const result = await allApi.makeCall(formData,{
+          url,
+          method,
+          header: headers,
+        });
          {
           // const res= await result.json();
-          const res = result
+          const res = await result.json();
           console.log(res)
-          this.detail();
           // this.detail();
          }
     // }
