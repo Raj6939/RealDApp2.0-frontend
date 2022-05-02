@@ -102,22 +102,34 @@
         <div class="col-md-4 py-2" v-for="properties in user.properties"
         :key="properties._id">
           <div class="card h-100">
-            <!-- <img class="card-img-top" src="assets/logo.png" height="50vh"> -->
+            <div>
+            <!-- <img src="../assets/prop1.jpeg" class="py-2" alt="Kitten" height="100" width="200" title="RealDApp2.0"> -->
+             <b-carousel class="story-carousel py-2" controls indicators :interval="false">
+                <b-carousel-slide v-for="n in 4" :text="'RealDApp ' + n" :key="n">
+                  <template #img>
+                    <b-img class="imgslide"
+                      fluid-grow
+                      
+                      :src="'https://picsum.photos/1024/480/?image=' + n"
+                      alt="Random image"
+                    ></b-img>
+                  </template>
+                </b-carousel-slide>
+              </b-carousel>
+             </div>
+             
+             <!--  -->
              <div class="sold_status" v-if="properties.prop_approved==false">
                <span>Comming Soon</span>
-                <!-- <h2 v-if="properties.isPending"><b-badge>Sold out</b-badge></h2> -->
                 </div>
                 <div class="sold_status_availabe" v-if="properties.prop_approved">
                <span>Available</span>
-                <!-- <h2 v-if="properties.isPending"><b-badge>Sold out</b-badge></h2> -->
                 </div>
             <div class="card-body d-flex flex-column align-items-center">
               <h5 class="card-title">{{properties.prop_landmark}} </h5>
               <p class="card-text" style="font-weight:bold">{{properties.prop_area}}sq.ft</p>
               <p class="card-text" style="font-weight:bold">{{properties.prop_city}}</p>
               <p class="card-text"> Price {{properties.prop_price}}</p>
-              <!-- <button v-on:click="addProductToCart(properties)" class="btn btn-primary mt-auto">Enquire now</button> -->
-            
               <div>
                 <b-badge pill variant="success"  v-if="properties.prop_approved" title="Approved by Government"
                 >Verified</b-badge>
@@ -148,12 +160,7 @@
            v-on:click="editProp(properties)"
             title="Edit your property details"
            ></b-icon>
-           </div>
-            <!-- <div class="card-body d-flex flex-column align-items-top">
-              <h5 class="card-title">Property {{properties.id}} </h5>
-              <p class="card-text">Product </p>
-            </div> -->
-          
+           </div>         
           </div>
         </div>
       </div>
@@ -343,7 +350,6 @@ clearAll(){
 
 /* cards css below */
 #main{
-    display: inline-flex;
     margin-right: -1rem;
     margin-left: -1rem;
     padding: 2rem;
@@ -377,6 +383,8 @@ clearAll(){
     position:relative;
 }
 .card{
+   /* display: flex; */
+  /* justify-content: center; */
     box-shadow: 0 1px 6px rgba(61, 65, 84, 0.15);
     min-height: 150px;
     padding: 2rem;
@@ -452,4 +460,27 @@ display: flex;
 justify-content: center;
 /* padding-bottom: 10px; */
 }
+
+
+/* //// */
+.imgslide{
+  /* position: initial; */
+  width: 200px;
+  height: 200px;
+}
+/* .story-carousel{
+  position: inherit;
+  width: inherit;
+} */
+/* .carousel-extra-content {
+  position: absolute;
+  right: 2em;
+  top: 1em;
+}
+.carousel-indicators {
+  top: 1em;
+}
+.carousel-caption {
+  top: 1.5em;
+} */
 </style>

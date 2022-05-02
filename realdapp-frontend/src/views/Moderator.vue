@@ -120,7 +120,7 @@
         <div class="col-md-4 py-2" v-for="properties in allProperties"
         :key="properties._id">
           <div class="card h-100">
-            <!-- <img class="card-img-top" src="assets/logo.png" height="50vh"> -->
+        <img src="../assets/prop1.jpeg" alt="Kitten" height="100" width="200" title="RealDApp2.0">
              <div class="sold_status" v-if="properties.prop_isApproved==false">
                <span>Comming Soon</span>
                 <!-- <h2 v-if="properties.isPending"><b-badge>Sold out</b-badge></h2> -->
@@ -220,8 +220,17 @@ methods:{
 //   },
 async preview(){
 console.log(this.selected.prop_document);
-const result = await axios.get(`http://localhost:3000/file/${this.selected.prop_document}`);
-console.log(result);
+// const result = await axios.get(`http://localhost:3000/file/${this.selected.prop_document}`);
+// console.log(result);
+ this.$swal.fire({
+  position:'center',
+  title: 'Sweet!',
+  text: this.selected.prop_document,
+  imageUrl: `http://localhost:3000/file/${this.selected.prop_document}`,
+  imageWidth: 400,
+  imageHeight: 200,
+  imageAlt: 'Custom image',
+})
 },
   addProductToCart(prop){
     alert(JSON.stringify(prop))
