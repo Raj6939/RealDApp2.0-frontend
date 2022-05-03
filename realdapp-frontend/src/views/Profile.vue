@@ -1,9 +1,16 @@
 <template>
 <div>
+<loading
+      :active.sync="isLoading"
+      :can-cancel="true"
+      :is-full-page="fullPage"
+    ></loading>
     <h1>Hi, {{this.user.name}} this is your Profile</h1>
     <b-button v-b-tooltip.hover title="Create your Property" 
     v-b-toggle.sidebar-right variant="primary" class="bt" 
     @click="openSlider">Create Property</b-button>
+  <b-form-checkbox v-model="switchOpt" @change="opt" name="check-button" switch>
+            </b-form-checkbox>
     <b-sidebar 
      id="sidebar-right"
      :title="isPropEditing ? 'Edit Property' : 'Create Property'"
@@ -96,7 +103,7 @@
         </button>
     </b-sidebar>
   
-   <section style="margin-left: 10px;">
+   <section style="margin-left: 10px;" v-if="switchOpt">
     <div class="container-fluid">
       <div class="row" id="main">
         <div class="col-md-4 py-2" v-for="properties in user.properties"
@@ -166,7 +173,78 @@
       </div>
     </div>
    </section>
-  
+ 
+  <!-- For Approved Properties -->
+  <section style="margin-left: 10px;" v-else>
+    <div class="container-fluid">
+      <div class="row" id="main">
+        <div class="col-md-4 py-2" v-for="properties in user.properties"
+        :key="properties._id">
+          <div class="card h-100">
+            <div>
+            <!-- <img src="../assets/prop1.jpeg" class="py-2" alt="Kitten" height="100" width="200" title="RealDApp2.0"> -->
+             <b-carousel class="story-carousel py-2" controls indicators :interval="0">
+                <b-carousel-slide v-for="n in 4" :text="'RealDApp ' + n" :key="n">
+                  <template #img>
+                    <b-img class="imgslide"
+                      fluid-grow
+                      
+                      :src="'https://picsum.photos/1024/480/?image=' + n"
+                      alt="Random image"
+                    ></b-img>
+                  </template>
+                </b-carousel-slide>
+              </b-carousel>
+             </div>
+             
+             <!--  -->
+             <div class="sold_status" v-if="properties.prop_approved==false">
+               <span>Comming Soon</span>
+                </div>
+                <div class="sold_status_availabe" v-if="properties.prop_approved">
+               <span>Available</span>
+                </div>
+            <div class="card-body d-flex flex-column align-items-center">
+              <h5 class="card-title">{{properties.prop_landmark}} </h5>
+              <p class="card-text" style="font-weight:bold">{{properties.prop_area}}sq.ft</p>
+              <p class="card-text" style="font-weight:bold">{{properties.prop_city}}</p>
+              <p class="card-text"> Price {{properties.prop_price}}</p>
+              <div>
+                <b-badge pill variant="success"  v-if="properties.prop_approved" title="Approved by Government"
+                >Verified</b-badge>
+                <b-badge pill variant="warning" v-else title="Not yet approved by Government"
+                >Pending</b-badge>
+                </div>
+             
+            </div>
+            <div class="enquireBt" v-if="properties.prop_approved">
+               <button  v-on:click="addProductToCart(properties)"
+               class="btn btn-primary" style="width:200px;"
+               >Deploy Property</button>
+            </div>
+            <div class="enquireBt" v-else>
+              <button
+              class="btn btn-primary" style="width:200px;"
+              disabled
+              >Deploy Property</button>
+            </div>
+            <div class="edit" v-if="properties.prop_approved">
+           <b-icon icon="pencil-square" font-scale="1.5"
+           v-on:click="editProp(properties)"
+            title="Edit your property details"
+           ></b-icon>
+           </div>
+            <div class="edit" v-else>
+           <b-icon icon="pencil-square" font-scale="1.5"
+           v-on:click="editProp(properties)"
+            title="Edit your property details"
+           ></b-icon>
+           </div>         
+          </div>
+        </div>
+      </div>
+    </div>
+   </section>
 </div>
  
 </template>
@@ -177,10 +255,16 @@
 import loadweb3 from '../utils/getWeb3'
 import {abi,address} from '../utils/contractAbi'
 import allApi from "../mixins/allApi"
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 export default {
 name:'Profile',
+components:{Loading},
 data(){
 return{
+  isLoading: false,
+  fullPage: true,
+  switchOpt:false,
   isPropEditing:false,
   user:{
     _id:'',
@@ -209,6 +293,9 @@ async mounted(){
   await this.detail();
 },
 methods:{
+ async opt(){
+    await this.detail();
+  },
   preview(){
     console.log(this.selected.prop_document);
     this.$swal.fire({
@@ -257,7 +344,14 @@ methods:{
         console.log(this.accounts[0]);
         // let result = await axios.get(`http://localhost:3000/get_user/${this.accounts[0]}`);
         // console.log(result.data)
-        const url = `http://localhost:3000/get_user/${this.accounts[0]}`;
+        // get_user_approved
+        let url;
+        if(this.switchOpt==true){
+          url = `http://localhost:3000/get_user_approved/${this.accounts[0]}`
+        }
+        else{
+          url = `http://localhost:3000/get_user_unapproved/${this.accounts[0]}`;
+        }
         const result = await fetch(url, {
           method: "GET",
         });
