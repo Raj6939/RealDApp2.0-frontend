@@ -120,29 +120,32 @@
         <div class="col-md-4 py-2" v-for="properties in allProperties"
         :key="properties._id">
           <div class="card h-100">
-        <img src="../assets/prop1.jpeg" alt="Kitten" height="100" width="200" title="RealDApp2.0">
-             <div class="sold_status" v-if="properties.prop_isApproved==false">
-               <span>Comming Soon</span>
-                <!-- <h2 v-if="properties.isPending"><b-badge>Sold out</b-badge></h2> -->
-                </div>
-                <div class="sold_status_availabe" v-if="properties.prop_isApproved">
-               <span>Available</span>
-                <!-- <h2 v-if="properties.isPending"><b-badge>Sold out</b-badge></h2> -->
-                </div>
+         <div>
+            <!-- <img src="../assets/prop1.jpeg" class="py-2" alt="Kitten" height="100" width="200" title="RealDApp2.0"> -->
+             <b-carousel class="story-carousel py-2" controls indicators :interval="0">
+                <b-carousel-slide v-for="n in 4" :text="'RealDApp ' + n" :key="n">
+                  <template #img>
+                    <b-img class="imgslide"
+                      fluid-grow
+                      
+                      :src="'https://picsum.photos/1024/480/?image=' + n"
+                      alt="Random image"
+                    ></b-img>
+                  </template>
+                </b-carousel-slide>
+              </b-carousel>
+             </div>
             <div class="card-body d-flex flex-column align-items-center">
               <h5 class="card-title">{{properties.prop_landmark}} </h5>
               <p class="card-text" style="font-weight:bold">{{properties.prop_area}}sq.ft</p>
               <p class="card-text" style="font-weight:bold">{{properties.prop_city}}</p>
               <p class="card-text"> Price {{properties.prop_price}}</p>
-              <!-- <button v-on:click="addProductToCart(properties)" class="btn btn-primary mt-auto">Enquire now</button> -->
-            
               <div>
                 <b-badge pill variant="success"  v-if="properties.prop_isApproved" title="Approved by Government"
                 >Verified</b-badge>
                 <b-badge pill variant="warning" v-else title="Not yet approved by Government"
                 >Pending</b-badge>
-                </div>
-             
+              </div>
             </div>
             <div class="enquireBt" v-if="properties.prop_isApproved">
                <button  v-on:click="addProductToCart(properties)"
@@ -167,11 +170,6 @@
             title="Edit your property details"
            ></b-icon>
            </div>
-            <!-- <div class="card-body d-flex flex-column align-items-top">
-              <h5 class="card-title">Property {{properties.id}} </h5>
-              <p class="card-text">Product </p>
-            </div> -->
-          
           </div>
         </div>
       </div>

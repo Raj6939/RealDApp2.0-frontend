@@ -1,16 +1,19 @@
 <template>
 <div>
-<loading
-      :active.sync="isLoading"
-      :can-cancel="true"
-      :is-full-page="fullPage"
-    ></loading>
+
     <h1>Hi, {{this.user.name}} this is your Profile</h1>
     <b-button v-b-tooltip.hover title="Create your Property" 
     v-b-toggle.sidebar-right variant="primary" class="bt" 
     @click="openSlider">Create Property</b-button>
-  <b-form-checkbox v-model="switchOpt" @change="opt" name="check-button" switch>
-            </b-form-checkbox>
+    <div class="py-4">
+    <h3 v-if="switchOpt==false">Pending Properties</h3>
+    <h3 v-else>Approved Properties</h3>
+    <b-form-checkbox class="switchToggle " v-model="switchOpt" @change="opt"
+    name="check-button" switch>
+    </b-form-checkbox>
+    </div>
+    
+
     <b-sidebar 
      id="sidebar-right"
      :title="isPropEditing ? 'Edit Property' : 'Create Property'"
@@ -255,11 +258,11 @@
 import loadweb3 from '../utils/getWeb3'
 import {abi,address} from '../utils/contractAbi'
 import allApi from "../mixins/allApi"
-import Loading from "vue-loading-overlay";
-import "vue-loading-overlay/dist/vue-loading.css";
+// import Loading from "vue-loading-overlay";
+// import "vue-loading-overlay/dist/vue-loading.css";
 export default {
 name:'Profile',
-components:{Loading},
+// components:{Loading},
 data(){
 return{
   isLoading: false,
@@ -274,7 +277,7 @@ return{
     properties:[]
   },
   selected:{
-    metamask_address:'0x39613B3F3B4260287537AA25FD40aFe1BE371D98',
+    metamask_address:'',
     // prop_id: '',
     prop_area:'',
     prop_house_no:'',
@@ -317,16 +320,12 @@ methods:{
     alert(JSON.stringify(prop))
   },
   editProp(prop){
+    this.clearAll()
     this.isPropEditing = true;
-    // const img=await axios.get(`http://localhost:3000/file/${prop.prop_document}`);
-    // console.log(img)
-    // prop.isApproved= false;
-    // console.log(prop.isApproved);
-    // console.log(prop)
+    this.selected = { ...prop }
+     console.log(this.selected)
     this.$root.$emit("bv::toggle::collapse", "sidebar-right");
       // this.$root.$emit("callClearFromProject");'
-      this.selected = {...prop}
-      console.log(this.selected)
   },
  
   async detail(){
@@ -372,7 +371,7 @@ openSlider(){
 async saveProperty(){
    const formData = new FormData();
    formData.append('file',this.selected.prop_document)
-   formData.append('metamask_address','0x39613B3F3B4260287537AA25FD40aFe1BE371D98');
+   formData.append('metamask_address',this.selected.metamask_address);
    formData.append('prop_house_no',this.selected.prop_house_no);
    formData.append('prop_landmark',this.selected.prop_landmark);
    formData.append('prop_area',this.selected.prop_area);
@@ -381,7 +380,7 @@ async saveProperty(){
    formData.append('prop_price',this.selected.prop_price);
    formData.append('prop_surveyNumber',this.selected.prop_surveyNumber);
    console.log(formData)
-  //  console.log(this.selected)
+   console.log(this.selected)
 
   let method = "POST";
   let url = `http://localhost:3000/property_upload`;
@@ -404,14 +403,14 @@ async saveProperty(){
         });
          {
           // const res= await result.json();
-          const res = await result.json();
+          const res = result;
           console.log(res)
           // this.detail();
          }
     // }
     this.clearAll()
        this.$root.$emit("bv::toggle::collapse", "sidebar-right");
-       this.$root.$emit("callClearFromProject");
+      //  this.$root.$emit("callClearFromProject");
 },
 // isValidate(){
 //     if(!this.selected.propName){
@@ -421,7 +420,7 @@ async saveProperty(){
 // },
 clearAll(){
   this.selected={
-    metamask_address:'0x39613B3F3B4260287537AA25FD40aFe1BE371D98',
+    metamask_address:'',
     // prop_id: '',
     prop_area:'',
     prop_house_no:'',
@@ -568,6 +567,9 @@ justify-content: center;
 /* padding-bottom: 10px; */
 }
 
+.switchToggle{
+
+}
 
 /* //// */
 .imgslide{
