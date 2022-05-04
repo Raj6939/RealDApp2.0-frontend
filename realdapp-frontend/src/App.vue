@@ -88,11 +88,13 @@
       </div>
     </div>
 
-    <div class="text-center"><i class="fas fa-ellipsis-h"></i></div>
-    
-    <div class="row" id="copyright">
-      <p>dshf</p>
+
+    <div id="copyright">
+      <span>Powered By RealDApp Protocol</span>
     </div>
+
+    
+    
   </div>
 </footer>
 </div>
@@ -126,8 +128,9 @@
   padding-right: 25%;
 }
 
-#copyright p{
-  text-align:center;
+#copyright span{
+  // text-align:left;
+  color:white;
 }
 $link-light-grey: #6c757d;
 $primary-orange: #fec503; //before: fed136
@@ -232,13 +235,9 @@ footer .quick-links {
   font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.copyright {
-  color: white;
-}
-
-.fa-ellipsis-h {
-  color: white;
-  padding: 2rem 0;
-}
+// .fa-ellipsis-h {
+//   color: white;
+//   padding: 2rem 0;
+// }
 
 </style>

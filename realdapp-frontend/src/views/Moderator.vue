@@ -234,13 +234,15 @@ console.log(this.selected.prop_document);
     alert(JSON.stringify(prop))
   },
    editProp(prop){
+    // console.log(prop)
     this.isPropEditing = true;
     // prop.isApproved= false;
     // console.log(prop.isApproved);
-    console.log(prop)
+    // console.log(prop)
     this.$root.$emit("bv::toggle::collapse", "sidebar-right");
       // this.$root.$emit("callClearFromProject");'
-      this.selected = prop
+      this.selected ={ ...prop }
+      console.log(this.selected)
   },
  
   async detail(){
@@ -248,8 +250,8 @@ console.log(this.selected.prop_document);
         const web3 =await loadweb3();
          this.accounts = await web3.eth.getAccounts();
         const contract = new web3.eth.Contract(abi,address);
-        const res =  contract.methods.connectMetamask(this.accounts[0]).call();
-        console.log(res);
+        await contract.methods.connectMetamask(this.accounts[0]).call();
+        // console.log(res);
         // await contract.methods.createProperty(1, '5', 'abc', 'abc', 'abc', 100000, 'abc').send({from:accounts[0]});
         // // await contract.methods.sellProperty(accounts[0],'0xc47f5B4C41e6dF65B60A6d4c36Cf6e8a2310ae53',1).send({from:accounts[0]});
         // await contract.methods.buyProperty('0x17c416329270CE5B2b791F7BdbA384895dcA74Ea',1).send({from:accounts[0],value:'100000000'});

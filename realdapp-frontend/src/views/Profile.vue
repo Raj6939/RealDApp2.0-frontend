@@ -3,7 +3,7 @@
 
     <h1>Hi, {{this.user.name}} this is your Profile</h1>
     <b-button v-b-tooltip.hover title="Create your Property" 
-    v-b-toggle.sidebar-right variant="primary" class="bt" 
+    v-b-toggle.sidebar-left variant="primary" class="bt" 
     @click="openSlider">Create Property</b-button>
     <div class="py-4">
     <h3 v-if="switchOpt==false">Pending Properties</h3>
@@ -101,6 +101,7 @@
           class="btn btn-primary mt-3 button-theme"
           type="button"
           @click="saveProperty"
+          v-b-toggle.sidebar-right
         >
           Submit
         </button>
@@ -278,7 +279,7 @@ return{
   },
   selected:{
     metamask_address:'',
-    // prop_id: '',
+    _id:'',
     prop_area:'',
     prop_house_no:'',
     prop_landmark:'',
@@ -323,9 +324,7 @@ methods:{
     this.clearAll()
     this.isPropEditing = true;
     this.selected = { ...prop }
-     console.log(this.selected)
     this.$root.$emit("bv::toggle::collapse", "sidebar-right");
-      // this.$root.$emit("callClearFromProject");'
   },
  
   async detail(){
@@ -333,14 +332,17 @@ methods:{
         const web3 =await loadweb3();
         this.accounts = await web3.eth.getAccounts();
         const contract = new web3.eth.Contract(abi,address);
-        const res =  contract.methods.connectMetamask(this.accounts[0]).call();
-        console.log(res);
+        await contract.methods.connectMetamask(this.accounts[0]).call();
+        // const acc =  await res.json();
+        // console.log(acc);
         // await contract.methods.createProperty(1, '5', 'abc', 'abc', 'abc', 100000, 'abc').send({from:accounts[0]});
         // // await contract.methods.sellProperty(accounts[0],'0xc47f5B4C41e6dF65B60A6d4c36Cf6e8a2310ae53',1).send({from:accounts[0]});
         // await contract.methods.buyProperty('0x17c416329270CE5B2b791F7BdbA384895dcA74Ea',1).send({from:accounts[0],value:'100000000'});
         // const bal = await contract.methods.getBalance(accounts[0]).call();
         // console.log(bal);
         console.log(this.accounts[0]);
+        // this.selected.metamask_address=this.accounts[0]
+        // console.log(this.selected.metamask_address)
         // let result = await axios.get(`http://localhost:3000/get_user/${this.accounts[0]}`);
         // console.log(result.data)
         // get_user_approved
@@ -354,21 +356,20 @@ methods:{
         const result = await fetch(url, {
           method: "GET",
         });
-        this.user = await result.json();
-        console.log(this.user);
-        // this.user=  result.data;
-        // console.log(this.user.metamask_address);
-        // this.selected.metamask_address=this.user.metamask_address;
-        // console.log(this.user.props);
-
-        // console.log(this.propList);
+        // console.log(result)
+        const resp = await result.json()
+        // console.log(resp)
+        this.user = resp;
+        // // console.log(this.user)
    },
 openSlider(){
   this.isPropEditing = false;
-    this.clearAll();
-//  this.$root.$emit("bv::toggle::collapse", "sidebar-right");
+  this.$root.$emit("bv::toggle::collapse", "sidebar-right");
+  this.clearAll();
+
 },
 async saveProperty(){
+  this.selected.metamask_address=this.user.metamask_address;
    const formData = new FormData();
    formData.append('file',this.selected.prop_document)
    formData.append('metamask_address',this.selected.metamask_address);
@@ -379,6 +380,7 @@ async saveProperty(){
    formData.append('prop_state',this.selected.prop_state);
    formData.append('prop_price',this.selected.prop_price);
    formData.append('prop_surveyNumber',this.selected.prop_surveyNumber);
+   formData.append('_id',this.selected._id)
    console.log(formData)
    console.log(this.selected)
 
@@ -401,15 +403,18 @@ async saveProperty(){
           method,
           header: headers,
         });
-         {
           // const res= await result.json();
           const res = result;
           console.log(res)
-          // this.detail();
-         }
+          // if(this.isPropEditing){
+          //   await this.detail();
+          //   this.$root.$emit("bv::toggle::collapse", "sidebar-right");
+          //   return
+          // }
+          await this.detail();
     // }
-    this.clearAll()
-       this.$root.$emit("bv::toggle::collapse", "sidebar-right");
+    this.clearAll();
+      //  this.$root.$emit("bv::toggle::collapse", "sidebar-right");
       //  this.$root.$emit("callClearFromProject");
 },
 // isValidate(){
@@ -421,7 +426,7 @@ async saveProperty(){
 clearAll(){
   this.selected={
     metamask_address:'',
-    // prop_id: '',
+    _id:'',
     prop_area:'',
     prop_house_no:'',
     prop_landmark:'',
