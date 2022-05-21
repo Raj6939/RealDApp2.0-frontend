@@ -113,23 +113,6 @@
         <div class="col-md-4 py-2" v-for="properties in user.properties"
         :key="properties._id">
           <div class="card h-100">
-            <div>
-            <!-- <img src="../assets/prop1.jpeg" class="py-2" alt="Kitten" height="100" width="200" title="RealDApp2.0"> -->
-             <b-carousel class="story-carousel py-2" controls indicators :interval="0">
-                <b-carousel-slide v-for="n in 4" :text="'RealDApp ' + n" :key="n">
-                  <template #img>
-                    <b-img class="imgslide"
-                      fluid-grow
-                      
-                      :src="'https://picsum.photos/1024/480/?image=' + n"
-                      alt="Random image"
-                    ></b-img>
-                  </template>
-                </b-carousel-slide>
-              </b-carousel>
-             </div>
-             
-             <!--  -->
              <div class="sold_status" v-if="properties.prop_approved==false">
                <span>Comming Soon</span>
                 </div>
@@ -575,26 +558,4 @@ justify-content: center;
 .switchToggle{
 
 }
-
-/* //// */
-.imgslide{
-  /* position: initial; */
-  width: 200px;
-  height: 200px;
-}
-/* .story-carousel{
-  position: inherit;
-  width: inherit;
-} */
-/* .carousel-extra-content {
-  position: absolute;
-  right: 2em;
-  top: 1em;
-}
-.carousel-indicators {
-  top: 1em;
-}
-.carousel-caption {
-  top: 1.5em;
-} */
 </style>

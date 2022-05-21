@@ -34,20 +34,9 @@
     <div class="row">
       <div class="col-md-4 footer-column">
         <ul class="nav flex-column">
-          <li class="nav-item">
-            <span class="footer-title">Product</span>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Product 1</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Product 2</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Plans & Prices</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Frequently asked questions</a>
+          <li class="nav-item" id="logoandtext">
+            <img src="./assets/logoonly1.png" alt="Kitten" width="100px" title="RealDApp2.0">
+            <p class="realtext">RealDApp</p>
           </li>
         </ul>
       </div>
@@ -57,13 +46,16 @@
             <span class="footer-title">Company</span>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#">About us</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Job postings</a>
+            <a class="nav-link" href="#">Whitepaper</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">News and articles</a>
+            <a class="nav-link" href="#">Blogs</a>
           </li>
         </ul>
       </div>
@@ -74,9 +66,6 @@
           </li>
           <li class="nav-item">
             <span class="nav-link"><i class="fas fa-phone"></i>+47 45 80 80 80</span>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fas fa-comments"></i>Live chat</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#"><i class="fas fa-envelope"></i>Contact us</a>
@@ -91,6 +80,7 @@
 
     <div id="copyright">
       <span>Powered By RealDApp Protocol</span>
+      <span class="quick-links">2022&copy; RealDApp </span>
     </div>
 
     
@@ -127,9 +117,12 @@
 .ml-auto{
   padding-right: 25%;
 }
-
+#logoandtext{
+  cursor:pointer;
+}
 #copyright span{
-  // text-align:left;
+  display:flex;
+justify-content: center;
   color:white;
 }
 $link-light-grey: #6c757d;
@@ -179,9 +172,14 @@ footer {
   .nav-item {
     .nav-link {
       padding: 0.1rem 0;
+      color:teal;
+    }
+    .nav-link:hover{
+      color:white;
     }
     span.nav-link {
       color: $link-light-grey;
+      // color:white;
     }
     span.footer-title {
       font-size: 14px;
@@ -234,10 +232,11 @@ footer .quick-links {
   text-transform: none;
   font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
-// .fa-ellipsis-h {
-//   color: white;
-//   padding: 2rem 0;
-// }
+.realtext{
+  margin-top:10px;
+  font-size:20px;
+  color:white;
+  text-align:center;
+}
 
 </style>
