@@ -7,6 +7,14 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'Onboarding',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Onboarding.vue'),
+    meta:{
+      title:'RealDApp-Onboarding'
+    }
+  },
+  {
+    path: '/home',
     name: 'Home',
     component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue'),
     meta:{

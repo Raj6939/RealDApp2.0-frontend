@@ -1,44 +1,65 @@
 <template>
-  
-   <div class="main">  	
-		<input type="checkbox" id="chk" aria-hidden="true">
-
-			<div class="signup">
-				<form>
-					<label for="chk" aria-hidden="true">Sign up</label>
-					<input type="text" name="txt" placeholder="Name" required="">
-					<input type="email" name="email" placeholder="Email" required="">
-					<input type="text" name="phone" placeholder="Phone no" required="">
-					<button class="b">Sign up</button>
-				</form>
-			</div>
-
-			<div class="login">
-				<form>
-					<label for="chk" aria-hidden="true">Login</label>
-          <img src="../../src/assets/metamask.svg" alt="" height="50px" width="50px">
-					<button class="b" @click="invokeMetamask()">Metamask Login</button>
-				</form>
-			</div>
-    </div>
+  <h1>HOME</h1>
 </template>
 
 <script>
-import loadweb3 from '../utils/getWeb3'
-import {abi,address} from '../utils/contractAbi'
+import loadweb3 from "../utils/getWeb3";
+import { abi, address } from "../utils/contractAbi";
+import allApi from "../mixins/allApi";
 // import Web3 from "web3"
 export default {
-name:"Home",
-data(){
-  return{
-
-  }
-},
-async mounted(){
-// await this.invokeMetamask();
-// this.checkWeb3Injection()
-},
-methods:{
+  name:"Home",
+  data() {
+    return {
+      selected: {
+        metamask_address: "",
+        name: "",
+        mobile: "",
+        email: "",
+        adharcardNo: "",
+      },
+      user: {},
+      accounts: [],
+    };
+  },
+  async mounted() {
+	  console.log(this.accounts)
+    // await this.invokeMetamask();
+    // this.checkWeb3Injection()
+//     await this.gerUser();
+  },
+  methods: {
+    async gerUser() {
+	    if(this.accounts.length==0){
+      const web3 = await loadweb3();
+      this.accounts = await web3.eth.getAccounts();
+      const contract = new web3.eth.Contract(abi, address);
+      await contract.methods.connectMetamask(this.accounts[0]).call();
+	    }
+      // const acc =  await res.json();
+      // console.log(acc);
+      // await contract.methods.createProperty(1, '5', 'abc', 'abc', 'abc', 100000, 'abc').send({from:accounts[0]});
+      // // await contract.methods.sellProperty(accounts[0],'0xc47f5B4C41e6dF65B60A6d4c36Cf6e8a2310ae53',1).send({from:accounts[0]});
+      // await contract.methods.buyProperty('0x17c416329270CE5B2b791F7BdbA384895dcA74Ea',1).send({from:accounts[0],value:'100000000'});
+      // const bal = await contract.methods.getBalance(accounts[0]).call();
+      // console.log(bal);
+      //         console.log(this.accounts[0]);
+      // this.selected.metamask_address=this.accounts[0]
+      // console.log(this.selected.metamask_address)
+      // let result = await axios.get(`http://localhost:3000/get_user/${this.accounts[0]}`);
+      // console.log(result.data)
+      // get_user_approved
+      let url;
+      url = `http://localhost:3000/get_user_approved/${this.accounts[0]}`;
+      const result = await fetch(url, {
+        method: "GET",
+      });
+      // console.log(result)
+      const resp = await result.json();
+      // console.log(resp)
+      this.user = resp;
+      console.log(this.user)
+    },
     // checkWeb3Injection() {
     //   try {
     //     if (ethereum && ethereum.isMetaMask) {
@@ -46,109 +67,65 @@ methods:{
     //     }
     //   } catch (error) {
     //     console.log(error);
-       
+
     //   }
     // },
-  async invokeMetamask(){
-        const web3 =await loadweb3();
-		if(web3!==null){
- const accounts = await web3.eth.getAccounts();
-        console.log(accounts);
-        const contract = new web3.eth.Contract(abi,address);
-        const resp = await contract.methods.connectMetamask(accounts[0]).call();
-//  const resp = await contract.methods.createProperty().send({from:accounts[0]});
-console.log(resp);
-		}
+    async signUp() {
+	    console.log("hi");
+      const web3 = await loadweb3();
+      this.accounts = await web3.eth.getAccounts();
+      const contract = new web3.eth.Contract(abi, address);
+      await contract.methods.connectMetamask(this.accounts[0]).call();
+      this.selected.metamask_address = this.accounts[0];
+      console.log(this.selected);
 
-  
-        
-  }
-}
-}
+      let method = "POST";
+      let url = `http://localhost:3000/create_user`;
+      //    if(this.isPropEditing==true){
+      //      method = "PUT"
+      //      url = `http://localhost:3000/property_update`;
+      //    }
+      // const result = await axios.post(`http://localhost:3000/property_upload`,formData,{
+      //   headers: {
+      //     "Content-Type": "multipart/form-data",
+      //   },
+      //  })
+      let headers = {
+        "Content-Type": "application/json",
+      };
+      const result = await allApi.makeCall(this.selected, {
+        url,
+        method,
+        header: headers,
+      });
+      // const res= await result.json();
+      const res = result;
+      console.log(res);
+//       await this.gerUser();
+      // if(this.isPropEditing){
+      //   await this.detail();
+      //   this.$root.$emit("bv::toggle::collapse", "sidebar-right");
+      //   return
+      // }
+      // }
+    },
+    async invokeMetamask() {
+      const web3 = await loadweb3();
+      if (web3 !== null) {
+        const accounts = await web3.eth.getAccounts();
+        console.log(accounts);
+        const contract = new web3.eth.Contract(abi, address);
+        const resp = await contract.methods.connectMetamask(accounts[0]).call();
+        //  const resp = await contract.methods.createProperty().send({from:accounts[0]});
+        console.log(resp);
+        window.location.href =
+              window.location.origin + "/profile";
+      }
+    },
+  },
+};
 </script>
 
 <style>
-.main{
-  display: inline-block;
-  margin-top: 50px;
-  font-family: 'Jost', sans-serif;
-	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
-	width: 350px;
-	height: 500px;
-	/* background: red; */
-	overflow: hidden;
-	background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/ cover;
-	border-radius: 10px;
-	box-shadow: 5px 20px 50px #000;
-}
-#chk{
-	display: none;
-}
-.signup{
-	position: relative;
-	width:100%;
-	height: 100%;
-}
-label{
-	color: #573b8a;
-	font-size: 2.3em;
-	justify-content: center;
-	display: flex;
-	margin: 60px;
-	font-weight: bold;
-	cursor: pointer;
-	transition: .5s ease-in-out;
-}
-input{
-	width: 60%;
-	height: 40px;
-	background: #e0dede;
-	justify-content: center;
-	display: flex;
-	margin: 20px auto;
-	padding: 10px;
-	border: none;
-	outline: none;
-	border-radius: 5px;
-}
-.b{
-	width: 60%;
-	height: 40px;
-	margin: 10px auto;
-	justify-content: center;
-	display: block;
-	color: #fff;
-	background: #573b8a;
-/* background: teal; */
-font-size: 1em;
-	font-weight: bold;
-	margin-top: 20px;
-	outline: none;
-	border: none;
-	border-radius: 5px;
-	transition: .2s ease-in;
-	cursor: pointer;
-}
-.login{
-	height: 460px;
-	background: #eee;
-	border-radius: 60% / 10%;
-	transform: translateY(-180px);
-	transition: .8s ease-in-out;
-}
-.login label{
-	color: #573b8a;
-	transform: scale(.6);
-}
-
-#chk:checked ~ .login{
-	transform: translateY(-500px);
-}
-#chk:checked ~ .login label{
-	transform: scale(1);	
-}
-#chk:checked ~ .signup label{
-	transform: scale(.6);
-}
 
 </style>

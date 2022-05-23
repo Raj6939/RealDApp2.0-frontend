@@ -6,7 +6,7 @@
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
     <b-collapse id="nav-collapse" is-nav >
       <b-navbar-nav >
-        <b-nav-item  href="/">Home</b-nav-item>
+        <b-nav-item  href="/home">Home</b-nav-item>
         <b-nav-item  href="/marketplace">MarketPlace</b-nav-item>
         <b-nav-item  href="/about">About</b-nav-item>
       </b-navbar-nav>
@@ -15,7 +15,7 @@
           <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
           <b-button v-b-tooltip.hover title="Search Properties" size="sm" class="my-2 my-sm-0" type="submit" variant="info">Search</b-button>
         </b-nav-form>
-        <b-nav-item-dropdown right style="padding-left:10px">
+        <b-nav-item-dropdown right style="padding-left:10px" v-if="logdedIn==true">
           <template #button-content>
           <b-icon icon="person-fill" variant="info"
           v-b-tooltip.hover title="Account"
@@ -23,7 +23,7 @@
           </b-icon>
           </template>
           <b-dropdown-item  href="/profile">Profile</b-dropdown-item>
-          <b-dropdown-item href="/">Sign Out</b-dropdown-item>
+          <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
@@ -89,6 +89,31 @@
 </footer>
 </div>
 </template>
+<script>
+import LocalstorageMixin from "./mixins/LocalstorageMixin"
+export default {
+name:'App',
+  data(){
+return{
+    logdedIn:false
+ 
+}
+},
+mounted(){
+if(localStorage.getItem("user")){
+  this.logdedIn = true;
+}
+},
+methods:{
+  logout(){
+    this.clean();
+    window.location.href =
+              window.location.origin + "/";
+  }
+},
+mixins: [LocalstorageMixin],
+}
+</script>
 
 <style lang="scss">
 #app {

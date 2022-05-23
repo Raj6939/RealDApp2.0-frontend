@@ -2,9 +2,9 @@
 <div>
 
     <h1>Hi, {{this.user.name}} this is your Profile</h1>
-    <b-button v-b-tooltip.hover title="Create your Property" 
+    <b-button v-b-tooltip.hover title="Create your Account" 
     v-b-toggle.sidebar-left variant="primary" class="bt" 
-    @click="openSlider">Create Property</b-button>
+    @click="openSlider">Create Account</b-button>
     <div class="py-4">
     <h3 v-if="switchOpt==false">Pending Properties</h3>
     <h3 v-else>Approved Properties</h3>
