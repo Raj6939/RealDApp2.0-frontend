@@ -1,32 +1,18 @@
 <template>
 <div>
 
-    <h1>Hi, {{this.user.name}} this is your Profile</h1>
-    <b-button v-b-tooltip.hover title="Create your Account" 
-    v-b-toggle.sidebar-left variant="primary" class="bt" 
-    @click="openSlider">Create Account</b-button>
-    <div class="py-4">
-    <h3 v-if="switchOpt==false">Pending Properties</h3>
-    <h3 v-else>Approved Properties</h3>
-    <b-form-checkbox class="switchToggle " v-model="switchOpt" @change="opt"
-    name="check-button" switch>
-    </b-form-checkbox>
-    </div>
-    
-
-    <b-sidebar 
-     id="sidebar-right"
-     :title="isPropEditing ? 'Edit Property' : 'Create Property'"
-     right shadow
-     no-close-on-backdrop
-     backdrop-variant="dark"
-     >
-      <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+    <h1>Hi, {{user.name}}  these are your Properties</h1>
+    <b-sidebar id="sidebar-1" title="Property Details" shadow
+    width="50%"
+    right
+    >
+      <div class="px-3 py-2">
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
         <div class=" text-left col-lg-3 col-md-3 text-left" >
           <label for="propertyName" class="col-form-label">Property Area<span style="color: red">*</span>: </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
-          <input  type="text" v-model="selected.prop_area"  id="title" class="form-control w-100" placeholder="Please enter property area" >
+          <input  disabled type="text" v-model="selected.prop_area"  id="title" class="form-control w-100" placeholder="Please enter property area" >
         </div>  
       </div>
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
@@ -34,7 +20,7 @@
           <label for="propertyName" class="col-form-label">Property No or House No<span style="color: red">*</span>: </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
-          <input  type="text" v-model="selected.prop_house_no"  id="title" class="form-control w-100" placeholder="Please enter property number" >
+          <input disabled type="text" v-model="selected.prop_house_no"  id="title" class="form-control w-100" placeholder="Please enter property number" >
         </div>  
       </div>
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
@@ -42,7 +28,7 @@
           <label for="propertyName" class="col-form-label">Property Landmark<span style="color: red">*</span>: </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
-          <input  type="text"  v-model="selected.prop_landmark" id="title" class="form-control w-100" placeholder="Please enter property landmark" >
+          <input disabled type="text"  v-model="selected.prop_landmark" id="title" class="form-control w-100" placeholder="Please enter property landmark" >
         </div>  
       </div>
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
@@ -50,7 +36,7 @@
           <label for="propertyName" class="col-form-label">Property City<span style="color: red">*</span>: </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
-          <input  type="text"  v-model="selected.prop_city" id="title" class="form-control w-100" placeholder="Please enter property city" >
+          <input disabled type="text"  v-model="selected.prop_city" id="title" class="form-control w-100" placeholder="Please enter property city" >
         </div>  
       </div>
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
@@ -58,7 +44,7 @@
           <label for="propertyName" class="col-form-label">Property State<span style="color: red">*</span>: </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
-          <input  type="text"  v-model="selected.prop_state" id="title" class="form-control w-100" placeholder="Please enter property state" >
+          <input disabled type="text"  v-model="selected.prop_state" id="title" class="form-control w-100" placeholder="Please enter property state" >
         </div>  
       </div>
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
@@ -66,23 +52,7 @@
           <label for="propertyName" class="col-form-label">Property Survey Number<span style="color: red">*</span>: </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
-          <input  type="text"  v-model="selected.prop_surveyNumber" id="title" class="form-control w-100" placeholder="Please enter property servey number" >
-        </div>  
-      </div>
-      <div class="row g-3 align-items-center w-100 mt-4" id="titles">
-        <div class=" text-left col-lg-3 col-md-3 text-left">
-          <label for="propertyName" class="col-form-label">Property Price<span style="color: red">*</span>: </label>
-        </div>
-        <div class="col-lg-9 col-md-9 px-0">
-          <input  type="number"  v-model="selected.prop_price" id="title" class="form-control w-100" placeholder="Please enter property servey number" >
-        </div>  
-      </div>
-      <div class="row g-3 align-items-center w-100 mt-4" id="titles" v-if="!isPropEditing">
-        <div class=" text-left col-lg-3 col-md-3 text-left">
-          <label for="propertyName" class="col-form-label">Property Document<span style="color: red">*</span>: </label>
-        </div>
-        <div class="col-lg-9 col-md-9 px-0">
-          <input type="file" ref="file" @change="selectFile" id="title" class="form-control w-100">
+          <input disabled type="text"  v-model="selected.prop_surveyNumber" id="title" class="form-control w-100" placeholder="Please enter property servey number" >
         </div>  
       </div>
        <div class="row g-3 align-items-center w-100 mt-4" id="titles" v-if="selected.prop_document">
@@ -97,141 +67,42 @@
           Preview
         </button> 
       </div>
-        <button
-          class="btn btn-primary mt-3 button-theme"
-          type="button"
-          @click="saveProperty"
-          v-b-toggle.sidebar-right
-        >
-          Submit
-        </button>
+      </div>
     </b-sidebar>
+
+    
   
-   <section style="margin-left: 10px;" v-if="switchOpt">
+   <section style="margin-left: 10px;" >
     <div class="container-fluid">
       <div class="row" id="main">
-        <div class="col-md-4 py-2" v-for="properties in user.properties"
-        :key="properties._id">
+        <div class="col-md-4 py-2" v-for="property in properties"
+        :key="property._id">
           <div class="card h-100">
-             <div class="sold_status" v-if="properties.prop_approved==false">
-               <span>Comming Soon</span>
-                </div>
-                <div class="sold_status_availabe" v-if="properties.prop_approved">
-               <span>Available</span>
-                </div>
             <div class="card-body d-flex flex-column align-items-center">
-              <h5 class="card-title">{{properties.prop_landmark}} </h5>
-              <p class="card-text" style="font-weight:bold">{{properties.prop_area}}sq.ft</p>
-              <p class="card-text" style="font-weight:bold">{{properties.prop_city}}</p>
-              <p class="card-text"> Price {{properties.prop_price}}</p>
-              <div>
-                <b-badge pill variant="success"  v-if="properties.prop_approved" title="Approved by Government"
-                >Verified</b-badge>
-                <b-badge pill variant="warning" v-else title="Not yet approved by Government"
-                >Pending</b-badge>
-                </div>
+              <h5 class="card-title">{{property.prop_landmark}} </h5>
+              <p class="card-text" style="font-weight:bold">{{property.prop_area}}sq.ft</p>
+              <p class="card-text" style="font-weight:bold">{{property.prop_city}}</p>
+              <p class="card-text"> Price {{property.prop_price}}</p>
              
             </div>
-            <div class="enquireBt" v-if="properties.prop_approved">
-               <button  v-on:click="addProductToCart(properties)"
+            <div class="enquireBt" >
+               <button  v-on:click="addProductToCart(property)"
                class="btn btn-primary" style="width:200px;"
                >Deploy Property</button>
             </div>
-            <div class="enquireBt" v-else>
-              <button
-              class="btn btn-primary" style="width:200px;"
-              disabled
-              >Deploy Property</button>
-            </div>
-            <div class="edit" v-if="properties.prop_approved">
-           <b-icon icon="pencil-square" font-scale="1.5"
-           v-on:click="editProp(properties)"
-            title="Edit your property details"
+            <div class="edit" >
+           <b-button v-b-toggle.sidebar-1 @click="open(property)" title="View Property Details">
+           <b-icon icon="eye-fill" font-scale="1"
            ></b-icon>
+           </b-button>
            </div>
-            <div class="edit" v-else>
-           <b-icon icon="pencil-square" font-scale="1.5"
-           v-on:click="editProp(properties)"
-            title="Edit your property details"
-           ></b-icon>
-           </div>         
+                   
           </div>
         </div>
       </div>
     </div>
    </section>
  
-  <!-- For Approved Properties -->
-  <section style="margin-left: 10px;" v-else>
-    <div class="container-fluid">
-      <div class="row" id="main">
-        <div class="col-md-4 py-2" v-for="properties in user.properties"
-        :key="properties._id">
-          <div class="card h-100">
-            <div>
-            <!-- <img src="../assets/prop1.jpeg" class="py-2" alt="Kitten" height="100" width="200" title="RealDApp2.0"> -->
-             <b-carousel class="story-carousel py-2" controls indicators :interval="0">
-                <b-carousel-slide v-for="n in 4" :text="'RealDApp ' + n" :key="n">
-                  <template #img>
-                    <b-img class="imgslide"
-                      fluid-grow
-                      
-                      :src="'https://picsum.photos/1024/480/?image=' + n"
-                      alt="Random image"
-                    ></b-img>
-                  </template>
-                </b-carousel-slide>
-              </b-carousel>
-             </div>
-             
-             <!--  -->
-             <div class="sold_status" v-if="properties.prop_approved==false">
-               <span>Comming Soon</span>
-                </div>
-                <div class="sold_status_availabe" v-if="properties.prop_approved">
-               <span>Available</span>
-                </div>
-            <div class="card-body d-flex flex-column align-items-center">
-              <h5 class="card-title">{{properties.prop_landmark}} </h5>
-              <p class="card-text" style="font-weight:bold">{{properties.prop_area}}sq.ft</p>
-              <p class="card-text" style="font-weight:bold">{{properties.prop_city}}</p>
-              <p class="card-text"> Price {{properties.prop_price}}</p>
-              <div>
-                <b-badge pill variant="success"  v-if="properties.prop_approved" title="Approved by Government"
-                >Verified</b-badge>
-                <b-badge pill variant="warning" v-else title="Not yet approved by Government"
-                >Pending</b-badge>
-                </div>
-             
-            </div>
-            <div class="enquireBt" v-if="properties.prop_approved">
-               <button  v-on:click="addProductToCart(properties)"
-               class="btn btn-primary" style="width:200px;"
-               >Deploy Property</button>
-            </div>
-            <div class="enquireBt" v-else>
-              <button
-              class="btn btn-primary" style="width:200px;"
-              disabled
-              >Deploy Property</button>
-            </div>
-            <div class="edit" v-if="properties.prop_approved">
-           <b-icon icon="pencil-square" font-scale="1.5"
-           v-on:click="editProp(properties)"
-            title="Edit your property details"
-           ></b-icon>
-           </div>
-            <div class="edit" v-else>
-           <b-icon icon="pencil-square" font-scale="1.5"
-           v-on:click="editProp(properties)"
-            title="Edit your property details"
-           ></b-icon>
-           </div>         
-          </div>
-        </div>
-      </div>
-    </div>
-   </section>
 </div>
  
 </template>
@@ -239,9 +110,9 @@
 <script>
 // import axios from 'axios'
 // import invokeMetamask from "../mixins/calls"
-import loadweb3 from '../utils/getWeb3'
-import {abi,address} from '../utils/contractAbi'
-import allApi from "../mixins/allApi"
+// import loadweb3 from '../utils/getWeb3'
+// import {abi,address} from '../utils/contractAbi'
+// import allApi from "../mixins/allApi"
 // import Loading from "vue-loading-overlay";
 // import "vue-loading-overlay/dist/vue-loading.css";
 export default {
@@ -251,15 +122,17 @@ data(){
 return{
   isLoading: false,
   fullPage: true,
-  switchOpt:false,
-  isPropEditing:false,
+  
   user:{
-    _id:'',
-    name:'',
-    email:'',
-    metamask_address:'',
-    properties:[]
+  metamask_address:'',
+  name:'',
+  email:'',
+  mobile:'',
+  adharcardNo:'',
+  approved:'',
+  
   },
+  properties:[],
   selected:{
     metamask_address:'',
     _id:'',
@@ -280,20 +153,21 @@ async mounted(){
   await this.detail();
 },
 methods:{
- async opt(){
-    await this.detail();
+  open(property){
+    console.log(property)
+    this.selected = { ...property}
   },
   preview(){
     console.log(this.selected.prop_document);
-    this.$swal.fire({
-  position:'center',
-  title: 'Sweet!',
-  text: this.selected.prop_document,
-  imageUrl: 'https://unsplash.it/400/200',
-  imageWidth: 400,
-  imageHeight: 200,
-  imageAlt: 'Custom image',
-})
+//     this.$swal.fire({
+//   position:'center',
+//   title: 'Sweet!',
+//   text: this.selected.prop_document,
+//   imageUrl: 'https://unsplash.it/400/200',
+//   imageWidth: 400,
+//   imageHeight: 200,
+//   imageAlt: 'Custom image',
+// })
   },
   selectFile(){
     this.selected.prop_document = this.$refs.file.files[0];
@@ -304,18 +178,19 @@ methods:{
     alert(JSON.stringify(prop))
   },
   editProp(prop){
-    this.clearAll()
-    this.isPropEditing = true;
-    this.selected = { ...prop }
     this.$root.$emit("bv::toggle::collapse", "sidebar-right");
+    this.clearAll()
+    this.selected = { ...prop }
+    // this.$root.$emit("bv::toggle::collapse", "sidebar-right");
   },
  
   async detail(){
-   
-        const web3 =await loadweb3();
-        this.accounts = await web3.eth.getAccounts();
-        const contract = new web3.eth.Contract(abi,address);
-        await contract.methods.connectMetamask(this.accounts[0]).call();
+        this.user = JSON.parse(localStorage.getItem("user"));
+        console.log(this.user.metamask_address)
+        // const web3 =await loadweb3();
+        // this.accounts = await web3.eth.getAccounts();
+        // const contract = new web3.eth.Contract(abi,address);
+        // await contract.methods.connectMetamask(this.accounts[0]).call();
         // const acc =  await res.json();
         // console.log(acc);
         // await contract.methods.createProperty(1, '5', 'abc', 'abc', 'abc', 100000, 'abc').send({from:accounts[0]});
@@ -323,83 +198,24 @@ methods:{
         // await contract.methods.buyProperty('0x17c416329270CE5B2b791F7BdbA384895dcA74Ea',1).send({from:accounts[0],value:'100000000'});
         // const bal = await contract.methods.getBalance(accounts[0]).call();
         // console.log(bal);
-        console.log(this.accounts[0]);
         // this.selected.metamask_address=this.accounts[0]
         // console.log(this.selected.metamask_address)
         // let result = await axios.get(`http://localhost:3000/get_user/${this.accounts[0]}`);
         // console.log(result.data)
         // get_user_approved
-        let url;
-        if(this.switchOpt==true){
-          url = `http://localhost:3000/get_user_approved/${this.accounts[0]}`
-        }
-        else{
-          url = `http://localhost:3000/get_user_unapproved/${this.accounts[0]}`;
-        }
+         
+         const url = `http://localhost:3000/approved_properties/${this.user.metamask_address}`
+        
         const result = await fetch(url, {
           method: "GET",
         });
         // console.log(result)
         const resp = await result.json()
         // console.log(resp)
-        this.user = resp;
+        this.properties = resp;
+        console.log(this.properties)
         // // console.log(this.user)
    },
-openSlider(){
-  this.isPropEditing = false;
-  this.$root.$emit("bv::toggle::collapse", "sidebar-right");
-  this.clearAll();
-
-},
-async saveProperty(){
-  this.selected.metamask_address=this.user.metamask_address;
-   const formData = new FormData();
-   formData.append('file',this.selected.prop_document)
-   formData.append('metamask_address',this.selected.metamask_address);
-   formData.append('prop_house_no',this.selected.prop_house_no);
-   formData.append('prop_landmark',this.selected.prop_landmark);
-   formData.append('prop_area',this.selected.prop_area);
-   formData.append('prop_city',this.selected.prop_city);
-   formData.append('prop_state',this.selected.prop_state);
-   formData.append('prop_price',this.selected.prop_price);
-   formData.append('prop_surveyNumber',this.selected.prop_surveyNumber);
-   formData.append('_id',this.selected._id)
-   console.log(formData)
-   console.log(this.selected)
-
-  let method = "POST";
-  let url = `http://localhost:3000/property_upload`;
-   if(this.isPropEditing==true){
-     method = "PUT"
-     url = `http://localhost:3000/property_update`;
-   }
-        // const result = await axios.post(`http://localhost:3000/property_upload`,formData,{
-        //   headers: {
-        //     "Content-Type": "multipart/form-data",
-        //   },
-        //  })
-            let headers = {
-              "Content-Type": "multipart/form-data",
-            };
-            const result = await allApi.makeCall(formData,{
-          url,
-          method,
-          header: headers,
-        });
-          // const res= await result.json();
-          const res = result;
-          console.log(res)
-          // if(this.isPropEditing){
-          //   await this.detail();
-          //   this.$root.$emit("bv::toggle::collapse", "sidebar-right");
-          //   return
-          // }
-          await this.detail();
-    // }
-    this.clearAll();
-      //  this.$root.$emit("bv::toggle::collapse", "sidebar-right");
-      //  this.$root.$emit("callClearFromProject");
-},
 // isValidate(){
 //     if(!this.selected.propName){
 //         alert("please fill the info")
@@ -407,6 +223,15 @@ async saveProperty(){
 //     }
 // },
 clearAll(){
+  this.user={
+  metamask_address:'',
+  name:'',
+  email:'',
+  mobile:'',
+  adharcardNo:'',
+  approved:'',
+  },
+  this.properties=[]
   this.selected={
     metamask_address:'',
     _id:'',
@@ -418,8 +243,7 @@ clearAll(){
     prop_price:'',
     prop_surveyNumber:'',
     prop_document:'',
-  },
-  this.propList=[]
+  }
 }
 }
 }

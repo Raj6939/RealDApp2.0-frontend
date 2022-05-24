@@ -154,13 +154,13 @@ export default {
       console.log(this.selected);
 
       // signing the message 
-      const message = this.selected.adharcardNo
-      this.sign_message =  message
-      this.signature = await web3.eth.personal.sign(message,this.selected.metamask_address)
+    //   const message = this.selected.adharcardNo
+    //   this.sign_message =  message
+    //   this.signature = await web3.eth.personal.sign(message,this.selected.metamask_address)
 
-      // recover the signing account address using original message and signed message
-     const verifySign = await web3.eth.personal.ecRecover(this.sign_message,this.signature)
-     console.log(verifySign);
+    //   // recover the signing account address using original message and signed message
+    //  const verifySign = await web3.eth.personal.ecRecover(this.sign_message,this.signature)
+    //  console.log(verifySign);
 
 
 
