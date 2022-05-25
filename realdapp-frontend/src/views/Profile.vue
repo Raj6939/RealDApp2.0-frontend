@@ -149,6 +149,10 @@ return{
 }
 },
 async mounted(){
+  if(!localStorage.getItem("user")){
+    window.location.href =
+        window.location.origin + "/";
+  }
   //  await invokeMetamask()
   await this.detail();
 },
@@ -203,18 +207,16 @@ methods:{
         // let result = await axios.get(`http://localhost:3000/get_user/${this.accounts[0]}`);
         // console.log(result.data)
         // get_user_approved
-         
-         const url = `http://localhost:3000/approved_properties/${this.user.metamask_address}`
+         if(this.user.approved==true){
+        const url = `http://localhost:3000/approved_properties/${this.user.metamask_address}`
         
         const result = await fetch(url, {
           method: "GET",
         });
-        // console.log(result)
         const resp = await result.json()
-        // console.log(resp)
         this.properties = resp;
         console.log(this.properties)
-        // // console.log(this.user)
+        }
    },
 // isValidate(){
 //     if(!this.selected.propName){

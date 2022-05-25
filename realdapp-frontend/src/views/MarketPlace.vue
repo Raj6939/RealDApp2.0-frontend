@@ -18,8 +18,8 @@
   <section style="margin-left: 10px;">
     <div class="container-fluid">
       <div class="row" id="main">
-        <div class="col-md-4 py-2" v-for="properties in properties"
-        :key="properties._id">
+        <div class="col-md-4 py-2" v-for="property in properties"
+        :key="property._id">
           <div class="card h-100">
             <div>
             <!-- <img src="../assets/prop1.jpeg" class="py-2" alt="Kitten" height="100" width="200" title="RealDApp2.0"> -->
@@ -38,30 +38,33 @@
              </div>
              
              <!--  -->
-             <div class="sold_status" v-if="properties.prop_approved==false">
+             <div class="sold_status" v-if="property.prop_approved==false">
                <span>Comming Soon</span>
                 </div>
-                <div class="sold_status_availabe" v-if="properties.prop_approved">
+                <div class="sold_status_availabe" v-if="property.prop_approved">
                <span>Available</span>
                 </div>
             <div class="card-body d-flex flex-column align-items-center">
-              <h5 class="card-title">{{properties.prop_landmark}} </h5>
-              <p class="card-text" style="font-weight:bold">{{properties.prop_area}}sq.ft</p>
-              <p class="card-text" style="font-weight:bold">{{properties.prop_city}}</p>
-              <p class="card-text"> Price {{properties.prop_price}}</p>
+              <h5 class="card-title">{{property.prop_landmark}} </h5>
+              <p class="card-text" style="font-weight:bold">{{property.prop_area}}sq.ft</p>
+              <p class="card-text" style="font-weight:bold">{{property.prop_city}}</p>
+              <p class="card-text"> Price {{property.prop_price}}</p>
               <div>
-                <b-badge pill variant="success"  v-if="properties.prop_approved" title="Approved by Government"
+                <b-badge pill variant="success"  title="Approved by Government"
                 >Verified</b-badge>
-                <b-badge pill variant="warning" v-else title="Not yet approved by Government"
-                >Pending</b-badge>
                 </div>
              
             </div>
-            <div class="enquireBt">
+            <div class="enquireBt" v-if="!logdedIn">
                <button  @click="login"
                class="btn btn-primary" style="width:200px;"
                >Register or Login</button>
-            </div>                   
+            </div>
+            <div class="enquireBt" v-if="logdedIn">
+               <button  @click="buyProperty(property)"
+               class="btn btn-primary" style="width:200px;"
+               >Buy this</button>
+            </div>                     
           </div>
         </div>
       </div>
@@ -76,17 +79,25 @@ export default {
 name:'MarketPlace',
   data(){
 return{
-    properties:[]
+  logdedIn:false,
+  properties:[]
  
 }
 }, async mounted(){
   await this.detail();
 },
 methods:{
+  buyProperty(property){
+  console.log(property)
+  },
   login(){
-    console.log("Hi");
+      window.location.href =
+        window.location.origin + "/";
   },
    async detail(){
+        if(localStorage.getItem("user")){
+        this.logdedIn = true;
+        }
         let result = await axios.get(`http://localhost:3000/property_get`);
         this.properties=  result.data;
         
