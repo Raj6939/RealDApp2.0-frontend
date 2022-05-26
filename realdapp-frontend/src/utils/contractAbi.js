@@ -54,6 +54,18 @@ const abi = [
 				"internalType": "string",
 				"name": "prop_document",
 				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "prop_surveyno",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "adharNo",
+				"type": "string"
 			}
 		],
 		"name": "mint_property",
@@ -157,6 +169,16 @@ const abi = [
 				"internalType": "string",
 				"name": "_document",
 				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_adharNo",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_prop_surveyno",
+				"type": "string"
 			}
 		],
 		"name": "createProperty",
@@ -167,7 +189,13 @@ const abi = [
 	{
 		"inputs": [],
 		"name": "createUser",
-		"outputs": [],
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -215,6 +243,16 @@ const abi = [
 					{
 						"internalType": "string",
 						"name": "prop_document",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "prop_surveyno",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "adharNo",
 						"type": "string"
 					},
 					{
@@ -329,6 +367,16 @@ const abi = [
 						"type": "string"
 					},
 					{
+						"internalType": "string",
+						"name": "prop_surveyno",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "adharNo",
+						"type": "string"
+					},
+					{
 						"internalType": "enum newuser.reqStatus",
 						"name": "requestStatus",
 						"type": "uint8"
@@ -412,11 +460,6 @@ const abi = [
 				"type": "uint256"
 			},
 			{
-				"internalType": "uint256",
-				"name": "_house_no",
-				"type": "uint256"
-			},
-			{
 				"internalType": "string",
 				"name": "_landmark",
 				"type": "string"
@@ -439,7 +482,7 @@ const abi = [
 	}
 ]
 
-const address = '0x73a01d1badE9e21673Bd50eB90013e7A20049eB6';
+const address = '0x125268b7ff8ab40b2E650a402d22824cA58BCd10';
 
 export {
     abi,

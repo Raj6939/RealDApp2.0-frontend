@@ -1,117 +1,185 @@
 <template>
-<div>
-
-    <h1>Hi, {{user.name}}  these are your Properties</h1>
-    <b-sidebar id="sidebar-1" title="Property Details" shadow
-    width="50%"
-    right
-    >
+  <div>
+    <h1>Hi, {{ user.name }} these are your Properties</h1>
+    <b-sidebar id="sidebar-1" title="Property Details" shadow width="50%" right>
       <div class="px-3 py-2">
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
-        <div class=" text-left col-lg-3 col-md-3 text-left" >
-          <label for="propertyName" class="col-form-label">Property Area<span style="color: red">*</span>: </label>
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property Area<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_area"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property area"
+            />
+          </div>
         </div>
-        <div class="col-lg-9 col-md-9 px-0">
-          <input  disabled type="text" v-model="selected.prop_area"  id="title" class="form-control w-100" placeholder="Please enter property area" >
-        </div>  
-      </div>
-      <div class="row g-3 align-items-center w-100 mt-4" id="titles">
-        <div class=" text-left col-lg-3 col-md-3 text-left">
-          <label for="propertyName" class="col-form-label">Property No or House No<span style="color: red">*</span>: </label>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property No or House No<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_house_no"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property number"
+            />
+          </div>
         </div>
-        <div class="col-lg-9 col-md-9 px-0">
-          <input disabled type="text" v-model="selected.prop_house_no"  id="title" class="form-control w-100" placeholder="Please enter property number" >
-        </div>  
-      </div>
-      <div class="row g-3 align-items-center w-100 mt-4" id="titles">
-        <div class=" text-left col-lg-3 col-md-3 text-left">
-          <label for="propertyName" class="col-form-label">Property Landmark<span style="color: red">*</span>: </label>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property Landmark<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_landmark"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property landmark"
+            />
+          </div>
         </div>
-        <div class="col-lg-9 col-md-9 px-0">
-          <input disabled type="text"  v-model="selected.prop_landmark" id="title" class="form-control w-100" placeholder="Please enter property landmark" >
-        </div>  
-      </div>
-      <div class="row g-3 align-items-center w-100 mt-4" id="titles">
-        <div class=" text-left col-lg-3 col-md-3 text-left">
-          <label for="propertyName" class="col-form-label">Property City<span style="color: red">*</span>: </label>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property City<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_city"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property city"
+            />
+          </div>
         </div>
-        <div class="col-lg-9 col-md-9 px-0">
-          <input disabled type="text"  v-model="selected.prop_city" id="title" class="form-control w-100" placeholder="Please enter property city" >
-        </div>  
-      </div>
-      <div class="row g-3 align-items-center w-100 mt-4" id="titles">
-        <div class=" text-left col-lg-3 col-md-3 text-left">
-          <label for="propertyName" class="col-form-label">Property State<span style="color: red">*</span>: </label>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property State<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_state"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property state"
+            />
+          </div>
         </div>
-        <div class="col-lg-9 col-md-9 px-0">
-          <input disabled type="text"  v-model="selected.prop_state" id="title" class="form-control w-100" placeholder="Please enter property state" >
-        </div>  
-      </div>
-      <div class="row g-3 align-items-center w-100 mt-4" id="titles">
-        <div class=" text-left col-lg-3 col-md-3 text-left">
-          <label for="propertyName" class="col-form-label">Property Survey Number<span style="color: red">*</span>: </label>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property Survey Number<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_surveyNumber"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property servey number"
+            />
+          </div>
         </div>
-        <div class="col-lg-9 col-md-9 px-0">
-          <input disabled type="text"  v-model="selected.prop_surveyNumber" id="title" class="form-control w-100" placeholder="Please enter property servey number" >
-        </div>  
-      </div>
-       <div class="row g-3 align-items-center w-100 mt-4" id="titles" v-if="selected.prop_document">
-        <div class=" text-left col-lg-3 col-md-3 text-left">
-          <label for="propertyName" class="col-form-label">Preview Document<span style="color: red">*</span>: </label>
-        </div>
-        <button
-          class="btn btn-primary mt-3 button-theme"
-          type="button"
-          @click="preview"
+        <div
+          class="row g-3 align-items-center w-100 mt-4"
+          id="titles"
+          v-if="selected.prop_document"
         >
-          Preview
-        </button> 
-      </div>
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Preview Document<span style="color: red">*</span>:
+            </label>
+          </div>
+          <button
+            class="btn btn-primary mt-3 button-theme"
+            type="button"
+            @click="preview"
+          >
+            Preview
+          </button>
+        </div>
       </div>
     </b-sidebar>
 
-    
-  
-   <section style="margin-left: 10px;" >
-    <div class="container-fluid">
-      <div class="row" id="main">
-        <div class="col-md-4 py-2" v-for="property in properties"
-        :key="property._id">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column align-items-center">
-              <h5 class="card-title">{{property.prop_landmark}} </h5>
-              <p class="card-text" style="font-weight:bold">{{property.prop_area}}sq.ft</p>
-              <p class="card-text" style="font-weight:bold">{{property.prop_city}}</p>
-              <p class="card-text"> Price {{property.prop_price}}</p>
-             
+    <section style="margin-left: 10px">
+      <div class="container-fluid">
+        <div class="row" id="main">
+          <div
+            class="col-md-4 py-2"
+            v-for="property in properties"
+            :key="property._id"
+          >
+            <div class="card h-100">
+              <div class="card-body d-flex flex-column align-items-center">
+                <h5 class="card-title">{{ property.prop_landmark }}</h5>
+                <p class="card-text" style="font-weight: bold">
+                  {{ property.prop_area }}sq.ft
+                </p>
+                <p class="card-text" style="font-weight: bold">
+                  {{ property.prop_city }}
+                </p>
+                <p class="card-text">Price {{ property.prop_price }}</p>
+              </div>
+              <div class="py-2">
+                <b-badge pill variant="success" title="Approved by Government"
+                  >Verified</b-badge
+                >
+              </div>
+              <div class="enquireBt">
+                <button
+                  v-on:click="addProductToCart(property)"
+                  class="btn btn-primary"
+                  style="width: 200px"
+                >
+                  Deploy Property
+                </button>
+              </div>
+              <div class="edit">
+                <b-button
+                  v-b-toggle.sidebar-1
+                  @click="open(property)"
+                  title="View Property Details"
+                >
+                  <b-icon icon="eye-fill" font-scale="1"></b-icon>
+                </b-button>
+              </div>
             </div>
-            <div class="enquireBt" >
-               <button  v-on:click="addProductToCart(property)"
-               class="btn btn-primary" style="width:200px;"
-               >Deploy Property</button>
-            </div>
-            <div class="edit" >
-           <b-button v-b-toggle.sidebar-1 @click="open(property)" title="View Property Details">
-           <b-icon icon="eye-fill" font-scale="1"
-           ></b-icon>
-           </b-button>
-           </div>
-                   
           </div>
         </div>
       </div>
-    </div>
-   </section>
- 
-</div>
- 
+    </section>
+  </div>
 </template>
 
 <script>
 // import axios from 'axios'
-// import invokeMetamask from "../mixins/calls"
-// import loadweb3 from '../utils/getWeb3'
-// import {abi,address} from '../utils/contractAbi'
+import loadweb3 from '../utils/getWeb3'
+import {abi,address} from '../utils/contractAbi'
 // import allApi from "../mixins/allApi"
 // import Loading from "vue-loading-overlay";
 // import "vue-loading-overlay/dist/vue-loading.css";
@@ -122,7 +190,7 @@ data(){
 return{
   isLoading: false,
   fullPage: true,
-  
+
   user:{
   metamask_address:'',
   name:'',
@@ -130,7 +198,7 @@ return{
   mobile:'',
   adharcardNo:'',
   approved:'',
-  
+
   },
   properties:[],
   selected:{
@@ -176,10 +244,40 @@ methods:{
   selectFile(){
     this.selected.prop_document = this.$refs.file.files[0];
     console.log(this.selected.prop_document);
-    
+
   },
-  addProductToCart(prop){
-    alert(JSON.stringify(prop))
+ async addProductToCart(prop){
+   console.log(prop)
+    const web3 =await loadweb3();
+        this.accounts = await web3.eth.getAccounts();
+        if(this.user.metamask_address == this.accounts[0]){
+          const contract = new web3.eth.Contract(abi,address);
+      const status = await contract.methods.connectMetamask(this.accounts[0]).call();
+      if(status==false){
+        console.log(contract.methods)
+       const contractStatus = await contract.methods.createUser().send({from:this.accounts[0]})
+       if(contractStatus==true){
+         console.log("Good to go for deployment")
+        //  uint _house_no, 
+        //  string memory _area, 
+        //  string memory _landmark, 
+        //  string memory _city, 
+        //  string memory _state, 
+        //  uint _price, 
+        //  string memory _document,
+        //  string memory _adharNo,
+        //  string memory _prop_surveyno
+      }
+        }
+        else{
+          console.log("Account already present Good to go for deployment")
+        }
+        }
+        else{
+          alert("Please change your metamask wallet address");
+        }
+
+    // alert(JSON.stringify(prop))
   },
   editProp(prop){
     this.$root.$emit("bv::toggle::collapse", "sidebar-right");
@@ -187,7 +285,7 @@ methods:{
     this.selected = { ...prop }
     // this.$root.$emit("bv::toggle::collapse", "sidebar-right");
   },
- 
+
   async detail(){
         this.user = JSON.parse(localStorage.getItem("user"));
         console.log(this.user.metamask_address)
@@ -209,7 +307,7 @@ methods:{
         // get_user_approved
          if(this.user.approved==true){
         const url = `http://localhost:3000/approved_properties/${this.user.metamask_address}`
-        
+
         const result = await fetch(url, {
           method: "GET",
         });
@@ -252,104 +350,103 @@ clearAll(){
 </script>
 
 <style>
-.slight-left-margin{
+.slight-left-margin {
   margin-left: 5px;
 }
-.topMargin{
+.topMargin {
   margin-top: 20px;
 }
-.bt{
+.bt {
   /* float:right; */
   /* margin-left: auto; */
   margin-top: 20px;
 }
 
-#titles{
-    padding-left:40px;
+#titles {
+  padding-left: 40px;
 }
 
 /* cards css below */
-#main{
-    margin-right: -1rem;
-    margin-left: -1rem;
-    padding: 2rem;
+#main {
+  margin-right: -1rem;
+  margin-left: -1rem;
+  padding: 2rem;
 }
-#sidebar-right{
-    width: 50%;
-  }
- @media only screen and (max-width: 600px) {
+#sidebar-right {
+  width: 50%;
+}
+@media only screen and (max-width: 600px) {
   #main {
-      display: flex;
+    display: flex;
     /* flex-wrap: wrap; */
     margin-right: -1rem;
     margin-left: -1rem;
     padding: 2rem;
   }
-  .edit{
-  margin-top: 20px;
-  margin-right: 20px;
-  display: flex;
-  justify-content:right;
+  .edit {
+    margin-top: 20px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: right;
   }
-  #sidebar-right{
+  #sidebar-right {
     width: 70%;
   }
 }
-.col-md-4{
+.col-md-4 {
   /* flex: 0 0 33.33%; */
-    max-width: 100%;
-    padding-right: 1rem;
-    padding-left: 1rem;
-    position:relative;
+  max-width: 100%;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  position: relative;
 }
-.card{
-   /* display: flex; */
+.card {
+  /* display: flex; */
   /* justify-content: center; */
-    box-shadow: 0 1px 6px rgba(61, 65, 84, 0.15);
-    min-height: 150px;
-    padding: 2rem;
-    position: relative;
-    overflow: hidden;
-    border-radius: .5rem;
-    transition: 0.2s ease-in-out;
-    width: 100%;
+  box-shadow: 0 1px 6px rgba(61, 65, 84, 0.15);
+  min-height: 150px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  transition: 0.2s ease-in-out;
+  width: 100%;
 }
-.card:before{
- width: 0;
-    transition: 0.2s;
-    z-index: 0;
-    content: "";
-    background-color: #4c86e7;
-    height: 4px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+.card:before {
+  width: 0;
+  transition: 0.2s;
+  z-index: 0;
+  content: "";
+  background-color: #4c86e7;
+  height: 4px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
-.col-md-4:hover .card:before{
- width: 100%;
+.col-md-4:hover .card:before {
+  width: 100%;
 }
-.col-md-4:hover .card{
-    top: -2px;
-    box-shadow: 0px 20px 40px 0px rgba(61, 65, 84, 0.15);
+.col-md-4:hover .card {
+  top: -2px;
+  box-shadow: 0px 20px 40px 0px rgba(61, 65, 84, 0.15);
 }
-.edit{
-  margin-top:20px;
+.edit {
+  margin-top: 20px;
   cursor: pointer;
   display: flex;
-  justify-content:right;
-
+  justify-content: right;
 }
-.intro{
+.intro {
   padding: 10px;
 }
-.sold_status{
+.sold_status {
   position: absolute;
   z-index: 99;
   top: 0;
   left: 0;
   width: 100%;
   /* padding: 6px 40px; */
-    padding: 6px;
+  padding: 6px;
   background-color: #646464;
   color: #fff;
   font-size: 16px;
@@ -358,14 +455,14 @@ clearAll(){
   text-transform: uppercase;
   text-align: center;
 }
-.sold_status_availabe{
+.sold_status_availabe {
   position: absolute;
   z-index: 99;
   top: 0;
   left: 0;
   width: 100%;
   /* padding: 6px 40px; */
-    padding: 6px;
+  padding: 6px;
   background-color: teal;
   color: #fff;
   font-size: 16px;
@@ -374,14 +471,13 @@ clearAll(){
   text-transform: uppercase;
   text-align: center;
 }
-.enquireBt{
-display: flex;
-/* display: inline-flex; */
-justify-content: center;
-/* padding-bottom: 10px; */
+.enquireBt {
+  display: flex;
+  /* display: inline-flex; */
+  justify-content: center;
+  /* padding-bottom: 10px; */
 }
 
-.switchToggle{
-
+.switchToggle {
 }
 </style>
