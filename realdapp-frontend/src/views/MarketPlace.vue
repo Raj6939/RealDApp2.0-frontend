@@ -98,7 +98,7 @@ methods:{
         if(localStorage.getItem("user")){
         this.logdedIn = true;
         }
-        let result = await axios.get(`http://localhost:3000/property_get`);
+        let result = await axios.get(`http://localhost:3000/marketplace`);
         this.properties=  result.data;
         
         console.log(this.properties);

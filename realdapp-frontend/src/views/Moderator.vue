@@ -223,6 +223,7 @@ export default {
       let result = await axios.get(`http://localhost:3000/unapproved_users`);
       console.log(result.data);
       this.allUsers = result.data;
+      console.log(this.allUsers)
       console.log(this.selected);
     },
     openSlider() {

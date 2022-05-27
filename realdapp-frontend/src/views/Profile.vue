@@ -1,7 +1,11 @@
 <template>
   <div>
     <h1>Hi, {{ user.name }} these are your Properties</h1>
-    <b-sidebar id="sidebar-1" title="Property Details" shadow width="50%" right>
+    <b-sidebar id="sidebar-1" 
+    shadow width="50%" 
+    right
+    :title="isPropEditing ? 'Set Price' : 'Preview Details'"
+    >
       <div class="px-3 py-2">
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
@@ -105,6 +109,42 @@
             />
           </div>
         </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles" v-if="!selected.prop_price">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property Price<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              
+              type="number"
+              v-model="prop_price"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please set property price "
+              
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles" v-else>
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property Price<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_price"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property servey number"
+              
+            />
+          </div>
+        </div>
         <div
           class="row g-3 align-items-center w-100 mt-4"
           id="titles"
@@ -124,6 +164,14 @@
           </button>
         </div>
       </div>
+      <button
+        class="btn btn-primary mt-3 button-theme"
+        type="button"
+        @click="saveProperty"
+        v-if="isPropEditing"
+      >
+        Submit
+      </button>
     </b-sidebar>
 
     <section style="margin-left: 10px">
@@ -143,20 +191,30 @@
                 <p class="card-text" style="font-weight: bold">
                   {{ property.prop_city }}
                 </p>
-                <p class="card-text">Price {{ property.prop_price }}</p>
+                <p class="card-text" v-if="property.prop_price">Price {{ property.prop_price }}</p>
               </div>
               <div class="py-2">
                 <b-badge pill variant="success" title="Approved by Government"
                   >Verified</b-badge
                 >
               </div>
-              <div class="enquireBt">
+              <div class="enquireBt" v-if="property.prop_price">
                 <button
                   v-on:click="addProductToCart(property)"
                   class="btn btn-primary"
                   style="width: 200px"
                 >
                   Deploy Property
+                </button>
+              </div>
+              <div class="enquireBt" v-else>
+                <button
+                  v-b-toggle.sidebar-1
+                  @click="setPrice(property)"
+                  class="btn btn-primary"
+                  style="width: 200px"
+                >
+                  Set Property Price
                 </button>
               </div>
               <div class="edit">
@@ -177,10 +235,9 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 import loadweb3 from '../utils/getWeb3'
 import {abi,address} from '../utils/contractAbi'
-// import allApi from "../mixins/allApi"
 // import Loading from "vue-loading-overlay";
 // import "vue-loading-overlay/dist/vue-loading.css";
 export default {
@@ -188,9 +245,10 @@ name:'Profile',
 // components:{Loading},
 data(){
 return{
+  prop_price:'',
   isLoading: false,
   fullPage: true,
-
+  isPropEditing:false,
   user:{
   metamask_address:'',
   name:'',
@@ -225,7 +283,34 @@ async mounted(){
   await this.detail();
 },
 methods:{
+ async saveProperty(){
+   this.selected.prop_price= this.prop_price;
+   console.log(this.selected);
+   const result = await axios.post(
+        `http://localhost:3000/set_prop_price/${this.selected._id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          obj: this.selected,
+        }
+      );
+      {
+        const res = result;
+        console.log(res);
+        // await this.detail();
+      }
+      // this.clearAll();
+      this.$root.$emit("bv::toggle::collapse", "sidebar-right");
+      // this.$root.$emit("callClearFromProject");
+  },
+  setPrice(property){
+    this.isPropEditing = true;
+  console.log(property)
+  this.selected = { ...property}  
+  },
   open(property){
+    this.isPropEditing = false;
     console.log(property)
     this.selected = { ...property}
   },
@@ -246,31 +331,84 @@ methods:{
     console.log(this.selected.prop_document);
 
   },
- async addProductToCart(prop){
-   console.log(prop)
+ async addProductToCart(property){
+   console.log(property)
     const web3 =await loadweb3();
         this.accounts = await web3.eth.getAccounts();
-        if(this.user.metamask_address == this.accounts[0]){
+if(this.user.metamask_address == this.accounts[0])
+{
           const contract = new web3.eth.Contract(abi,address);
       const status = await contract.methods.connectMetamask(this.accounts[0]).call();
       if(status==false){
-        console.log(contract.methods)
        const contractStatus = await contract.methods.createUser().send({from:this.accounts[0]})
+       console.log(contractStatus)
        if(contractStatus==true){
-         console.log("Good to go for deployment")
-        //  uint _house_no, 
-        //  string memory _area, 
-        //  string memory _landmark, 
-        //  string memory _city, 
-        //  string memory _state, 
-        //  uint _price, 
-        //  string memory _document,
-        //  string memory _adharNo,
-        //  string memory _prop_surveyno
+         const createProperty = await contract.methods.createProperty(
+          property.prop_house_no,
+          property.prop_area,
+          property.prop_landmark,
+          property.prop_city,
+          property.prop_state,
+          property.prop_price,
+          property.prop_document,
+          property.adharNo,
+          property.prop_surveyNumber
+          ).send({from:this.accounts[0]})
+          const propertyNft = createProperty.events.mint_property.returnValues.id;
+          console.log(propertyNft)
+            const result = await axios.post(
+        `http://localhost:3000/addnft/${property._id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          obj: propertyNft,
+        }
+      );
+      {
+        const res = result;
+        console.log(res);
+        // await this.detail();
+      }
+      // this.clearAll();
+      this.$root.$emit("bv::toggle::collapse", "sidebar-right");
+
+         
       }
         }
         else{
-          console.log("Account already present Good to go for deployment")
+          console.log("already Account")
+          const createProperty = await contract.methods.createProperty(
+          property.prop_house_no,
+          property.prop_area,
+          property.prop_landmark,
+          property.prop_city,
+          property.prop_state,
+          property.prop_price,
+          property.prop_document,
+          property.adharNo,
+          property.prop_surveyNumber
+          ).send({from:this.accounts[0]})
+          const propertyNft = createProperty.events.mint_property.returnValues.id;
+          console.log(propertyNft)
+          const result = await axios.post(
+        `http://localhost:3000/addnft/${property._id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          obj: propertyNft
+        }
+      );
+      {
+        const res = result;
+        console.log(res);
+        // await this.detail();
+      }
+      // this.clearAll();
+      this.$root.$emit("bv::toggle::collapse", "sidebar-right");
+
+
         }
         }
         else{
