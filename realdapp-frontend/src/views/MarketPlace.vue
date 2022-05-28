@@ -79,6 +79,7 @@ export default {
 name:'MarketPlace',
   data(){
 return{
+  user:{},
   logdedIn:false,
   properties:[]
  
@@ -87,8 +88,24 @@ return{
   await this.detail();
 },
 methods:{
-  buyProperty(property){
+ async buyProperty(property){
+  
+
   console.log(property)
+  const result = await axios.post(
+        `http://localhost:3000/transfer_property/`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // obj: propertyNft,
+        }
+      );
+      {
+        const res = result;
+        console.log(res);
+        // await this.detail();
+      }
   },
   login(){
       window.location.href =
@@ -96,6 +113,9 @@ methods:{
   },
    async detail(){
         if(localStorage.getItem("user")){
+        this.user = JSON.parse(localStorage.getItem("user"));
+        console.log(this.user)
+        console.log((this.user.email))
         this.logdedIn = true;
         }
         let result = await axios.get(`http://localhost:3000/marketplace`);

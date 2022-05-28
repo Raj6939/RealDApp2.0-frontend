@@ -164,6 +164,13 @@
           </button>
         </div>
       </div>
+      <b-img class="imgslide"
+                      fluid-grow
+                      
+                      :src="link"
+                      alt="Random image"
+                      target="_blank"
+                    ></b-img>
       <button
         class="btn btn-primary mt-3 button-theme"
         type="button"
@@ -198,6 +205,12 @@
                   >Verified</b-badge
                 >
               </div>
+              <div class="py-2">
+                <b-badge pill variant="success" title="Deployed on Blockchain"
+                  >Deployed</b-badge
+                >
+              </div>
+              <div v-if="!property.deployed">
               <div class="enquireBt" v-if="property.prop_price">
                 <button
                   v-on:click="addProductToCart(property)"
@@ -216,6 +229,18 @@
                 >
                   Set Property Price
                 </button>
+              </div>
+              </div>
+              <div v-else>
+               <div class="enquireBt">
+                <button
+                  @click="etherescan(property)"
+                  class="btn btn-primary"
+                  style="width: 200px"
+                >
+                  View On Etherscan
+                </button>
+              </div>
               </div>
               <div class="edit">
                 <b-button
@@ -245,6 +270,7 @@ name:'Profile',
 // components:{Loading},
 data(){
 return{
+  link:'',
   prop_price:'',
   isLoading: false,
   fullPage: true,
@@ -283,6 +309,9 @@ async mounted(){
   await this.detail();
 },
 methods:{
+  etherescan(property){
+    console.log(property)
+  },
  async saveProperty(){
    this.selected.prop_price= this.prop_price;
    console.log(this.selected);
@@ -314,17 +343,25 @@ methods:{
     console.log(property)
     this.selected = { ...property}
   },
-  preview(){
+ async preview(){
     console.log(this.selected.prop_document);
 //     this.$swal.fire({
 //   position:'center',
 //   title: 'Sweet!',
 //   text: this.selected.prop_document,
-//   imageUrl: 'https://unsplash.it/400/200',
+//   imageUrl: `https://ipfs.io/ipfs/${this.selected.prop_document}`,
 //   imageWidth: 400,
 //   imageHeight: 200,
 //   imageAlt: 'Custom image',
 // })
+// this.link = `https://ipfs.io/ipfs/${this.selected.prop_document}`;
+// console.log(this.link);
+ const url = `http://localhost:3000/file/${this.selected.prop_document}`
+
+        const result = await fetch(url, {
+          method: "GET",
+        });
+        console.log(result)
   },
   selectFile(){
     this.selected.prop_document = this.$refs.file.files[0];

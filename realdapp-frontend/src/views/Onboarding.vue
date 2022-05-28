@@ -76,10 +76,10 @@ export default {
         mobile: "",
         email: "",
         adharcardNo: "",
+        signUpsignature:""
       },
       user: {},
       accounts: [],
-      sign_message:'',
       signature:'',
       signedData:{
         signature_data:'',
@@ -124,58 +124,20 @@ export default {
       this.user = resp;
       console.log(this.user)
     },
-    // checkWeb3Injection() {
-    //   try {
-    //     if (ethereum && ethereum.isMetaMask) {
-    //       this.web3 = new Web3(window.ethereum);
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-
-    //   }
-    // },
-//     async messageSign(){
-//       const message = "You are signing in RealDApp"
-//       this.sign_message =  message
-//       this.signature = await this.web3.eth.personal.sign(this.message,this.selected.metamask_address)
-
-
-// // recover the signing account address using original message and signed message
-//      const verifySign = await this.web3.eth.personal.ecRecover(this.sign_message,this.signature)
-//      console.log(verifySign);
-//     },
     async signUp() {
 	    console.log("hi");
       const web3 = await loadweb3();
       this.accounts = await web3.eth.getAccounts();
-      // const contract = new web3.eth.Contract(abi, address);
-      // await contract.methods.connectMetamask(this.accounts[0]).call();
       this.selected.metamask_address = this.accounts[0];
-      console.log(this.selected);
-
-      // signing the message 
-    //   const message = this.selected.adharcardNo
-    //   this.sign_message =  message
-    //   this.signature = await web3.eth.personal.sign(message,this.selected.metamask_address)
-
-    //   // recover the signing account address using original message and signed message
-    //  const verifySign = await web3.eth.personal.ecRecover(this.sign_message,this.signature)
-    //  console.log(verifySign);
+      const message = this.selected.adharcardNo;
+      console.log(message)
+      this.selected.signUpsignature = await web3.eth.personal.sign(message,this.selected.metamask_address)
+      console.log(this.selected.signUpsignature)
 
 
-
-      localStorage.setItem("user", JSON.stringify(this.selected));
+      
       let method = "POST";
       let url = `http://localhost:3000/create_user`;
-      //    if(this.isPropEditing==true){
-      //      method = "PUT"
-      //      url = `http://localhost:3000/property_update`;
-      //    }
-      // const result = await axios.post(`http://localhost:3000/property_upload`,formData,{
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //   },
-      //  })
       let headers = {
         "Content-Type": "application/json",
       };
@@ -187,27 +149,17 @@ export default {
       // const res= await result.json();
       const res = result;
       console.log(res);
+      localStorage.setItem("user", JSON.stringify(this.selected));
       window.location.href =
               window.location.origin + "/home";
-     
-//       await this.gerUser();
-      // if(this.isPropEditing){
-      //   await this.detail();
-      //   this.$root.$emit("bv::toggle::collapse", "sidebar-right");
-      //   return
-      // }
-      // }
     },
     async invokeMetamask() {
       const web3 = await loadweb3();
       this.accounts = await web3.eth.getAccounts();
-      // const contract = new web3.eth.Contract(abi, address);
-      // await contract.methods.connectMetamask(this.accounts[0]).call();
       this.login.metamask_address = this.accounts[0];
 
       // signing the message 
       const message = this.login.adharcardNo;
-      this.sign_message =  message
       console.log(message)
       this.signature = await web3.eth.personal.sign(message,this.login.metamask_address)
       this.signedData.signature_data= this.signature;

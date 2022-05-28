@@ -52,7 +52,8 @@
             <a class="nav-link" href="#">About us</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Whitepaper</a>
+            <a class="nav-link" >Whitepaper <b-badge  variant="info" style="display:flex;">Comming Soon</b-badge></a>
+            
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Blogs</a>
