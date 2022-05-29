@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>Hi, {{ user.name }} these are your Properties</h1>
+    <h1 v-if="properties.length">Hi, {{ user.name }} these are your Properties</h1>
+    <h1 v-else>Hi, {{ user.name }} You dont have any properties, you can buy from marketplace</h1>
     <b-sidebar id="sidebar-1" 
     shadow width="50%" 
     right
@@ -205,7 +206,7 @@
                   >Verified</b-badge
                 >
               </div>
-              <div class="py-2">
+              <div class="py-2" v-if="property.deployed">
                 <b-badge pill variant="success" title="Deployed on Blockchain"
                   >Deployed</b-badge
                 >
@@ -327,10 +328,11 @@ methods:{
       {
         const res = result;
         console.log(res);
-        // await this.detail();
+       
       }
       // this.clearAll();
-      this.$root.$emit("bv::toggle::collapse", "sidebar-right");
+       this.$root.$emit("bv::toggle::collapse", "sidebar-1");
+       await this.detail();
       // this.$root.$emit("callClearFromProject");
   },
   setPrice(property){
@@ -408,7 +410,7 @@ if(this.user.metamask_address == this.accounts[0])
         // await this.detail();
       }
       // this.clearAll();
-      this.$root.$emit("bv::toggle::collapse", "sidebar-right");
+      this.$root.$emit("bv::toggle::collapse", "sidebar-1");
 
          
       }
@@ -440,10 +442,10 @@ if(this.user.metamask_address == this.accounts[0])
       {
         const res = result;
         console.log(res);
-        // await this.detail();
+        await this.detail();
       }
       // this.clearAll();
-      this.$root.$emit("bv::toggle::collapse", "sidebar-right");
+      // this.$root.$emit("bv::toggle::collapse", "sidebar-1");
 
 
         }
@@ -455,10 +457,10 @@ if(this.user.metamask_address == this.accounts[0])
     // alert(JSON.stringify(prop))
   },
   editProp(prop){
-    this.$root.$emit("bv::toggle::collapse", "sidebar-right");
+    this.$root.$emit("bv::toggle::collapse", "sidebar-1");
     this.clearAll()
     this.selected = { ...prop }
-    // this.$root.$emit("bv::toggle::collapse", "sidebar-right");
+    // this.$root.$emit("bv::toggle::collapse", "sidebar-1");
   },
 
   async detail(){
@@ -547,7 +549,7 @@ clearAll(){
   margin-left: -1rem;
   padding: 2rem;
 }
-#sidebar-right {
+#sidebar-1 {
   width: 50%;
 }
 @media only screen and (max-width: 600px) {
@@ -564,7 +566,7 @@ clearAll(){
     display: flex;
     justify-content: right;
   }
-  #sidebar-right {
+  #sidebar-1 {
     width: 70%;
   }
 }

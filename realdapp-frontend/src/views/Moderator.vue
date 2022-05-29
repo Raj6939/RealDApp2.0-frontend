@@ -247,9 +247,10 @@ export default {
         console.log(res);
         // await this.detail();
       }
-      this.clearAll();
+      // this.clearAll();
       this.$root.$emit("bv::toggle::collapse", "sidebar-right");
-      this.$root.$emit("callClearFromProject");
+      // this.$root.$emit("callClearFromProject");
+      await this.detail();
     },
     // isValidate(){
     //     if(!this.selected.propName){
