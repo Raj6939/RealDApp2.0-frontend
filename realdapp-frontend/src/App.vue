@@ -23,6 +23,7 @@
           </b-icon>
           </template>
           <b-dropdown-item  href="/profile">Profile</b-dropdown-item>
+          <b-dropdown-item  @click="notification">Notifications</b-dropdown-item>
           <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
@@ -92,20 +93,40 @@
 </template>
 <script>
 import LocalstorageMixin from "./mixins/LocalstorageMixin"
+// import eventBus from "../src/eventBus"
 export default {
 name:'App',
   data(){
 return{
+    user:{},
     logdedIn:false
  
 }
 },
 mounted(){
 if(localStorage.getItem("user")){
+  this.user = JSON.parse(localStorage.getItem("user"));
   this.logdedIn = true;
 }
+ 
 },
 methods:{
+async notification(){
+   const url = `http://localhost:3000/notifications/${this.user.metamask_address}`
+
+        const result = await fetch(url, {
+          method: "GET",
+        });
+        const resp = await result.json()
+        console.log(resp)
+this.$swal.fire({
+  icon: 'info',
+  title: `${resp[0].buyer_email}`,
+  text: 'Wants to buy your Property',
+  footer: '<a style="color:"teal";">Click on Bell button on your property card to initiate transaction</a>'
+})
+   
+  },
   logout(){
     this.clean();
     window.location.href =

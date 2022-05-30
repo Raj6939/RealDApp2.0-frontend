@@ -2,6 +2,8 @@
   <div>
     <h1 v-if="properties.length">Hi, {{ user.name }} these are your Properties</h1>
     <h1 v-else>Hi, {{ user.name }} You dont have any properties, you can buy from marketplace</h1>
+    <b-form-checkbox v-model="switchOpt" @change="opt" name="check-button" switch>
+            </b-form-checkbox>
     <b-sidebar id="sidebar-1" 
     shadow width="50%" 
     right
@@ -181,8 +183,67 @@
         Submit
       </button>
     </b-sidebar>
-
-    <section style="margin-left: 10px">
+<!--  -->
+<b-sidebar id="sidebar-2" 
+    shadow width="50%" 
+    right
+    title="Approve Property to Buyer"
+    >
+      <div class="px-3 py-2">
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Buyer Email :
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="sellInfo.buyer_email"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property area"
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Buyer Metamask Address :
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="sellInfo.buyer_metamask_address"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property city"
+            />
+          </div>
+        </div>
+       
+      </div>
+       <button
+        class="btn btn-danger mt-3 button-theme"
+        type="button"
+        @click="reject"
+      >
+        Reject
+      </button>
+      <button
+        class="btn btn-primary mt-3 button-theme"
+        type="button"
+        @click="approveForSell"
+      >
+        Approve
+      </button>
+     
+    </b-sidebar>
+<!--  -->
+    <section style="margin-left: 10px" v-if="!switchOpt">
       <div class="container-fluid">
         <div class="row" id="main">
           <div
@@ -204,11 +265,6 @@
               <div class="py-2">
                 <b-badge pill variant="success" title="Approved by Government"
                   >Verified</b-badge
-                >
-              </div>
-              <div class="py-2" v-if="property.deployed">
-                <b-badge pill variant="success" title="Deployed on Blockchain"
-                  >Deployed</b-badge
                 >
               </div>
               <div v-if="!property.deployed">
@@ -257,6 +313,72 @@
         </div>
       </div>
     </section>
+<!--  -->
+
+<section style="margin-left: 10px" v-else>
+      <div class="container-fluid">
+        <div class="row" id="main">
+          <div
+            class="col-md-4 py-2"
+            v-for="property in NFTproperties"
+            :key="property._id"
+          >
+            <div class="card h-100">
+              <div class="card-body d-flex flex-column align-items-center">
+        
+                  <b-avatar class="mb-4"  badge="1" variant="primary" badge-variant="dark"
+                  v-if="property.buyer_address"
+                  title="You have one request for this property"
+                  ></b-avatar>
+                
+                <h5 class="card-title">{{ property.prop_landmark }}</h5>
+                <p class="card-text" style="font-weight: bold">
+                  {{ property.prop_area }}sq.ft
+                </p>
+                <p class="card-text" style="font-weight: bold">
+                  {{ property.prop_city }}
+                </p>
+                <p class="card-text" v-if="property.prop_price">Price {{ property.prop_price }}</p>
+              </div>
+              <div class="py-2">
+                <b-badge pill variant="success" title="Approved by Government"
+                  >Verified</b-badge
+                >
+              </div>
+              <div class="py-2" v-if="property.deployed">
+                <b-badge pill variant="success" title="Deployed on Blockchain"
+                  >Deployed</b-badge
+                >
+              </div>
+               <div class="py-2 enquireBt">
+                <button
+                  @click="etherescan(property)"
+                  class="btn btn-primary"
+                  style="width: 200px"
+                >
+                  View On Etherscan
+                </button>
+              </div>
+              <div class="enquireBt">
+                <button
+                  v-b-toggle.sidebar-2
+                  @click="openSellSlider"
+                  class="btn btn-warning"
+                  style="width: 200px"
+                  v-if="property.buyer_address"
+                >
+                  Sell This Property
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+<!--  -->
   </div>
 </template>
 
@@ -266,11 +388,21 @@ import loadweb3 from '../utils/getWeb3'
 import {abi,address} from '../utils/contractAbi'
 // import Loading from "vue-loading-overlay";
 // import "vue-loading-overlay/dist/vue-loading.css";
+
 export default {
 name:'Profile',
 // components:{Loading},
 data(){
 return{
+  sellInfo:{
+    buyer_metamask_address:'',
+    seller_metamask_address:'',
+    buyer_email:'',
+    prop_id:'',
+    approved_status:false
+  },
+  switchOpt:false,
+  notifications:[],
   link:'',
   prop_price:'',
   isLoading: false,
@@ -286,6 +418,7 @@ return{
 
   },
   properties:[],
+  NFTproperties:[],
   selected:{
     metamask_address:'',
     _id:'',
@@ -308,8 +441,35 @@ async mounted(){
   }
   //  await invokeMetamask()
   await this.detail();
+  // await this.getBuyer();
 },
 methods:{
+  approveForSell(){
+    console.log("Approved")
+  },
+  reject(){
+    console.log("reject")
+  },
+  openSellSlider(){
+// this.sellInfo.buyer_metamask_address = property.buyer_metamask_address;
+//     this.sellInfo.buyer_email = property.buyer_email;
+this.sellInfo = {...this.notifications[0]}
+console.log(this.sellInfo)
+  },
+ async opt(){
+   await this.getBuyer();
+   await this.detail();
+   
+  },
+async getBuyer(){
+   const url = `http://localhost:3000/notifications/${this.user.metamask_address}`
+
+        const result = await fetch(url, {
+          method: "GET",
+        });
+        this.notifications = await result.json()
+        console.log(this.notifications[0])
+},
   etherescan(property){
     console.log(property)
   },
@@ -482,8 +642,33 @@ if(this.user.metamask_address == this.accounts[0])
         // let result = await axios.get(`http://localhost:3000/get_user/${this.accounts[0]}`);
         // console.log(result.data)
         // get_user_approved
-         if(this.user.approved==true){
-        const url = `http://localhost:3000/approved_properties/${this.user.metamask_address}`
+     
+     
+      let url;
+        if(this.switchOpt==true){
+          url = `http://localhost:3000/marketplace`
+          const result = await fetch(url, {
+          method: "GET",
+        });
+        const resp = await result.json()
+        this.NFTproperties = resp;
+        // const match = this.NFTproperties.findIndex(
+        //   (x) =>x.prop_id == this.sellInfo.prop_id
+        // )
+        // console.log(match)
+       const found = this.NFTproperties.map((x) => {
+          if(x.prop_id === this.notifications[0].prop_id){
+            return x["buyer_address"] = this.notifications[0].buyer_metamask_address
+          } 
+        })
+        console.log(found)
+        console.log(this.NFTproperties)
+        }
+        else{
+          url = `http://localhost:3000/approved_properties/${this.user.metamask_address}`;
+        
+    //  if(this.user.approved==true){
+    //     const url = `http://localhost:3000/approved_properties/${this.user.metamask_address}`
 
         const result = await fetch(url, {
           method: "GET",
@@ -500,6 +685,7 @@ if(this.user.metamask_address == this.accounts[0])
 //     }
 // },
 clearAll(){
+  this.switchOpt = false,
   this.user={
   metamask_address:'',
   name:'',
@@ -508,7 +694,8 @@ clearAll(){
   adharcardNo:'',
   approved:'',
   },
-  this.properties=[]
+  this.properties=[],
+  this.NFTproperties=[]
   this.selected={
     metamask_address:'',
     _id:'',
@@ -552,6 +739,9 @@ clearAll(){
 #sidebar-1 {
   width: 50%;
 }
+#sidebar-2 {
+  width: 50%;
+}
 @media only screen and (max-width: 600px) {
   #main {
     display: flex;
@@ -566,7 +756,16 @@ clearAll(){
     display: flex;
     justify-content: right;
   }
+  .bell {
+    margin-top: 20px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: right;
+  }
   #sidebar-1 {
+    width: 70%;
+  }
+  #sidebar-2 {
     width: 70%;
   }
 }
@@ -613,6 +812,12 @@ clearAll(){
   display: flex;
   justify-content: right;
 }
+.bell {
+  margin-top: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: right;
+}
 .intro {
   padding: 10px;
 }
@@ -654,7 +859,21 @@ clearAll(){
   justify-content: center;
   /* padding-bottom: 10px; */
 }
-
+a.notif {
+  position: relative;
+  display: block;
+  height: 50px;
+  width: 50px;
+  background: url('http://i.imgur.com/evpC48G.png');
+  background-size: contain;
+  text-decoration: none;
+}
+.num {
+  position: absolute;
+  right: 11px;
+  top: 6px;
+  color: #fff;
+}
 .switchToggle {
 }
 </style>

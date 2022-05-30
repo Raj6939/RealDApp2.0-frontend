@@ -80,6 +80,12 @@ name:'MarketPlace',
   data(){
 return{
   user:{},
+  notify:{
+  buyer_metamask_address:'',
+  seller_metamask_address:'',
+  buyer_email:'',
+  prop_id:''
+  },
   logdedIn:false,
   properties:[]
  
@@ -89,16 +95,20 @@ return{
 },
 methods:{
  async buyProperty(property){
+  console.log(this.user)
+  this.notify.seller_metamask_address =  property.metamask_address;
+  this.notify.prop_id = property.prop_id;
+  this.notify.buyer_email = this.user.email;
+  this.notify.buyer_metamask_address = this.user.metamask_address;
   
-
-  console.log(property)
+  console.log(this.notify);
   const result = await axios.post(
         `http://localhost:3000/transfer_property/`,
         {
           headers: {
             "Content-Type": "application/json",
           },
-          // obj: propertyNft,
+          obj: this.notify,
         }
       );
       {
@@ -114,8 +124,6 @@ methods:{
    async detail(){
         if(localStorage.getItem("user")){
         this.user = JSON.parse(localStorage.getItem("user"));
-        console.log(this.user)
-        console.log((this.user.email))
         this.logdedIn = true;
         }
         let result = await axios.get(`http://localhost:3000/marketplace`);

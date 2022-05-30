@@ -177,16 +177,15 @@ export default {
       });
       // const res= await result.json();
       const res = result;
-      if(res.data && res.status == 200){
+      console.log(res.status)
+      if(res.status != 400){
         localStorage.setItem("user", JSON.stringify(res.data));
         window.location.href =
         window.location.origin + "/home";
       }
-        //  const resp = await contract.methods.createProperty().send({from:accounts[0]});
-
-        // window.location.href =
-        //       window.location.origin + "/home";
-      
+      else{
+        console.log("not found")
+      }
     },
   },
 };
