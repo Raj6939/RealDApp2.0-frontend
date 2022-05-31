@@ -84,6 +84,7 @@ return{
   buyer_metamask_address:'',
   seller_metamask_address:'',
   buyer_email:'',
+  buyer_name:'',
   prop_id:''
   },
   logdedIn:false,
@@ -99,6 +100,7 @@ methods:{
   this.notify.seller_metamask_address =  property.metamask_address;
   this.notify.prop_id = property.prop_id;
   this.notify.buyer_email = this.user.email;
+  this.notify.buyer_name = this.user.name;
   this.notify.buyer_metamask_address = this.user.metamask_address;
   
   console.log(this.notify);
