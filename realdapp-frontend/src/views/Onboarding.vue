@@ -178,10 +178,27 @@ export default {
       // const res= await result.json();
       const res = result;
       console.log(res.status)
-      if(res.status != 400){
-        localStorage.setItem("user", JSON.stringify(res.data));
+      if(res.Status != 400){
+        const Toast = this.$swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 2000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', this.$swal.stopTimer)
+    toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+  }
+})
+
+Toast.fire({
+  icon: 'success',
+  title: 'Signed in successfully'
+}).then(()=>{
+localStorage.setItem("user", JSON.stringify(res.data));
         window.location.href =
         window.location.origin + "/home";
+})
       }
       else{
         console.log("not found")

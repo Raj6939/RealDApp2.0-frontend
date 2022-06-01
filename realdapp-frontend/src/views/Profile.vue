@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h1 v-if="properties.length">Hi, {{ user.name }} these are your Properties</h1>
-    <h1 v-else>Hi, {{ user.name }} You dont have any properties, you can buy from marketplace</h1>
     <b-form-checkbox v-model="switchOpt" @change="opt" name="check-button" switch>
             </b-form-checkbox>
     <b-sidebar id="sidebar-1" 
@@ -167,13 +165,6 @@
           </button>
         </div>
       </div>
-      <b-img class="imgslide"
-                      fluid-grow
-                      
-                      :src="link"
-                      alt="Random image"
-                      target="_blank"
-                    ></b-img>
       <button
         class="btn btn-primary mt-3 button-theme"
         type="button"
@@ -183,24 +174,26 @@
         Submit
       </button>
     </b-sidebar>
-<!--  -->
+
+<!--SideBar 2 For NFT Properties  -->
+
 <b-sidebar id="sidebar-2" 
     shadow width="50%" 
     right
-    title="Approve Property to Buyer"
+    title="Preview"
     >
       <div class="px-3 py-2">
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Buyer Email :
+              >Property Area<span style="color: red">*</span>:
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
             <input
               disabled
               type="text"
-              v-model="sellInfo.buyer_email"
+              v-model="selected.prop_area"
               id="title"
               class="form-control w-100"
               placeholder="Please enter property area"
@@ -210,37 +203,143 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Buyer Metamask Address :
+              >Property No or House No<span style="color: red">*</span>:
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
             <input
               disabled
               type="text"
-              v-model="sellInfo.buyer_metamask_address"
+              v-model="selected.prop_house_no"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property number"
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property Landmark<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_landmark"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property landmark"
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property City<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_city"
               id="title"
               class="form-control w-100"
               placeholder="Please enter property city"
             />
           </div>
         </div>
-       
-      </div>
-       <button
-        class="btn btn-danger mt-3 button-theme"
-        type="button"
-        @click="reject"
-      >
-        Reject
-      </button>
-      <button
-        class="btn btn-primary mt-3 button-theme"
-        type="button"
-        @click="approveForSell"
-      >
-        Approve
-      </button>
-     
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property State<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_state"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property state"
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property Survey Number<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_surveyNumber"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property servey number"
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles" v-if="!selected.prop_price">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property Price<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              
+              type="number"
+              v-model="prop_price"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please set property price "
+              
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles" v-else>
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property Price<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_price"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property servey number"
+              
+            />
+          </div>
+        </div>
+        <div
+          class="row g-3 align-items-center w-100 mt-4"
+          id="titles"
+          v-if="selected.prop_document"
+        >
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Preview Document<span style="color: red">*</span>:
+            </label>
+          </div>
+          <button
+            class="btn btn-primary mt-3 button-theme"
+            type="button"
+            @click="preview"
+          >
+            Preview
+          </button>
+        </div>
+      </div>     
     </b-sidebar>
 <!--  -->
     <section style="margin-left: 10px" v-if="!switchOpt">
@@ -359,18 +458,15 @@
                   View On Etherscan
                 </button>
               </div>
-              <div class="enquireBt">
-                <button
+               <div class="edit">
+                <b-button
                   v-b-toggle.sidebar-2
-                  @click="openSellSlider"
-                  class="btn btn-warning"
-                  style="width: 200px"
-                  v-if="property.buyer_address"
+                  @click="openNFT(property)"
+                  title="View Property Details"
                 >
-                  Sell This Property
-                </button>
+                  <b-icon icon="eye-fill" font-scale="1"></b-icon>
+                </b-button>
               </div>
-
             </div>
           </div>
         </div>
@@ -394,15 +490,7 @@ name:'Profile',
 // components:{Loading},
 data(){
 return{
-  sellInfo:{
-    buyer_metamask_address:'',
-    seller_metamask_address:'',
-    buyer_email:'',
-    prop_id:'',
-    approved_status:false
-  },
   switchOpt:false,
-  notifications:[],
   link:'',
   prop_price:'',
   isLoading: false,
@@ -444,31 +532,8 @@ async mounted(){
   // await this.getBuyer();
 },
 methods:{
-  approveForSell(){
-    console.log("Approved")
-  },
-  reject(){
-    console.log("reject")
-  },
-  openSellSlider(){
-// this.sellInfo.buyer_metamask_address = property.buyer_metamask_address;
-//     this.sellInfo.buyer_email = property.buyer_email;
-this.sellInfo = {...this.notifications[0]}
-console.log(this.sellInfo)
-  },
  async opt(){
-   await this.getBuyer();
    await this.detail();
-   
-  },
-async getBuyer(){
-   const url = `http://localhost:3000/notifications/${this.user.metamask_address}`
-
-        const result = await fetch(url, {
-          method: "GET",
-        });
-        this.notifications = await result.json()
-        console.log(this.notifications[0])
 },
   etherescan(property){
     console.log(property)
@@ -504,6 +569,10 @@ async getBuyer(){
     this.isPropEditing = false;
     console.log(property)
     this.selected = { ...property}
+  },
+  openNFT(property){
+console.log(property)
+this.selected ={ ...property}
   },
  async preview(){
     console.log(this.selected.prop_document);
@@ -646,30 +715,18 @@ if(this.user.metamask_address == this.accounts[0])
      
       let url;
         if(this.switchOpt==true){
-          url = `http://localhost:3000/marketplace`
+          console.log("deployed")
+          url = `http://localhost:3000/deployed_property_get/${this.user.metamask_address}`
           const result = await fetch(url, {
           method: "GET",
         });
         const resp = await result.json()
         this.NFTproperties = resp;
-        // const match = this.NFTproperties.findIndex(
-        //   (x) =>x.prop_id == this.sellInfo.prop_id
-        // )
-        // console.log(match)
-       const found = this.NFTproperties.map((x) => {
-          if(x.prop_id === this.notifications[0].prop_id){
-            return x["buyer_address"] = this.notifications[0].buyer_metamask_address
-          } 
-        })
-        console.log(found)
         console.log(this.NFTproperties)
         }
         else{
-          url = `http://localhost:3000/approved_properties/${this.user.metamask_address}`;
-        
-    //  if(this.user.approved==true){
-    //     const url = `http://localhost:3000/approved_properties/${this.user.metamask_address}`
-
+          console.log("existing")
+          url = `http://localhost:3000/existing_property_get/${this.user.metamask_address}`;
         const result = await fetch(url, {
           method: "GET",
         });

@@ -15,6 +15,155 @@
     
   <!-- <img v-if="loading" src="//placehold.it/100" /> -->
     
+    <b-sidebar id="sidebar-right" 
+    shadow width="50%" 
+    right
+    title="Preview"
+    >
+      <div class="px-3 py-2">
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property Area<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_area"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property area"
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property No or House No<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_house_no"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property number"
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property Landmark<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_landmark"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property landmark"
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property City<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_city"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property city"
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property State<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_state"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property state"
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property Survey Number<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_surveyNumber"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property servey number"
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property Price<span style="color: red">*</span>:
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="number"
+              v-model="selected.prop_price"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please set property price "
+              
+            />
+          </div>
+        </div>
+      
+        <div
+          class="row g-3 align-items-center w-100 mt-4"
+          id="titles"
+          v-if="selected.prop_document"
+        >
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Preview Document<span style="color: red">*</span>:
+            </label>
+          </div>
+          <button
+            class="btn btn-primary mt-3 button-theme"
+            type="button"
+            @click="preview"
+          >
+            Preview
+          </button>
+        </div>
+      </div>     
+    </b-sidebar>
+    
+    <!--  -->
   <section style="margin-left: 10px;">
     <div class="container-fluid">
       <div class="row" id="main">
@@ -36,14 +185,6 @@
                 </b-carousel-slide>
               </b-carousel>
              </div>
-             
-             <!--  -->
-             <div class="sold_status" v-if="property.prop_approved==false">
-               <span>Comming Soon</span>
-                </div>
-                <div class="sold_status_availabe" v-if="property.prop_approved">
-               <span>Available</span>
-                </div>
             <div class="card-body d-flex flex-column align-items-center">
               <h5 class="card-title">{{property.prop_landmark}} </h5>
               <p class="card-text" style="font-weight:bold">{{property.prop_area}}sq.ft</p>
@@ -61,10 +202,19 @@
                >Register or Login</button>
             </div>
             <div class="enquireBt" v-if="logdedIn">
-               <button  @click="buyProperty(property)"
+               <button  @click="enquire(property)"
                class="btn btn-primary" style="width:200px;"
-               >Buy this</button>
-            </div>                     
+               >Interested</button>
+            </div>
+            <div class="edit">
+                <b-button
+                  v-b-toggle.sidebar-right
+                  @click="openNFT(property)"
+                  title="View Property Details"
+                >
+                  <b-icon icon="eye-fill" font-scale="1"></b-icon>
+                </b-button>
+              </div>                     
           </div>
         </div>
       </div>
@@ -75,11 +225,14 @@
 
 <script>
 import axios from 'axios'
+import loadweb3 from '../utils/getWeb3'
+import {abi,address} from '../utils/contractAbi'
 export default {
 name:'MarketPlace',
   data(){
 return{
   user:{},
+  notifications:[],
   notify:{
   buyer_metamask_address:'',
   seller_metamask_address:'',
@@ -88,24 +241,107 @@ return{
   prop_id:''
   },
   logdedIn:false,
-  properties:[]
- 
+  properties:[],
+    selected:{
+    metamask_address:'',
+    _id:'',
+    prop_area:'',
+    prop_house_no:'',
+    prop_landmark:'',
+    prop_city:'',
+    prop_state:'',
+    prop_price:'',
+    prop_document:'',
+    prop_surveyNumber:'',
+  },
 }
 }, async mounted(){
-  await this.detail();
+  await this.detail();  
 },
 methods:{
- async buyProperty(property){
+   async preview(){
+    console.log(this.selected.prop_document);
+//     this.$swal.fire({
+//   position:'center',
+//   title: 'Sweet!',
+//   text: this.selected.prop_document,
+//   imageUrl: `https://ipfs.io/ipfs/${this.selected.prop_document}`,
+//   imageWidth: 400,
+//   imageHeight: 200,
+//   imageAlt: 'Custom image',
+// })
+// this.link = `https://ipfs.io/ipfs/${this.selected.prop_document}`;
+// console.log(this.link);
+ const url = `http://localhost:3000/file/${this.selected.prop_document}`
+
+        const result = await fetch(url, {
+          method: "GET",
+        });
+        console.log(result)
+  },
+  openNFT(property){
+console.log(property)
+this.selected ={ ...property}
+  },
+  buyProperty(property){
+    console.log(property)
+//      const web3 =await loadweb3();
+//         this.accounts = await web3.eth.getAccounts();
+// if(this.user.metamask_address == this.accounts[0])
+// {
+//       const contract = new web3.eth.Contract(abi,address);
+//       const status = await contract.methods.connectMetamask(this.accounts[0]).call();
+//       console.log(status)
+//       if(status==false){
+//        const contractStatus = await contract.methods.createUser().send({from:this.accounts[0]})
+//        console.log(contractStatus)
+//        if(contractStatus==true){
+//          const createProperty = await contract.methods.sellProperty(
+//        this.notify.seller_metamask_address,
+//        this.notify.buyer_metamask_address,
+//        this.notify.prop_id
+//           ).send({from:this.accounts[0]})
+//           const propertyNft = createProperty.events.mint_property.returnValues.id;
+//           console.log(propertyNft)
+//             const result = await axios.post(
+//         `http://localhost:3000/addnft/${property._id}`,
+//         {
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//           obj: propertyNft,
+//         }
+//       );
+//       {
+//         const res = result;
+//         console.log(res);
+//       }
+        
+//       }}}
+  },
+ async enquire(property){
   console.log(this.user)
-  this.notify.seller_metamask_address =  property.metamask_address;
-  this.notify.prop_id = property.prop_id;
-  this.notify.buyer_email = this.user.email;
-  this.notify.buyer_name = this.user.name;
-  this.notify.buyer_metamask_address = this.user.metamask_address;
-  
-  console.log(this.notify);
-  const result = await axios.post(
-        `http://localhost:3000/transfer_property/`,
+  console.log(property)
+ 
+     const web3 =await loadweb3();
+        this.accounts = await web3.eth.getAccounts();
+if(this.user.metamask_address == this.accounts[0])
+{
+      const contract = new web3.eth.Contract(abi,address);
+      const status = await contract.methods.connectMetamask(this.accounts[0]).call();
+      console.log(status)
+      if(status==false){
+       const contractStatus = await contract.methods.createUser().send({from:this.accounts[0]})
+       console.log(contractStatus)
+       if(contractStatus==true){
+        this.notify.seller_metamask_address =  property.metamask_address;
+        this.notify.prop_id = property.prop_id;
+        this.notify.buyer_email = this.user.email;
+        this.notify.buyer_name = this.user.name;
+        this.notify.buyer_metamask_address = this.user.metamask_address;
+        console.log(this.notify);
+            const result = await axios.post(
+        `http://localhost:3000/request_to_transfer`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -116,8 +352,64 @@ methods:{
       {
         const res = result;
         console.log(res);
-        // await this.detail();
       }
+        
+      }
+        }
+        else{
+      console.log("already have account");
+
+  this.notify.seller_metamask_address =  property.metamask_address;
+  this.notify.prop_id = property.prop_id;
+  this.notify.buyer_email = this.user.email;
+  this.notify.buyer_name = this.user.name;
+  this.notify.buyer_metamask_address = this.user.metamask_address;
+  
+  console.log(this.notify);
+  const result = await axios.post(
+        `http://localhost:3000/request_to_transfer/`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          obj: this.notify,
+        }
+      );
+      {
+        const res = result;
+        console.log(res);
+      }
+
+        }
+        }
+        else{
+          alert("Please change your metamask wallet address");
+        }
+ 
+ 
+ 
+ 
+ 
+ // this.notify.seller_metamask_address =  property.metamask_address;
+  // this.notify.prop_id = property.prop_id;
+  // this.notify.buyer_email = this.user.email;
+  // this.notify.buyer_name = this.user.name;
+  // this.notify.buyer_metamask_address = this.user.metamask_address;
+  
+  // console.log(this.notify);
+  // const result = await axios.post(
+  //       `http://localhost:3000/transfer_property/`,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         obj: this.notify,
+  //       }
+  //     );
+  //     {
+  //       const res = result;
+  //       console.log(res);
+  //     }
   },
   login(){
       window.location.href =
@@ -133,6 +425,30 @@ methods:{
         
         console.log(this.properties);
    },
+   clearAll(){
+  this.switchOpt = false,
+  this.user={
+  metamask_address:'',
+  name:'',
+  email:'',
+  mobile:'',
+  adharcardNo:'',
+  approved:'',
+  },
+  this.properties=[],
+  this.selected={
+    metamask_address:'',
+    _id:'',
+    prop_area:'',
+    prop_house_no:'',
+    prop_landmark:'',
+    prop_city:'',
+    prop_state:'',
+    prop_price:'',
+    prop_surveyNumber:'',
+    prop_document:'',
+  }
+}
 }
 }
 </script>
@@ -165,7 +481,12 @@ methods:{
     margin-left: -1rem;
     padding: 2rem;
   }
-
+   .edit {
+    margin-top: 20px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: right;
+  }
   #sidebar-right{
     width: 70%;
   }
@@ -199,6 +520,12 @@ methods:{
     position: absolute;
     bottom: 0;
     left: 0;
+}
+.edit {
+  margin-top: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: right;
 }
 .col-md-4:hover .card:before{
  width: 100%;

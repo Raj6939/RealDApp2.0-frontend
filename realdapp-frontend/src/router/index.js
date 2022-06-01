@@ -30,6 +30,14 @@ const routes = [
     }
   },
   {
+    path: '/notifications',
+    name: 'Notifications',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Notifications.vue'),
+    meta:{
+      title:'RealDApp-Notifications'
+    }
+  },
+  {
     path: '/marketplace',
     name: 'MarketPlace',
     // route level code-splitting
