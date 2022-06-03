@@ -190,6 +190,9 @@ export default {
     },
     async invokeMetamask() {
       const web3 = await loadweb3();
+      if(web3 == null){
+        return this.fetched("Install metamask",'error')
+      }
       this.accounts = await web3.eth.getAccounts();
       this.login.metamask_address = this.accounts[0];
       if(!isNum(this.login.adharcardNo) ||this.login.adharcardNo.length<12 ||this.login.adharcardNo.length>12){
