@@ -8,7 +8,7 @@
       <b-navbar-nav >
         <b-nav-item  href="/home">Home</b-nav-item>
         <b-nav-item  href="/marketplace">MarketPlace</b-nav-item>
-        <b-nav-item  href="/about">About</b-nav-item>
+        <!-- <b-nav-item  href="/about">About</b-nav-item> -->
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto"  >
         <!-- <b-nav-form>
@@ -38,7 +38,7 @@
           <li class="nav-item" id="logoandtext">
             <img src="./assets/logoonly1.png" alt="Kitten" width="100px" title="RealDApp2.0">
             <span class="realtext">RealDApp</span>
-            <b-badge class="beta" variant="info" style="display:flex;" title="Launching..">Beta</b-badge>
+            <b-badge class="beta" variant="info" style="display:flex;">Beta</b-badge>
           </li>
         </ul>
       </div>

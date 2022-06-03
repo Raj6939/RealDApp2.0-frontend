@@ -12,7 +12,7 @@
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
         <div class="text-left col-lg-3 col-md-3 text-left">
           <label for="propertyName" class="col-form-label"
-            >Name<span style="color: red">*</span>:
+            >Name :
           </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
@@ -29,7 +29,7 @@
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
         <div class="text-left col-lg-3 col-md-3 text-left">
           <label for="propertyName" class="col-form-label"
-            >Email<span style="color: red">*</span>:
+            >Email :
           </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
@@ -46,7 +46,7 @@
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
         <div class="text-left col-lg-3 col-md-3 text-left">
           <label for="propertyName" class="col-form-label"
-            >Mobile<span style="color: red">*</span>:
+            >Mobile :
           </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">
@@ -63,7 +63,7 @@
       <div class="row g-3 align-items-center w-100 mt-4" id="titles">
         <div class="text-left col-lg-3 col-md-3 text-left">
           <label for="propertyName" class="col-form-label"
-            >Adhar Number<span style="color: red">*</span>:
+            >Adhar Number :
           </label>
         </div>
         <div class="col-lg-9 col-md-9 px-0">

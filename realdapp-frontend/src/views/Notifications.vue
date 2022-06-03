@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 v-if="properties.length">Hi, {{ user.name }} these are request for your Properties</h1>
-    <h1 v-if="NFTproperties.length">Hi, {{ user.name }} these are properties you have requested </h1>
+    <h3 v-if="switchOpt">Untoggle this to know who have requested to your properties</h3>
+    <h3 v-else>Toggle this to know about request you have made to other properties</h3>
     <b-form-checkbox v-model="switchOpt" @change="opt" name="check-button" switch>
             </b-form-checkbox>
     <b-sidebar id="sidebar-1" 

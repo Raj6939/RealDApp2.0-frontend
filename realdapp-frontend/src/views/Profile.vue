@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h3 v-if="switchOpt">Untoggle this to get your undeployed properties</h3>
+    <h3 v-else>Toggle this to get Your NFT's</h3>
     <b-form-checkbox v-model="switchOpt" @change="opt" name="check-button" switch>
             </b-form-checkbox>
     <b-sidebar id="sidebar-1" 
@@ -180,7 +182,7 @@
 <b-sidebar id="sidebar-2" 
     shadow width="50%" 
     right
-    title="Preview"
+    title="Your Property"
     >
       <div class="px-3 py-2">
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
@@ -551,6 +553,9 @@ methods:{
 },
   etherescan(property){
     console.log(property)
+    let url = `https://rinkeby.etherscan.io/tx/${property.deployedHash}`
+    window.open(url, "_blank");
+    
   },
  async saveProperty(){
    this.selected.prop_price= this.prop_price;
@@ -880,7 +885,7 @@ if(this.user.metamask_address == this.accounts[0])
         const resp = await result.json()
         this.properties = resp;
         console.log(this.properties)
-        this.fetched(`You have ${this.properties.length} properties`,'success');
+        this.fetched(`You have ${this.properties.length} properties to deploy`,'success');
         }
    },
 // isValidate(){
