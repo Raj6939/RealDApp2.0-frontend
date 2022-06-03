@@ -61,6 +61,7 @@
 import loadweb3 from "../utils/getWeb3";
 import { abi, address } from "../utils/contractAbi";
 import allApi from "../mixins/allApi";
+import toast from "../mixins/toast"
 // import web3 from "web3"
 export default {
   name: "Onboarding",
@@ -177,34 +178,22 @@ export default {
       });
       // const res= await result.json();
       const res = result;
-      console.log(res.status)
-      if(res.Status != 400){
-        const Toast = this.$swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 2000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.addEventListener('mouseenter', this.$swal.stopTimer)
-    toast.addEventListener('mouseleave', this.$swal.resumeTimer)
-  }
-})
-
-Toast.fire({
-  icon: 'success',
-  title: 'Signed in successfully'
-}).then(()=>{
-localStorage.setItem("user", JSON.stringify(res.data));
+      console.log(res.data)
+      if(res.data != false){
+        this.toast("signed in successfully","success")
+        localStorage.setItem("user", JSON.stringify(res.data));
         window.location.href =
         window.location.origin + "/home";
-})
       }
       else{
-        console.log("not found")
+        this.login.adharcardNo = ''
+        console.log(res);
+        this.toast("Sign in failed","error")
+
       }
     },
   },
+  mixins:[toast],
 };
 </script>
 

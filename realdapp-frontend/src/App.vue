@@ -1,6 +1,6 @@
 <template>
-<div id="app">
-  <b-navbar toggleable="lg">
+<div id="app" class="min-h-screen w-full bg-gray-200">
+  <b-navbar toggleable="lg" class="navmain">
     <b-navbar-brand class="centerNav" href="/"> <img src="./assets/logoonly1.png" alt="Kitten" width="60px" title="RealDApp2.0">
     </b-navbar-brand>
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -56,9 +56,6 @@
             <a class="nav-link" >Whitepaper <b-badge  variant="info" style="display:flex;">Comming Soon</b-badge></a>
             
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Blogs</a>
-          </li>
         </ul>
       </div>
       <div class="col-md-4 footer-column">
@@ -93,6 +90,7 @@
 </template>
 <script>
 import LocalstorageMixin from "./mixins/LocalstorageMixin"
+import '../src/assets/css/styles.css'
 // import eventBus from "../src/eventBus"
 export default {
 name:'App',
@@ -141,6 +139,10 @@ mixins: [LocalstorageMixin],
       color: #42b983;
     }
   }
+}
+.navmain{
+  position: sticky;
+  top: 0;
 }
 .centerNav{
   padding-left: 18%;

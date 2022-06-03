@@ -11,7 +11,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property Area<span style="color: red">*</span>:
+              >Property Area :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -28,7 +28,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property No or House No<span style="color: red">*</span>:
+              >Property No or House No :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -45,7 +45,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property Landmark<span style="color: red">*</span>:
+              >Property Landmark :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -62,7 +62,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property City<span style="color: red">*</span>:
+              >Property City :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -79,7 +79,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property State<span style="color: red">*</span>:
+              >Property State :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -96,7 +96,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property Survey Number<span style="color: red">*</span>:
+              >Property Survey Number :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -113,7 +113,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles" v-if="!selected.prop_price">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property Price<span style="color: red">*</span>:
+              >Property Price :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -131,7 +131,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles" v-else>
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property Price<span style="color: red">*</span>:
+              >Property Price :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -153,7 +153,7 @@
         >
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Preview Document<span style="color: red">*</span>:
+              >Preview Document :
             </label>
           </div>
           <button
@@ -186,7 +186,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property Area<span style="color: red">*</span>:
+              >Property Area :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -203,7 +203,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property No or House No<span style="color: red">*</span>:
+              >Property No or House No :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -220,7 +220,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property Landmark<span style="color: red">*</span>:
+              >Property Landmark :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -237,7 +237,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property City<span style="color: red">*</span>:
+              >Property City :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -254,7 +254,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property State<span style="color: red">*</span>:
+              >Property State :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -271,7 +271,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property Survey Number<span style="color: red">*</span>:
+              >Property Survey Number :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -285,17 +285,17 @@
             />
           </div>
         </div>
-        <div class="row g-3 align-items-center w-100 mt-4" id="titles" v-if="!selected.prop_price">
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property Price<span style="color: red">*</span>:
+              >Property Price :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
             <input
               
               type="number"
-              v-model="prop_price"
+              v-model="selected.prop_price"
               id="title"
               class="form-control w-100"
               placeholder="Please set property price "
@@ -303,20 +303,19 @@
             />
           </div>
         </div>
-        <div class="row g-3 align-items-center w-100 mt-4" id="titles" v-else>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property Price<span style="color: red">*</span>:
+              >Deployed Hash :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
             <input
               disabled
               type="text"
-              v-model="selected.prop_price"
+              v-model="selected.deployedHash"
               id="title"
               class="form-control w-100"
-              placeholder="Please enter property servey number"
               
             />
           </div>
@@ -328,7 +327,7 @@
         >
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Preview Document<span style="color: red">*</span>:
+              >Preview Document :
             </label>
           </div>
           <button
@@ -339,7 +338,15 @@
             Preview
           </button>
         </div>
-      </div>     
+      </div>    
+      <button
+        class="btn btn-primary mt-3 button-theme"
+        type="button"
+        @click="editPriceNft"
+        v-if="isPropEditing"
+      >
+        Submit
+      </button> 
     </b-sidebar>
 <!--  -->
     <section style="margin-left: 10px" v-if="!switchOpt">
@@ -482,6 +489,7 @@
 import axios from 'axios'
 import loadweb3 from '../utils/getWeb3'
 import {abi,address} from '../utils/contractAbi'
+import toast from '../mixins/toast'
 // import Loading from "vue-loading-overlay";
 // import "vue-loading-overlay/dist/vue-loading.css";
 
@@ -518,8 +526,14 @@ return{
     prop_price:'',
     prop_document:'',
     prop_surveyNumber:'',
+    deployedHash:'',
+    prop_id:''
   },
-  accounts:[]
+  accounts:[],
+  backTobackend:{
+    id:'',
+    deployedHash:''
+  }
 }
 },
 async mounted(){
@@ -571,28 +585,66 @@ methods:{
     this.selected = { ...property}
   },
   openNFT(property){
-console.log(property)
-this.selected ={ ...property}
+    this.isPropEditing= true;
+    console.log(property)
+    this.selected ={ ...property}
+  },
+  async editPriceNft(){
+   console.log(this.selected);
+    const web3 =await loadweb3();
+        this.accounts = await web3.eth.getAccounts();
+        console.log(this.accounts)
+if(this.user.metamask_address == this.accounts[0])
+{
+          const contract = new web3.eth.Contract(abi,address);
+      const status = await contract.methods.connectMetamask(this.accounts[0]).call();
+      if(status==true){
+         const createProperty = await contract.methods.updateProperty(
+         this.selected.prop_id,this.selected.prop_price
+          ).send({from:this.accounts[0]})
+          const response = createProperty
+          console.log(response)
+          if(response.status == true){
+            this.fetched(`Price Updated`,'success');
+        const result = await axios.post(
+        `http://localhost:3000/set_price_Nft/${this.selected._id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          obj: this.selected.prop_price,
+        }
+      );
+      {
+        const res = result;
+        console.log(res);
+      }
+       this.$root.$emit("bv::toggle::collapse", "sidebar-2");
+       
+       await this.detail();
+          }
+          
+        }
+    }
   },
  async preview(){
     console.log(this.selected.prop_document);
-//     this.$swal.fire({
-//   position:'center',
-//   title: 'Sweet!',
-//   text: this.selected.prop_document,
-//   imageUrl: `https://ipfs.io/ipfs/${this.selected.prop_document}`,
-//   imageWidth: 400,
-//   imageHeight: 200,
-//   imageAlt: 'Custom image',
-// })
+ this.$swal.fire({
+  title: 'Sweet!',
+  text: 'Modal with a custom image.',
+  imageUrl: `http://localhost:3000/file/${this.selected.prop_document}`,
+  imageWidth: 400,
+  imageHeight: 200,
+  imageAlt: 'Custom image',
+})
 // this.link = `https://ipfs.io/ipfs/${this.selected.prop_document}`;
-// console.log(this.link);
- const url = `http://localhost:3000/file/${this.selected.prop_document}`
+console.log(this.link);
+//  const url = `http://localhost:3000/file/${this.selected.prop_document}`
 
-        const result = await fetch(url, {
-          method: "GET",
-        });
-        console.log(result)
+//         const result = await fetch(url, {
+//           method: "GET",
+//         });
+//         console.log(result)
   },
   selectFile(){
     this.selected.prop_document = this.$refs.file.files[0];
@@ -608,10 +660,50 @@ if(this.user.metamask_address == this.accounts[0])
           const contract = new web3.eth.Contract(abi,address);
       const status = await contract.methods.connectMetamask(this.accounts[0]).call();
       if(status==false){
-       const contractStatus = await contract.methods.createUser().send({from:this.accounts[0]})
-       console.log(contractStatus)
-       if(contractStatus==true){
-         const createProperty = await contract.methods.createProperty(
+
+          const swalWithBootstrapButtons =  this.$swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success mx-2',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+ swalWithBootstrapButtons.fire({
+  title: 'Create Your Account',
+  text: "Please create your account on our  Smart Contract",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Yes, create it!',
+  cancelButtonText: 'No, cancel!',
+  reverseButtons: true
+}).then(async(result) =>{
+  if(result.isConfirmed){
+  const status =await contract.methods.createUser().send({from:this.accounts[0]})
+  console.log(status);
+  return status
+  }
+}).then((result)=>{
+  if(result.status == true){
+    const swalWithBootstrapButtons =  this.$swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success mx-2',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+ swalWithBootstrapButtons.fire({
+  title: 'Deploy Property',
+  text: "Deploy your property as NFT on Blockchain",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Yes, Deploy it!',
+  cancelButtonText: 'No, cancel!',
+  reverseButtons: true
+}).then(async(result)=>{
+  if(result.isConfirmed){
+    const createProperty = await contract.methods.createProperty(
           property.prop_house_no,
           property.prop_area,
           property.prop_landmark,
@@ -622,31 +714,90 @@ if(this.user.metamask_address == this.accounts[0])
           property.adharNo,
           property.prop_surveyNumber
           ).send({from:this.accounts[0]})
-          const propertyNft = createProperty.events.mint_property.returnValues.id;
-          console.log(propertyNft)
+           this.backTobackend.id = createProperty.events.mint_property.returnValues.id;
+          this.backTobackend.deployedHash = createProperty.transactionHash;
             const result = await axios.post(
         `http://localhost:3000/addnft/${property._id}`,
         {
           headers: {
             "Content-Type": "application/json",
           },
-          obj: propertyNft,
+          obj: this.backTobackend,
         }
       );
       {
         const res = result;
         console.log(res);
-        // await this.detail();
+        this.fetched(`Property Deployed`,'success');
+        await this.detail();
       }
+  }
+})
+  }
+})
+
+
+
+
+
+        // /////////////////////////////////////
+      //  const contractStatus = await contract.methods.createUser().send({from:this.accounts[0]})
+      //  console.log(contractStatus)
+      //  if(contractStatus==true){
+      //    const createProperty = await contract.methods.createProperty(
+      //     property.prop_house_no,
+      //     property.prop_area,
+      //     property.prop_landmark,
+      //     property.prop_city,
+      //     property.prop_state,
+      //     property.prop_price,
+      //     property.prop_document,
+      //     property.adharNo,
+      //     property.prop_surveyNumber
+      //     ).send({from:this.accounts[0]})
+      //     const propertyNft = createProperty.events.mint_property.returnValues.id;
+      //     console.log(propertyNft)
+      //       const result = await axios.post(
+      //   `http://localhost:3000/addnft/${property._id}`,
+      //   {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     obj: propertyNft,
+      //   }
+      // );
+      // {
+      //   const res = result;
+      //   console.log(res);
+      //   // await this.detail();
+      // }
       // this.clearAll();
-      this.$root.$emit("bv::toggle::collapse", "sidebar-1");
+      // this.$root.$emit("bv::toggle::collapse", "sidebar-1");
 
          
       }
-        }
         else{
           console.log("already Account")
-          const createProperty = await contract.methods.createProperty(
+
+           const swalWithBootstrapButtons =  this.$swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success mx-2',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+ swalWithBootstrapButtons.fire({
+  title: 'Deploy Property',
+  text: "Deploy your property as NFT on Blockchain",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Yes, Deploy it!',
+  cancelButtonText: 'No, cancel!',
+  reverseButtons: true
+}).then(async(result)=>{
+  if(result.isConfirmed){
+    const createProperty = await contract.methods.createProperty(
           property.prop_house_no,
           property.prop_area,
           property.prop_landmark,
@@ -657,26 +808,28 @@ if(this.user.metamask_address == this.accounts[0])
           property.adharNo,
           property.prop_surveyNumber
           ).send({from:this.accounts[0]})
-          const propertyNft = createProperty.events.mint_property.returnValues.id;
-          console.log(propertyNft)
+          this.backTobackend.id = createProperty.events.mint_property.returnValues.id;
+          this.backTobackend.deployedHash = createProperty.transactionHash;
           const result = await axios.post(
         `http://localhost:3000/addnft/${property._id}`,
         {
           headers: {
             "Content-Type": "application/json",
           },
-          obj: propertyNft
+          obj: this.backTobackend
         }
       );
       {
         const res = result;
         console.log(res);
+        this.fetched(`Property Deployed`,'success');
         await this.detail();
       }
-      // this.clearAll();
-      // this.$root.$emit("bv::toggle::collapse", "sidebar-1");
+  }
+})
 
 
+          
         }
         }
         else{
@@ -723,6 +876,7 @@ if(this.user.metamask_address == this.accounts[0])
         const resp = await result.json()
         this.NFTproperties = resp;
         console.log(this.NFTproperties)
+        this.fetched(`You have ${this.NFTproperties.length} properties as NFT`,'success');
         }
         else{
           console.log("existing")
@@ -733,6 +887,7 @@ if(this.user.metamask_address == this.accounts[0])
         const resp = await result.json()
         this.properties = resp;
         console.log(this.properties)
+        this.fetched(`You have ${this.properties.length} properties`,'success');
         }
    },
 // isValidate(){
@@ -742,6 +897,10 @@ if(this.user.metamask_address == this.accounts[0])
 //     }
 // },
 clearAll(){
+  this.backTobackend = {
+    id:'',
+    deployedHash:''
+  },
   this.switchOpt = false,
   this.user={
   metamask_address:'',
@@ -764,9 +923,12 @@ clearAll(){
     prop_price:'',
     prop_surveyNumber:'',
     prop_document:'',
+    deployedHash:'',
+    prop_id:''
   }
 }
-}
+},
+mixins:[toast]
 }
 </script>
 

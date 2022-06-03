@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 v-if="properties.length">Hi, {{ user.name }} these are your Properties</h1>
-    <h1 v-else>Hi, {{ user.name }} You dont have any properties, you can buy from marketplace</h1>
+    <h1 v-if="properties.length">Hi, {{ user.name }} these are request for your Properties</h1>
+    <h1 v-if="NFTproperties.length">Hi, {{ user.name }} these are properties you have requested </h1>
     <b-form-checkbox v-model="switchOpt" @change="opt" name="check-button" switch>
             </b-form-checkbox>
     <b-sidebar id="sidebar-1" 
@@ -260,7 +260,7 @@ import loadweb3 from '../utils/getWeb3'
 import {abi,address} from '../utils/contractAbi'
 // import Loading from "vue-loading-overlay";
 // import "vue-loading-overlay/dist/vue-loading.css";
-
+import toast from "../mixins/toast"
 export default {
 name:'Notifications',
 // components:{Loading},
@@ -476,45 +476,8 @@ console.log(this.buyInfo)
   },
  async opt(){
   
-   await this.detail();
-  //  if(this.switchOpt==true){
-  //      const found = this.NFTproperties.map((x) => {
-  //         if(x.prop_id === this.notificationsToNft[0].prop_id){
-  //           return x["buyer_address"] = this.notificationsToNft[0].buyer_metamask_address
-  //         } 
-  //       })
-  //       console.log(found)
-  //       console.log(this.NFTproperties)
-  //       }
-  //       else{
-  //          const found = this.NFTproperties.map((x) => {
-  //         if(x.prop_id === this.notificationsForNft[0].prop_id){
-  //           return x["buyer_address"] = this.notificationsForNft[0].buyer_metamask_address
-  //         } 
-  //       })
-  //       console.log(found)
-  //       console.log(this.NFTproperties)
-  //       }
-   
+   await this.detail();   
   },
-// async getBuyer(){
-//    const url = `http://localhost:3000/seller_notifications/${this.user.metamask_address}`
-
-//         const result = await fetch(url, {
-//           method: "GET",
-//         });
-//         this.notificationsForNft = await result.json()
-//         console.log(this.notificationsForNft[0])
-// },
-// async getSeller(){
-//    const url = `http://localhost:3000/buyer_notifications/${this.user.metamask_address}`
-
-//         const result = await fetch(url, {
-//           method: "GET",
-//         });
-//         this.notificationsToNft = await result.json()
-//         console.log(this.notificationsToNft[0])
-// },
   etherescan(property){
     console.log(property)
   },
@@ -535,11 +498,7 @@ console.log(this.buyInfo)
         });
         this.notificationsToNft = await result.json()
         console.log(this.notificationsToNft)
-        if(!this.notificationsToNft==undefined)
-         {
-           console.log("You have not approched to any property")
-        console.log(this.properties);
-        }
+        this.fetched(`You have approched ${this.notificationsToNft.length} properties`,'success');
         }
         
         else
@@ -551,6 +510,7 @@ console.log(this.buyInfo)
         });
         this.notificationsForNft = await result.json()
         console.log(this.notificationsForNft)
+        this.fetched(`You have ${this.notificationsForNft.length} request for your properties`,'success')
         }
 
         
@@ -600,7 +560,8 @@ clearAll(){
     prop_document:'',
   }
 }
-}
+},
+mixins:[toast]
 }
 </script>
 

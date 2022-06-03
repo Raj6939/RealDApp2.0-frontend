@@ -24,7 +24,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property Area<span style="color: red">*</span>:
+              >Property Area :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -41,7 +41,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property No or House No<span style="color: red">*</span>:
+              >Property No or House No :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -58,7 +58,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property Landmark<span style="color: red">*</span>:
+              >Property Landmark :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -75,7 +75,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property City<span style="color: red">*</span>:
+              >Property City :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -92,7 +92,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property State<span style="color: red">*</span>:
+              >Property State :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -109,7 +109,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property Survey Number<span style="color: red">*</span>:
+              >Property Survey Number :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -126,7 +126,7 @@
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Property Price<span style="color: red">*</span>:
+              >Property Price :
             </label>
           </div>
           <div class="col-lg-9 col-md-9 px-0">
@@ -149,7 +149,7 @@
         >
           <div class="text-left col-lg-3 col-md-3 text-left">
             <label for="propertyName" class="col-form-label"
-              >Preview Document<span style="color: red">*</span>:
+              >Preview Document :
             </label>
           </div>
           <button
@@ -227,6 +227,7 @@
 import axios from 'axios'
 import loadweb3 from '../utils/getWeb3'
 import {abi,address} from '../utils/contractAbi'
+import toast from "../mixins/toast"
 export default {
 name:'MarketPlace',
   data(){
@@ -331,6 +332,25 @@ if(this.user.metamask_address == this.accounts[0])
       const status = await contract.methods.connectMetamask(this.accounts[0]).call();
       console.log(status)
       if(status==false){
+//////////////////////////////
+const swalWithBootstrapButtons =  this.$swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success mx-2',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+ swalWithBootstrapButtons.fire({
+  title: 'Create Your Account',
+  text: "Please create your account on our  Smart Contract",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Yes, create it!',
+  cancelButtonText: 'No, cancel!',
+  reverseButtons: true
+}).then(async(result) => {
+  if (result.isConfirmed) {
        const contractStatus = await contract.methods.createUser().send({from:this.accounts[0]})
        console.log(contractStatus)
        if(contractStatus==true){
@@ -355,11 +375,31 @@ if(this.user.metamask_address == this.accounts[0])
       }
         
       }
-        }
-        else{
-      console.log("already have account");
 
-  this.notify.seller_metamask_address =  property.metamask_address;
+  } 
+})
+// /////////////////////////////////////////
+       }
+        else{
+      const swalWithBootstrapButtons =  this.$swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success mx-2',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+ swalWithBootstrapButtons.fire({
+  title: 'Inform Seller',
+  text: "Inform Seller about you",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Yes,!',
+  cancelButtonText: 'No,cancel!',
+  reverseButtons: true
+}).then(async(result)=>{
+  if(result.isConfirmed){
+ this.notify.seller_metamask_address =  property.metamask_address;
   this.notify.prop_id = property.prop_id;
   this.notify.buyer_email = this.user.email;
   this.notify.buyer_name = this.user.name;
@@ -379,37 +419,17 @@ if(this.user.metamask_address == this.accounts[0])
         const res = result;
         console.log(res);
       }
-
-        }
+  }
+})
+}
         }
         else{
-          alert("Please change your metamask wallet address");
+          this.$swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Please change your metamask wallet address!',
+        })
         }
- 
- 
- 
- 
- 
- // this.notify.seller_metamask_address =  property.metamask_address;
-  // this.notify.prop_id = property.prop_id;
-  // this.notify.buyer_email = this.user.email;
-  // this.notify.buyer_name = this.user.name;
-  // this.notify.buyer_metamask_address = this.user.metamask_address;
-  
-  // console.log(this.notify);
-  // const result = await axios.post(
-  //       `http://localhost:3000/transfer_property/`,
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         obj: this.notify,
-  //       }
-  //     );
-  //     {
-  //       const res = result;
-  //       console.log(res);
-  //     }
   },
   login(){
       window.location.href =
@@ -422,8 +442,7 @@ if(this.user.metamask_address == this.accounts[0])
         }
         let result = await axios.get(`http://localhost:3000/marketplace`);
         this.properties=  result.data;
-        
-        console.log(this.properties);
+        this.fetched(`Fetched ${this.properties.length} properties`,'success')
    },
    clearAll(){
   this.switchOpt = false,
@@ -449,7 +468,8 @@ if(this.user.metamask_address == this.accounts[0])
     prop_document:'',
   }
 }
-}
+},
+mixins:[toast]
 }
 </script>
 
