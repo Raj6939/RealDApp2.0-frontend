@@ -93,7 +93,6 @@ name:'App',
 return{
     user:{},
     logdedIn:false
- 
 }
 },
 mounted(){

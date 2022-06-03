@@ -103,27 +103,12 @@ export default {
       const contract = new web3.eth.Contract(abi, address);
       await contract.methods.connectMetamask(this.accounts[0]).call();
 	    }
-      // const acc =  await res.json();
-      // console.log(acc);
-      // await contract.methods.createProperty(1, '5', 'abc', 'abc', 'abc', 100000, 'abc').send({from:accounts[0]});
-      // // await contract.methods.sellProperty(accounts[0],'0xc47f5B4C41e6dF65B60A6d4c36Cf6e8a2310ae53',1).send({from:accounts[0]});
-      // await contract.methods.buyProperty('0x17c416329270CE5B2b791F7BdbA384895dcA74Ea',1).send({from:accounts[0],value:'100000000'});
-      // const bal = await contract.methods.getBalance(accounts[0]).call();
-      // console.log(bal);
-      //         console.log(this.accounts[0]);
-      // this.selected.metamask_address=this.accounts[0]
-      // console.log(this.selected.metamask_address)
-      // let result = await axios.get(`http://localhost:3000/get_user/${this.accounts[0]}`);
-      // console.log(result.data)
-      // get_user_approved
       let url;
-      url = `http://localhost:3000/get_user_approved/${this.accounts[0]}`;
+      url = `${this.$config.BASE_URL}get_user_approved/${this.accounts[0]}`;
       const result = await fetch(url, {
         method: "GET",
       });
-      // console.log(result)
       const resp = await result.json();
-      // console.log(resp)
       this.user = resp;
       console.log(this.user)
     },
@@ -142,7 +127,7 @@ export default {
 
       
       let method = "POST";
-      let url = `http://localhost:3000/create_user`;
+      let url = `${this.$config.BASE_URL}create_user`;
       let headers = {
         "Content-Type": "application/json",
       };
@@ -151,7 +136,6 @@ export default {
         method,
         header: headers,
       });
-      // const res= await result.json();
       const res = result;
       console.log(res);
       localStorage.setItem("user", JSON.stringify(res.data));
@@ -206,7 +190,7 @@ export default {
       this.signedData.msg = message;
       console.log(this.signedData);
       let method = "POST";
-      let url = `http://localhost:3000/sign_in`;
+      let url = `${this.$config.BASE_URL}sign_in`;
       let headers = {
         "Content-Type": "application/json",
       };

@@ -136,22 +136,6 @@
                   >
                 </div>
               </div>
-              <div class="enquireBt" v-if="properties.approved">
-                <button
-                  v-on:click="addProductToCart(properties)"
-                  class="btn btn-primary"
-                  style="width: 200px"
-                >
-                  Deploy Property
-                </button>
-              </div>
-              <div class="enquireBt" v-else>
-                <button
-                  class="btn btn-white"
-                  style="width: 200px"
-                  disabled
-                ></button>
-              </div>
               <div class="edit" v-if="properties.approved == false">
                 <b-icon
                   icon="pencil-square"
@@ -191,50 +175,25 @@ export default {
     await this.detail();
   },
   methods: {
-    //   selectFile(){
-    //     this.selected.prop_document = this.$refs.file.files[0];
-    //     console.log(this.selected.prop_document);
-    //   },
-    async preview() {
-      console.log(this.selected.prop_document);
-      // const result = await axios.get(`http://localhost:3000/file/${this.selected.prop_document}`);
-      // console.log(result);
-      this.$swal.fire({
-        position: "center",
-        title: "Sweet!",
-        text: this.selected.prop_document,
-        imageUrl: `http://localhost:3000/file/${this.selected.prop_document}`,
-        imageWidth: 400,
-        imageHeight: 200,
-        imageAlt: "Custom image",
-      });
-    },
-    addProductToCart(prop) {
-      alert(JSON.stringify(prop));
-    },
     editProp(prop) {
       this.isPropEditing = true;
       this.$root.$emit("bv::toggle::collapse", "sidebar-right");
-      // this.$root.$emit("callClearFromProject");'
       this.selected = { ...prop };
     },
 
     async detail() {
-      let result = await axios.get(`http://localhost:3000/unapproved_users`);
+      let result = await axios.get(`${this.$config.BASE_URL}unapproved_users`);
       console.log(result.data);
       this.allUsers = result.data;
-      console.log(this.allUsers)
-      console.log(this.selected);
     },
     openSlider() {
       this.isPropEditing = false;
       this.clearAll();
-      //  this.$root.$emit("bv::toggle::collapse", "sidebar-right");
     },
     async saveProperty() {
       console.log(this.selected);
       const result = await axios.post(
-        `http://localhost:3000/approve_user_moderator/${this.selected.metamask_address}`,
+        `${this.$config.BASE_URL}approve_user_moderator/${this.selected.metamask_address}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -242,33 +201,19 @@ export default {
           obj: this.selected,
         }
       );
-      {
         const res = result;
         console.log(res);
-        // await this.detail();
-      }
-      // this.clearAll();
       this.$root.$emit("bv::toggle::collapse", "sidebar-right");
-      // this.$root.$emit("callClearFromProject");
       await this.detail();
     },
-    // isValidate(){
-    //     if(!this.selected.propName){
-    //         alert("please fill the info")
-    //         return false
-    //     }
-    // },
     clearAll() {
       this.selected = {
         metamask_address: "",
-        prop_area: "",
-        prop_house_no: "",
-        prop_landmark: "",
-        prop_city: "",
-        prop_state: "",
-        prop_price: "",
-        prop_surveyNumber: "",
-        prop_document: "",
+        name: "",
+        mobile: "",
+        email: "",
+        adharcardNo: "",
+        approved: "",
       }
     },
   },

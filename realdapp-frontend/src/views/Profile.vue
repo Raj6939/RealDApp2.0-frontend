@@ -543,9 +543,7 @@ async mounted(){
     window.location.href =
         window.location.origin + "/";
   }
-  //  await invokeMetamask()
   await this.detail();
-  // await this.getBuyer();
 },
 methods:{
  async opt(){
@@ -561,7 +559,7 @@ methods:{
    this.selected.prop_price= this.prop_price;
    console.log(this.selected);
    const result = await axios.post(
-        `http://localhost:3000/set_prop_price/${this.selected._id}`,
+        `${this.$config.BASE_URL}set_prop_price/${this.selected._id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -613,7 +611,7 @@ if(this.user.metamask_address == this.accounts[0])
             this.$root.$emit("bv::toggle::collapse", "sidebar-2");
             this.fetched(`Price Updated`,'success');
         const result = await axios.post(
-        `http://localhost:3000/set_price_Nft/${this.selected._id}`,
+        `${this.$config.BASE_URL}set_price_Nft/${this.selected._id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -637,7 +635,7 @@ if(this.user.metamask_address == this.accounts[0])
     this.$swal.fire({
   position:'center',
   title: `Document of ${this.selected.prop_landmark} house no ${this.selected.prop_house_no}`,
-  imageUrl: `http://localhost:3000/file/${this.selected.prop_document}`,
+  imageUrl: `${this.$config.BASE_URL}file/${this.selected.prop_document}`,
   imageWidth: 400,
   imageHeight: 300,
   imageAlt: 'Custom image',
@@ -715,7 +713,7 @@ if(this.user.metamask_address == this.accounts[0])
            this.backTobackend.id = createProperty.events.mint_property.returnValues.id;
           this.backTobackend.deployedHash = createProperty.transactionHash;
             const result = await axios.post(
-        `http://localhost:3000/addnft/${property._id}`,
+        `${this.$config.BASE_URL}addnft/${property._id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -732,47 +730,7 @@ if(this.user.metamask_address == this.accounts[0])
   }
 })
   }
-})
-
-
-
-
-
-        // /////////////////////////////////////
-      //  const contractStatus = await contract.methods.createUser().send({from:this.accounts[0]})
-      //  console.log(contractStatus)
-      //  if(contractStatus==true){
-      //    const createProperty = await contract.methods.createProperty(
-      //     property.prop_house_no,
-      //     property.prop_area,
-      //     property.prop_landmark,
-      //     property.prop_city,
-      //     property.prop_state,
-      //     property.prop_price,
-      //     property.prop_document,
-      //     property.adharNo,
-      //     property.prop_surveyNumber
-      //     ).send({from:this.accounts[0]})
-      //     const propertyNft = createProperty.events.mint_property.returnValues.id;
-      //     console.log(propertyNft)
-      //       const result = await axios.post(
-      //   `http://localhost:3000/addnft/${property._id}`,
-      //   {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     obj: propertyNft,
-      //   }
-      // );
-      // {
-      //   const res = result;
-      //   console.log(res);
-      //   // await this.detail();
-      // }
-      // this.clearAll();
-      // this.$root.$emit("bv::toggle::collapse", "sidebar-1");
-
-         
+})         
       }
         else{
           console.log("already Account")
@@ -809,7 +767,7 @@ if(this.user.metamask_address == this.accounts[0])
           this.backTobackend.id = createProperty.events.mint_property.returnValues.id;
           this.backTobackend.deployedHash = createProperty.transactionHash;
           const result = await axios.post(
-        `http://localhost:3000/addnft/${property._id}`,
+        `${this.$config.BASE_URL}addnft/${property._id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -833,41 +791,19 @@ if(this.user.metamask_address == this.accounts[0])
         else{
           alert("Please change your metamask wallet address");
         }
-
-    // alert(JSON.stringify(prop))
   },
   editProp(prop){
     this.$root.$emit("bv::toggle::collapse", "sidebar-1");
     this.clearAll()
     this.selected = { ...prop }
-    // this.$root.$emit("bv::toggle::collapse", "sidebar-1");
   },
 
   async detail(){
-        this.user = JSON.parse(localStorage.getItem("user"));
-        console.log(this.user.metamask_address)
-        // const web3 =await loadweb3();
-        // this.accounts = await web3.eth.getAccounts();
-        // const contract = new web3.eth.Contract(abi,address);
-        // await contract.methods.connectMetamask(this.accounts[0]).call();
-        // const acc =  await res.json();
-        // console.log(acc);
-        // await contract.methods.createProperty(1, '5', 'abc', 'abc', 'abc', 100000, 'abc').send({from:accounts[0]});
-        // // await contract.methods.sellProperty(accounts[0],'0xc47f5B4C41e6dF65B60A6d4c36Cf6e8a2310ae53',1).send({from:accounts[0]});
-        // await contract.methods.buyProperty('0x17c416329270CE5B2b791F7BdbA384895dcA74Ea',1).send({from:accounts[0],value:'100000000'});
-        // const bal = await contract.methods.getBalance(accounts[0]).call();
-        // console.log(bal);
-        // this.selected.metamask_address=this.accounts[0]
-        // console.log(this.selected.metamask_address)
-        // let result = await axios.get(`http://localhost:3000/get_user/${this.accounts[0]}`);
-        // console.log(result.data)
-        // get_user_approved
-     
-     
+        this.user = JSON.parse(localStorage.getItem("user"));    
       let url;
         if(this.switchOpt==true){
           console.log("deployed")
-          url = `http://localhost:3000/deployed_property_get/${this.user.metamask_address}`
+          url = `${this.$config.BASE_URL}deployed_property_get/${this.user.metamask_address}`
           const result = await fetch(url, {
           method: "GET",
         });
@@ -878,7 +814,7 @@ if(this.user.metamask_address == this.accounts[0])
         }
         else{
           console.log("existing")
-          url = `http://localhost:3000/existing_property_get/${this.user.metamask_address}`;
+          url = `${this.$config.BASE_URL}existing_property_get/${this.user.metamask_address}`;
         const result = await fetch(url, {
           method: "GET",
         });
@@ -888,12 +824,6 @@ if(this.user.metamask_address == this.accounts[0])
         this.fetched(`You have ${this.properties.length} properties to deploy`,'success');
         }
    },
-// isValidate(){
-//     if(!this.selected.propName){
-//         alert("please fill the info")
-//         return false
-//     }
-// },
 clearAll(){
   this.backTobackend = {
     id:'',

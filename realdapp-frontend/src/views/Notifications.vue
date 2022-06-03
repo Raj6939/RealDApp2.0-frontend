@@ -258,12 +258,9 @@
 import axios from 'axios'
 import loadweb3 from '../utils/getWeb3'
 import {abi,address} from '../utils/contractAbi'
-// import Loading from "vue-loading-overlay";
-// import "vue-loading-overlay/dist/vue-loading.css";
 import toast from "../mixins/toast"
 export default {
 name:'Notifications',
-// components:{Loading},
 data(){
 return{
   sellInfo:{
@@ -324,21 +321,16 @@ async mounted(){
     window.location.href =
         window.location.origin + "/";
   }
-  //  await invokeMetamask()
   await this.detail();
-  // await this.getBuyer();
 },
 methods:{
 async initiateBuy(){
-console.log(this.buyInfo)
-
     const web3 =await loadweb3();
         this.accounts = await web3.eth.getAccounts();
 if(this.user.metamask_address == this.accounts[0]){
  const contract = new web3.eth.Contract(abi,address);
- console.log(contract)
 const result = await axios.post(
-        `http://localhost:3000/get_eth`,
+        `${this.$config.BASE_URL}get_eth`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -346,11 +338,8 @@ const result = await axios.post(
           obj: this.buyInfo.prop_id,
         }
       );
-        const res = result;
-        console.log(res.data);
-        
+        const res = result;        
         this.weiPrice = res.data*1000000000000000000
-        console.log(this.weiPrice)
          const swalWithBootstrapButtons =  this.$swal.mixin({
   customClass: {
     confirmButton: 'btn btn-success mx-2',
@@ -373,7 +362,6 @@ const result = await axios.post(
           this.buyInfo.seller_metamask_address,
           this.buyInfo.prop_id
           ).send({from:this.accounts[0],value:this.weiPrice})
-          console.log(approval.status);
           if(approval.status==true)
           {
             this.$root.$emit("bv::toggle::collapse", "sidebar-1");
@@ -382,7 +370,7 @@ const result = await axios.post(
       this.transfertoback.prop_id = this.buyInfo.prop_id
    
       const resp = await axios.post(
-        `http://localhost:3000/transfer_property`,
+        `${this.$config.BASE_URL}transfer_property`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -390,11 +378,8 @@ const result = await axios.post(
           obj: this.transfertoback
         }
       );
-      {
-        const res = resp;
-        console.log(res.data);
+        console.log(resp)
         await this.detail();
-      }
      }
      else{
        this.fetched(`property not trasnfered`,'error')
@@ -420,12 +405,11 @@ const result = await axios.post(
           this.sellInfo.buyer_metamask_address,
           this.sellInfo.prop_id
           ).send({from:this.accounts[0]})
-          console.log(approval.status);
           if(approval.status ==  true){
           this.$root.$emit("bv::toggle::collapse", "sidebar-2");
           this.fetched(`Approved to ${this.sellInfo.buyer_metamask_address}`,'success');
            const result = await axios.post(
-        `http://localhost:3000/property_approval`,
+        `${this.$config.BASE_URL}property_approval`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -456,12 +440,11 @@ async reject(){
           this.sellInfo.prop_id
           ).send({from:this.accounts[0]})
           console.log(approval.status);
-
              if(approval.status ==  true){
         this.$root.$emit("bv::toggle::collapse", "sidebar-2");
         this.fetched(`Rejected to ${this.sellInfo.buyer_metamask_address}`,'success');
            const result = await axios.post(
-        `http://localhost:3000/reject_approval`,
+        `${this.$config.BASE_URL}reject_approval`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -483,59 +466,41 @@ async reject(){
   },
   openSellSlider(property){
 this.sellInfo = {...property}
-console.log(this.sellInfo)
   },
     buySlider(property){
 this.buyInfo = {...property}
-console.log(this.buyInfo)
   },
  async opt(){
   
    await this.detail();   
-  },
-  etherescan(property){
-    console.log(property)
-  },
-  selectFile(){
-    this.selected.prop_document = this.$refs.file.files[0];
-    console.log(this.selected.prop_document);
-
   },
   async detail(){
         this.user = JSON.parse(localStorage.getItem("user"));
         console.log(this.user.metamask_address);
      
         if(this.switchOpt == true){
-          const url = `http://localhost:3000/buyer_notifications/${this.user.metamask_address}`
+          const url = `${this.$config.BASE_URL}buyer_notifications/${this.user.metamask_address}`
 
         const result = await fetch(url, {
           method: "GET",
         });
         this.notificationsToNft = await result.json()
-        console.log(this.notificationsToNft)
         this.fetched(`You have approched ${this.notificationsToNft.length} properties`,'success');
         }
         
         else
         {
-           const url = `http://localhost:3000/seller_notifications/${this.user.metamask_address}`
+           const url = `${this.$config.BASE_URL}seller_notifications/${this.user.metamask_address}`
 
         const result = await fetch(url, {
           method: "GET",
         });
         this.notificationsForNft = await result.json()
-        console.log(this.notificationsForNft)
         this.fetched(`You have ${this.notificationsForNft.length} request for your properties`,'success')
         }
 
         
    },
-// isValidate(){
-//     if(!this.selected.propName){
-//         alert("please fill the info")
-//         return false
-//     }
-// },
 clearAll(){
    this.sellInfo={
     buyer_metamask_address:'',

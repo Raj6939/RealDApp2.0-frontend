@@ -251,7 +251,7 @@ methods:{
     this.$swal.fire({
   position:'center',
   title: `Document of ${this.selected.prop_landmark} house no ${this.selected.prop_house_no}`,
-  imageUrl: `http://localhost:3000/file/${this.selected.prop_document}`,
+  imageUrl: `${this.$config.BASE_URL}file/${this.selected.prop_document}`,
   imageWidth: 400,
   imageHeight: 300,
   imageAlt: 'Custom image',
@@ -341,7 +341,7 @@ const swalWithBootstrapButtons =  this.$swal.mixin({
         this.notify.buyer_metamask_address = this.user.metamask_address;
         console.log(this.notify);
             const result = await axios.post(
-        `http://localhost:3000/request_to_transfer`,
+        `${this.$config.BASE_URL}request_to_transfer`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -352,6 +352,7 @@ const swalWithBootstrapButtons =  this.$swal.mixin({
       {
         const res = result;
         console.log(res);
+        this.fetched("Notified to Seller",'success')
       }
         
       }
@@ -386,7 +387,7 @@ const swalWithBootstrapButtons =  this.$swal.mixin({
   
   console.log(this.notify);
   const result = await axios.post(
-        `http://localhost:3000/request_to_transfer/`,
+        `${this.$config.BASE_URL}request_to_transfer/`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -397,6 +398,7 @@ const swalWithBootstrapButtons =  this.$swal.mixin({
       {
         const res = result;
         console.log(res);
+        this.fetched("Notified to Seller",'success')
       }
   }
 })
@@ -418,7 +420,7 @@ const swalWithBootstrapButtons =  this.$swal.mixin({
         this.user = JSON.parse(localStorage.getItem("user"));
         this.logdedIn = true;
         }
-        let result = await axios.get(`http://localhost:3000/marketplace`);
+        let result = await axios.get(`${this.$config.BASE_URL}marketplace`);
         this.properties=  result.data;
         this.fetched(`Fetched ${this.properties.length} properties`,'success')
    },
