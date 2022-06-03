@@ -605,6 +605,7 @@ if(this.user.metamask_address == this.accounts[0])
           const response = createProperty
           console.log(response)
           if(response.status == true){
+            this.$root.$emit("bv::toggle::collapse", "sidebar-2");
             this.fetched(`Price Updated`,'success');
         const result = await axios.post(
         `http://localhost:3000/set_price_Nft/${this.selected._id}`,
@@ -619,7 +620,6 @@ if(this.user.metamask_address == this.accounts[0])
         const res = result;
         console.log(res);
       }
-       this.$root.$emit("bv::toggle::collapse", "sidebar-2");
        
        await this.detail();
           }
@@ -629,22 +629,15 @@ if(this.user.metamask_address == this.accounts[0])
   },
  async preview(){
     console.log(this.selected.prop_document);
- this.$swal.fire({
-  title: 'Sweet!',
-  text: 'Modal with a custom image.',
+    this.$swal.fire({
+  position:'center',
+  title: `Document of ${this.selected.prop_landmark} house no ${this.selected.prop_house_no}`,
   imageUrl: `http://localhost:3000/file/${this.selected.prop_document}`,
   imageWidth: 400,
-  imageHeight: 200,
+  imageHeight: 300,
   imageAlt: 'Custom image',
+  confirmButtonColor:'teal',
 })
-// this.link = `https://ipfs.io/ipfs/${this.selected.prop_document}`;
-console.log(this.link);
-//  const url = `http://localhost:3000/file/${this.selected.prop_document}`
-
-//         const result = await fetch(url, {
-//           method: "GET",
-//         });
-//         console.log(result)
   },
   selectFile(){
     this.selected.prop_document = this.$refs.file.files[0];

@@ -170,21 +170,7 @@
         <div class="col-md-4 py-2" v-for="property in properties"
         :key="property._id">
           <div class="card h-100">
-            <div>
-            <!-- <img src="../assets/prop1.jpeg" class="py-2" alt="Kitten" height="100" width="200" title="RealDApp2.0"> -->
-             <b-carousel class="story-carousel py-2" controls indicators :interval="0">
-                <b-carousel-slide v-for="n in 4" :text="'RealDApp ' + n" :key="n">
-                  <template #img>
-                    <b-img class="imgslide"
-                      fluid-grow
-                      
-                      :src="'https://picsum.photos/1024/480/?image=' + n"
-                      alt="Random image"
-                    ></b-img>
-                  </template>
-                </b-carousel-slide>
-              </b-carousel>
-             </div>
+          
             <div class="card-body d-flex flex-column align-items-center">
               <h5 class="card-title">{{property.prop_landmark}} </h5>
               <p class="card-text" style="font-weight:bold">{{property.prop_area}}sq.ft</p>
@@ -262,23 +248,15 @@ return{
 methods:{
    async preview(){
     console.log(this.selected.prop_document);
-//     this.$swal.fire({
-//   position:'center',
-//   title: 'Sweet!',
-//   text: this.selected.prop_document,
-//   imageUrl: `https://ipfs.io/ipfs/${this.selected.prop_document}`,
-//   imageWidth: 400,
-//   imageHeight: 200,
-//   imageAlt: 'Custom image',
-// })
-// this.link = `https://ipfs.io/ipfs/${this.selected.prop_document}`;
-// console.log(this.link);
- const url = `http://localhost:3000/file/${this.selected.prop_document}`
-
-        const result = await fetch(url, {
-          method: "GET",
-        });
-        console.log(result)
+    this.$swal.fire({
+  position:'center',
+  title: `Document of ${this.selected.prop_landmark} house no ${this.selected.prop_house_no}`,
+  imageUrl: `http://localhost:3000/file/${this.selected.prop_document}`,
+  imageWidth: 400,
+  imageHeight: 300,
+  imageAlt: 'Custom image',
+  confirmButtonColor:'teal',
+})
   },
   openNFT(property){
 console.log(property)
@@ -323,7 +301,10 @@ this.selected ={ ...property}
  async enquire(property){
   console.log(this.user)
   console.log(property)
- 
+    if(this.user.approved==true){
+      if(this.user.metamask_address == property.metamask_address){
+        return this.fetched(`You are owner of this property`,'error')
+      }
      const web3 =await loadweb3();
         this.accounts = await web3.eth.getAccounts();
 if(this.user.metamask_address == this.accounts[0])
@@ -332,7 +313,6 @@ if(this.user.metamask_address == this.accounts[0])
       const status = await contract.methods.connectMetamask(this.accounts[0]).call();
       console.log(status)
       if(status==false){
-//////////////////////////////
 const swalWithBootstrapButtons =  this.$swal.mixin({
   customClass: {
     confirmButton: 'btn btn-success mx-2',
@@ -378,7 +358,6 @@ const swalWithBootstrapButtons =  this.$swal.mixin({
 
   } 
 })
-// /////////////////////////////////////////
        }
         else{
       const swalWithBootstrapButtons =  this.$swal.mixin({
@@ -424,12 +403,11 @@ const swalWithBootstrapButtons =  this.$swal.mixin({
 }
         }
         else{
-          this.$swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Please change your metamask wallet address!',
-        })
+          this.fetched(`Please change your metamask wallet address!`,'error')
         }
+ }else{
+   this.fetched(`You have not done KYC yet`,'error')
+ }
   },
   login(){
       window.location.href =

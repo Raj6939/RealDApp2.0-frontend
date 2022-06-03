@@ -7,7 +7,7 @@
     <b-sidebar id="sidebar-1" 
     shadow width="50%" 
     right
-    :title="isPropEditing ? 'Set Price' : 'Preview Details'"
+    title="Buy this Property"
     >
       <div class="px-3 py-2">
         <div class="row g-3 align-items-center w-100 mt-4" id="titles">
@@ -346,21 +346,38 @@ const result = await axios.post(
           obj: this.buyInfo.prop_id,
         }
       );
-      {
         const res = result;
         console.log(res.data);
         
         this.weiPrice = res.data*1000000000000000000
         console.log(this.weiPrice)
-      }
+         const swalWithBootstrapButtons =  this.$swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success mx-2',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
 
- const approval = await contract.methods.buyProperty(
+ swalWithBootstrapButtons.fire({
+  title: `You need to pay ${res.data} ethers`,
+  text: "Are you sure to proceed!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Yes, proceed!',
+  cancelButtonText: 'No, cancel!',
+  reverseButtons: true
+}).then(async(result)=>{
+  if(result.isConfirmed){
+    const approval = await contract.methods.buyProperty(
           this.buyInfo.seller_metamask_address,
           this.buyInfo.prop_id
           ).send({from:this.accounts[0],value:this.weiPrice})
           console.log(approval.status);
           if(approval.status==true)
           {
+            this.$root.$emit("bv::toggle::collapse", "sidebar-1");
+            this.fetched(`property trasnfered to you`,'success');
       this.transfertoback.buyer_metamask_address = this.buyInfo.buyer_metamask_address;  
       this.transfertoback.prop_id = this.buyInfo.prop_id
    
@@ -376,13 +393,18 @@ const result = await axios.post(
       {
         const res = resp;
         console.log(res.data);
+        await this.detail();
       }
      }
      else{
-       console.log("property not trasnfered")
+       this.fetched(`property not trasnfered`,'error')
      }
+  }
+})
 
-}  
+} else{
+  this.fetched(`Use metamask address linked to RealDapp`,'error')
+}
 
 },
  async approveForSell(){
@@ -400,6 +422,8 @@ const result = await axios.post(
           ).send({from:this.accounts[0]})
           console.log(approval.status);
           if(approval.status ==  true){
+          this.$root.$emit("bv::toggle::collapse", "sidebar-2");
+          this.fetched(`Approved to ${this.sellInfo.buyer_metamask_address}`,'success');
            const result = await axios.post(
         `http://localhost:3000/property_approval`,
         {
@@ -412,20 +436,15 @@ const result = await axios.post(
       {
         const res = result;
         console.log(res);
+        await this.detail();
        
       }
   }
 }   
-
     }
     else{
-      console.log("Property is already Approved");
+      this.fetched(`Property is already Approved`);
     }
-      
-
-    
-
-    
   },
 async reject(){
   if(this.sellInfo.approved_status== true){
@@ -439,6 +458,8 @@ async reject(){
           console.log(approval.status);
 
              if(approval.status ==  true){
+        this.$root.$emit("bv::toggle::collapse", "sidebar-2");
+        this.fetched(`Rejected to ${this.sellInfo.buyer_metamask_address}`,'success');
            const result = await axios.post(
         `http://localhost:3000/reject_approval`,
         {
@@ -451,26 +472,20 @@ async reject(){
       {
         const res = result;
         console.log(res);
-       
+        await this.detail();
       }
   }
-          
-          // const propertyNft = approval.events.mint_property.returnValues.id;  
 }
   }else{
-    console.log("Not Yet Approved")
+    this.fetched("Not Yet Approved")
   }
 
   },
   openSellSlider(property){
-// this.sellInfo.buyer_metamask_address = property.buyer_metamask_address;
-//     this.sellInfo.buyer_email = property.buyer_email;
 this.sellInfo = {...property}
 console.log(this.sellInfo)
   },
     buySlider(property){
-// this.sellInfo.buyer_metamask_address = property.buyer_metamask_address;
-//     this.sellInfo.buyer_email = property.buyer_email;
 this.buyInfo = {...property}
 console.log(this.buyInfo)
   },

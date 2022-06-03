@@ -62,6 +62,8 @@ import loadweb3 from "../utils/getWeb3";
 import { abi, address } from "../utils/contractAbi";
 import allApi from "../mixins/allApi";
 import toast from "../mixins/toast"
+import SimpleVueValidation from "simple-vue-validator";
+import {validText,isNum} from "../mixins/validation"
 // import web3 from "web3"
 export default {
   name: "Onboarding",
@@ -126,7 +128,9 @@ export default {
       console.log(this.user)
     },
     async signUp() {
-	    console.log("hi");
+      if(this.everythingIsFilled() !== true){
+        return this.fetched(this.everythingIsFilled(),'error')
+      }
       const web3 = await loadweb3();
       this.accounts = await web3.eth.getAccounts();
       this.selected.metamask_address = this.accounts[0];
@@ -150,15 +154,47 @@ export default {
       // const res= await result.json();
       const res = result;
       console.log(res);
-      localStorage.setItem("user", JSON.stringify(this.selected));
+      localStorage.setItem("user", JSON.stringify(res.data));
       window.location.href =
               window.location.origin + "/home";
+    
+    },
+    everythingIsFilled(){
+      if(!this.selected.name || !this.selected.email || !this.selected.mobile || !this.selected.adharcardNo){
+        return "Please Fill all the Fields"
+      }
+      if(!validText(this.selected.name)){
+        return "Please enter valid name"
+      }
+      if(!this.isEmail(this.selected.email)){
+       
+        return "Please enter valid email address"
+      }
+      if(this.selected.mobile.length>10 || this.selected.mobile.length<10){
+        
+        return "Mobile Number should be 10 digit"
+      }
+      if(!isNum(this.selected.adharcardNo)||this.selected.adharcardNo.length>12 || this.selected.adharcardNo.length<12){
+     
+        return "Adhar number should be 12 digit";
+      } 
+      return true
+    },
+    isEmail(email){
+      const Validator = SimpleVueValidation.Validator;
+      if(Validator.value(email).required().email()._messages[0]===undefined){
+        return true;
+      }else{
+        return false
+      }
     },
     async invokeMetamask() {
       const web3 = await loadweb3();
       this.accounts = await web3.eth.getAccounts();
       this.login.metamask_address = this.accounts[0];
-
+      if(!isNum(this.login.adharcardNo) ||this.login.adharcardNo.length<12 ||this.login.adharcardNo.length>12){
+        return this.fetched(`Please Enter Valid Adhar Number`,'error')
+      }
       // signing the message 
       const message = this.login.adharcardNo;
       console.log(message)

@@ -47,7 +47,7 @@
             <span class="footer-title">Company</span>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Home</a>
+            <a class="nav-link" href="/home">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">About us</a>

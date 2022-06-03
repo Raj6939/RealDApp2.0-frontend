@@ -37,7 +37,7 @@
                         
                         <img src="../assets/seller.png" alt="" class="services__img">
                         <h3 class="services__title">Link Your Profile</h3>
-                        <p class="services__description">Link your profile by sign up on RealDApp and KYC at moderator office</p>
+                        <p class="services__description">Link your profile with your properties by sign up on RealDApp and KYC at Moderator office</p>
                     </div>
 
                     <div class="services__content">
