@@ -19,7 +19,7 @@
                     <div class="about__data">
                         <!-- <span class="section-subtitle about__initial">About us</span> -->
                         <h2 class="section-title about__initial">Buy Real Ownership</h2>
-                        <p class="about__description">Buy ans sell your real estate assets on decentralized platform</p>
+                        <p class="about__description">Buy and sell your real estate assets on decentralized platform</p>
                         <a href="/marketplace" class="button">Explore Marketplace</a>
                     </div>
 

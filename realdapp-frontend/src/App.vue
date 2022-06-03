@@ -11,10 +11,10 @@
         <b-nav-item  href="/about">About</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto"  >
-        <b-nav-form>
+        <!-- <b-nav-form>
           <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
           <b-button v-b-tooltip.hover title="Search Properties" size="sm" class="my-2 my-sm-0" type="submit" variant="info">Search</b-button>
-        </b-nav-form>
+        </b-nav-form> -->
         <b-nav-item-dropdown right style="padding-left:10px" v-if="logdedIn==true">
           <template #button-content>
           <b-icon icon="person-fill" variant="info"
@@ -37,7 +37,8 @@
         <ul class="nav flex-column">
           <li class="nav-item" id="logoandtext">
             <img src="./assets/logoonly1.png" alt="Kitten" width="100px" title="RealDApp2.0">
-            <p class="realtext">RealDApp</p>
+            <span class="realtext">RealDApp</span>
+            <b-badge class="beta" variant="info" style="display:flex;" title="Launching..">Beta</b-badge>
           </li>
         </ul>
       </div>
@@ -49,9 +50,9 @@
           <li class="nav-item">
             <a class="nav-link" href="/home">Home</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="#">About us</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" >Whitepaper <b-badge  variant="info" style="display:flex;">Comming Soon</b-badge></a>
             
@@ -64,13 +65,7 @@
             <span class="footer-title">Contact & Support</span>
           </li>
           <li class="nav-item">
-            <span class="nav-link"><i class="fas fa-phone"></i>+47 45 80 80 80</span>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fas fa-envelope"></i>Contact us</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fas fa-star"></i>Give feedback</a>
+            <span class="nav-link">realdapp2@gmail.com</span>
           </li>
         </ul>
       </div>
@@ -270,6 +265,10 @@ footer .quick-links {
   font-size:20px;
   color:white;
   text-align:center;
+  display: block;
+}
+.beta{
+  float: right;
 }
 
 </style>
