@@ -575,9 +575,41 @@ methods:{
       // this.clearAll();
        this.$root.$emit("bv::toggle::collapse", "sidebar-1");
        await this.detail();
+       this.prop_price = ''
+       this.selected={
+    metamask_address:'',
+    _id:'',
+    prop_area:'',
+    prop_house_no:'',
+    prop_landmark:'',
+    prop_city:'',
+    prop_state:'',
+    prop_price:'',
+    prop_surveyNumber:'',
+    prop_document:'',
+    deployedHash:'',
+    prop_id:''
+  }
       // this.$root.$emit("callClearFromProject");
   },
   setPrice(property){
+      this.prop_price =''
+     this.selected={
+    metamask_address:'',
+    _id:'',
+    prop_area:'',
+    prop_house_no:'',
+    prop_landmark:'',
+    prop_city:'',
+    prop_state:'',
+    prop_price:'',
+    prop_surveyNumber:'',
+    prop_document:'',
+    deployedHash:'',
+    prop_id:''
+  }
+
+
     this.isPropEditing = true;
   console.log(property)
   this.selected = { ...property}  
@@ -791,11 +823,6 @@ if(this.user.metamask_address == this.accounts[0])
         else{
           alert("Please change your metamask wallet address");
         }
-  },
-  editProp(prop){
-    this.$root.$emit("bv::toggle::collapse", "sidebar-1");
-    this.clearAll()
-    this.selected = { ...prop }
   },
 
   async detail(){

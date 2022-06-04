@@ -57,6 +57,10 @@
             <a class="nav-link" >Whitepaper <b-badge  variant="info" style="display:flex;">Comming Soon</b-badge></a>
             
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://rinkeby.etherscan.io/token/0x7967a518f96ef3e7f83054dd312007c95ebde323" target=”_blank”>Contract Address</a>
+            
+          </li>
         </ul>
       </div>
       <div class="col-md-4 footer-column">
