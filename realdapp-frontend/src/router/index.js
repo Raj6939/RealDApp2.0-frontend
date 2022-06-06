@@ -7,6 +7,14 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'Onboarding',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Onboarding.vue'),
+    meta:{
+      title:'RealDApp-Onboarding'
+    }
+  },
+  {
+    path: '/home',
     name: 'Home',
     component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue'),
     meta:{
@@ -19,6 +27,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Profile.vue'),
     meta:{
       title:'RealDApp-Profile'
+    }
+  },
+  {
+    path: '/notifications',
+    name: 'Notifications',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Notifications.vue'),
+    meta:{
+      title:'RealDApp-Notifications'
     }
   },
   {
@@ -41,13 +57,13 @@ const routes = [
     }
   },
   {
-    path: '/appliedproperties',
-    name: 'AppliedProperties',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AppliedProperties.vue'),
+    path: '/moderator',
+    name: 'Moderator',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Moderator.vue'),
     meta:{
-      title:'RealDApp-AppliedProperties'
+      title:'RealDApp-Moderator'
     }
-  }
+  },
 ]
 
 const router = new VueRouter({

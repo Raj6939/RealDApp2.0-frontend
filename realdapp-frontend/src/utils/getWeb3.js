@@ -9,7 +9,7 @@ async function loadWeb3()  {
       window.web3 = new Web3(window.web3.currentProvider);
       return window.web3;
     }else{
-      window.alert("Non-Ethereum browser detected");
+      return null
     }
 }
 

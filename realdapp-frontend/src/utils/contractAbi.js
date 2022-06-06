@@ -54,6 +54,18 @@ const abi = [
 				"internalType": "string",
 				"name": "prop_document",
 				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "prop_surveyno",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "adharNo",
+				"type": "string"
 			}
 		],
 		"name": "mint_property",
@@ -98,7 +110,13 @@ const abi = [
 			}
 		],
 		"name": "buyProperty",
-		"outputs": [],
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
 		"stateMutability": "payable",
 		"type": "function"
 	},
@@ -157,17 +175,39 @@ const abi = [
 				"internalType": "string",
 				"name": "_document",
 				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_adharNo",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_prop_surveyno",
+				"type": "string"
 			}
 		],
 		"name": "createProperty",
-		"outputs": [],
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
 		"inputs": [],
 		"name": "createUser",
-		"outputs": [],
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -215,6 +255,16 @@ const abi = [
 					{
 						"internalType": "string",
 						"name": "prop_document",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "prop_surveyno",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "adharNo",
 						"type": "string"
 					},
 					{
@@ -329,6 +379,16 @@ const abi = [
 						"type": "string"
 					},
 					{
+						"internalType": "string",
+						"name": "prop_surveyno",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "adharNo",
+						"type": "string"
+					},
+					{
 						"internalType": "enum newuser.reqStatus",
 						"name": "requestStatus",
 						"type": "uint8"
@@ -364,7 +424,13 @@ const abi = [
 			}
 		],
 		"name": "rejectApprovedProperty",
-		"outputs": [],
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -387,7 +453,13 @@ const abi = [
 			}
 		],
 		"name": "sellProperty",
-		"outputs": [],
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -400,7 +472,13 @@ const abi = [
 			}
 		],
 		"name": "transferBalance",
-		"outputs": [],
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -413,33 +491,24 @@ const abi = [
 			},
 			{
 				"internalType": "uint256",
-				"name": "_house_no",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "_landmark",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
 				"name": "_price",
 				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "_document",
-				"type": "string"
 			}
 		],
 		"name": "updateProperty",
-		"outputs": [],
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]
 
-const address = '0xc0d9caeeff0273c55619f16ad7c9c822a3d8027f';
+const address = '0x419146382448920a9B4dA9c7CD5d6B5d108Cb1B7';
 
 export {
     abi,

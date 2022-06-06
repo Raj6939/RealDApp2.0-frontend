@@ -1,30 +1,4 @@
 <template>
-<!-- <div id="market">
-  <div class="row" style="margin-top: 2%" id="main">
-    <div
-        class="col-md-4"
-        v-for="properties in det"
-        v-bind:key="properties.id"
-       
-      >
-  <b-card
-    title="Card Title"
-    img-src="https://picsum.photos/600/300/?image=25"
-    img-alt="Image"
-    img-top
-    tag="article"
-    style="max-width: 20rem;"
-    class="mb-2"
-  >
-    <b-card-text>
-     Name :{{properties.name}} <br>
-     did :{{properties.did}} <br>
-     email :{{properties.email}}
-    </b-card-text>
-  </b-card>
-    </div>
-</div>
-</div> -->
  <div class="container-fluid">
    <div class="intro">
    <h1>Welcome to RealDApp Marketplace</h1>
@@ -41,100 +15,441 @@
     
   <!-- <img v-if="loading" src="//placehold.it/100" /> -->
     
-  <section id="app" style="margin-left: 10px;">
+    <b-sidebar id="sidebar-right" 
+    shadow width="50%" 
+    right
+    title="Preview"
+    >
+      <div class="px-3 py-2">
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property Area :
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_area"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property area"
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property No or House No :
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_house_no"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property number"
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property Landmark :
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_landmark"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property landmark"
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property City :
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_city"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property city"
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property State :
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_state"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property state"
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property Survey Number :
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.prop_surveyNumber"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please enter property servey number"
+            />
+          </div>
+        </div>
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Property Price :
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="number"
+              v-model="selected.prop_price"
+              id="title"
+              class="form-control w-100"
+              placeholder="Please set property price "
+              
+            />
+          </div>
+        </div>
+      
+        <div
+          class="row g-3 align-items-center w-100 mt-4"
+          id="titles"
+          v-if="selected.prop_document"
+        >
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Preview Document :
+            </label>
+          </div>
+          <button
+            class="btn btn-primary mt-3 button-theme"
+            type="button"
+            @click="preview"
+          >
+            Preview
+          </button>
+        </div>
+      </div>     
+    </b-sidebar>
+    
+    <!--  -->
+  <section style="margin-left: 10px;">
     <div class="container-fluid">
       <div class="row" id="main">
-        <div class="col-md-4 py-2" v-for="properties in det.props"
-        :key="properties.propId">
+        <div class="col-md-4 py-2" v-for="property in properties"
+        :key="property._id">
           <div class="card h-100">
-            <!-- <img class="card-img-top" src="assets/logo.png" height="50vh"> -->
-             <div class="sold_status" v-if="properties.isPending">
-               <span>Comming Soon</span>
-                <!-- <h2 v-if="properties.isPending"><b-badge>Sold out</b-badge></h2> -->
-                </div>
-                <div class="sold_status_availabe" v-if="properties.isPending==false">
-               <span>Available</span>
-                <!-- <h2 v-if="properties.isPending"><b-badge>Sold out</b-badge></h2> -->
-                </div>
+          
             <div class="card-body d-flex flex-column align-items-center">
-              <h5 class="card-title">{{properties.propName}} </h5>
-              <p class="card-text" style="font-weight:bold">{{properties.propAddress}}</p>
-              <p class="card-text"> Price {{properties.propPrice}}</p>
-              <!-- <button v-on:click="addProductToCart(properties)" class="btn btn-primary mt-auto">Enquire now</button> -->
-            
+              <h5 class="card-title">{{property.prop_landmark}} </h5>
+              <p class="card-text" style="font-weight:bold">{{property.prop_area}}sq.ft</p>
+              <p class="card-text" style="font-weight:bold">{{property.prop_city}}</p>
+              <p class="card-text"> Price {{property.prop_price}}</p>
               <div>
-                <b-badge pill variant="success"  v-if="properties.isApproved" title="Approved by Government"
+                <b-badge pill variant="success"  title="Approved by Government"
                 >Verified</b-badge>
-                <b-badge pill variant="warning" v-else title="Not yet approved by Government"
-                >Pending</b-badge>
                 </div>
+             
             </div>
-            <div class="enquireBt" v-if="properties.isApproved && !properties.isPending">
-             <button  v-on:click="addProductToCart(properties)"
-             class="btn btn-primary" style="width:200px;">Sign In / Sign Up</button>
+            <div class="enquireBt" v-if="!logdedIn">
+               <button  @click="login"
+               class="btn btn-primary" style="width:200px;"
+               >Register or Login</button>
             </div>
-            <div class="enquireBt" v-else>
-            <button class="btn btn-default" style="width:200px;" disabled></button>
+            <div class="enquireBt" v-if="logdedIn">
+               <button  @click="enquire(property)"
+               class="btn btn-primary" style="width:200px;"
+               >Interested</button>
             </div>
-               
-            <!-- <div class="card-body d-flex flex-column align-items-top">
-              <h5 class="card-title">Property {{properties.id}} </h5>
-              <p class="card-text">Product </p>
-            </div> -->
+            <div class="edit">
+                <b-button
+                  v-b-toggle.sidebar-right
+                  @click="openNFT(property)"
+                  title="View Property Details"
+                >
+                  <b-icon icon="eye-fill" font-scale="1"></b-icon>
+                </b-button>
+              </div>                     
           </div>
         </div>
       </div>
     </div>
-  </section>
+   </section>
 </div>
 </template>
 
 <script>
 import axios from 'axios'
+import loadweb3 from '../utils/getWeb3'
+import {abi,address} from '../utils/contractAbi'
+import toast from "../mixins/toast"
 export default {
 name:'MarketPlace',
   data(){
 return{
-  det:{
-   id:'',
-   did:'',
-   name:'',
-   email:'',
-   isApproved:false,
-   isPending:false,
-   props:[]
-    },
-  // det:{
-  //  _id:'',
-  //  prop_id:'',
-  //  prop_area:'',
-  //  prop_house_no:'',
-  //  prop_landmark:'',
-  //  prop_city:'',
-  //  prop_state:'',
-  //  prop_price:'',
-  //  prop_document:'',
-  //  prop_surveyNumber:'',
-  // //  isApproved:false,
-  // //  isPending:false,
-  // },
-  // det:{},
-    id:2,
+  user:{},
+  notifications:[],
+  notify:{
+  buyer_metamask_address:'',
+  seller_metamask_address:'',
+  buyer_email:'',
+  buyer_name:'',
+  prop_id:''
+  },
+  logdedIn:false,
+  properties:[],
+    selected:{
+    metamask_address:'',
+    _id:'',
+    prop_area:'',
+    prop_house_no:'',
+    prop_landmark:'',
+    prop_city:'',
+    prop_state:'',
+    prop_price:'',
+    prop_document:'',
+    prop_surveyNumber:'',
+  },
 }
 }, async mounted(){
-  await this.detail();
+  await this.detail();  
 },
 methods:{
-  addProductToCart(prop){
-    alert(JSON.stringify(prop))
+   async preview(){
+    console.log(this.selected.prop_document);
+    this.$swal.fire({
+  position:'center',
+  title: `Document of ${this.selected.prop_landmark} house no ${this.selected.prop_house_no}`,
+  imageUrl: `${this.$config.BASE_URL}file/${this.selected.prop_document}`,
+  imageWidth: 400,
+  imageHeight: 300,
+  imageAlt: 'Custom image',
+  confirmButtonColor:'teal',
+})
+  },
+  openNFT(property){
+console.log(property)
+this.selected ={ ...property}
+  },
+  buyProperty(property){
+    console.log(property)
+//      const web3 =await loadweb3();
+//         this.accounts = await web3.eth.getAccounts();
+// if(this.user.metamask_address == this.accounts[0])
+// {
+//       const contract = new web3.eth.Contract(abi,address);
+//       const status = await contract.methods.connectMetamask(this.accounts[0]).call();
+//       console.log(status)
+//       if(status==false){
+//        const contractStatus = await contract.methods.createUser().send({from:this.accounts[0]})
+//        console.log(contractStatus)
+//        if(contractStatus==true){
+//          const createProperty = await contract.methods.sellProperty(
+//        this.notify.seller_metamask_address,
+//        this.notify.buyer_metamask_address,
+//        this.notify.prop_id
+//           ).send({from:this.accounts[0]})
+//           const propertyNft = createProperty.events.mint_property.returnValues.id;
+//           console.log(propertyNft)
+//             const result = await axios.post(
+//         `http://localhost:3000/addnft/${property._id}`,
+//         {
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//           obj: propertyNft,
+//         }
+//       );
+//       {
+//         const res = result;
+//         console.log(res);
+//       }
+        
+//       }}}
+  },
+ async enquire(property){
+  console.log(this.user)
+  console.log(property)
+    if(this.user.approved==true){
+      if(this.user.metamask_address == property.metamask_address){
+        return this.fetched(`You are owner of this property`,'error')
+      }
+     const web3 =await loadweb3();
+        this.accounts = await web3.eth.getAccounts();
+if(this.user.metamask_address == this.accounts[0])
+{
+      const contract = new web3.eth.Contract(abi,address);
+      const status = await contract.methods.connectMetamask(this.accounts[0]).call();
+      console.log(status)
+      if(status==false){
+const swalWithBootstrapButtons =  this.$swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success mx-2',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+ swalWithBootstrapButtons.fire({
+  title: 'Create Your Account',
+  text: "Please create your account on our  Smart Contract",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Yes, create it!',
+  cancelButtonText: 'No, cancel!',
+  reverseButtons: true
+}).then(async(result) => {
+  if (result.isConfirmed) {
+       const contractStatus = await contract.methods.createUser().send({from:this.accounts[0]})
+       console.log(contractStatus)
+       if(contractStatus==true){
+        this.notify.seller_metamask_address =  property.metamask_address;
+        this.notify.prop_id = property.prop_id;
+        this.notify.buyer_email = this.user.email;
+        this.notify.buyer_name = this.user.name;
+        this.notify.buyer_metamask_address = this.user.metamask_address;
+        console.log(this.notify);
+            const result = await axios.post(
+        `${this.$config.BASE_URL}request_to_transfer`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          obj: this.notify,
+        }
+      );
+      {
+        const res = result;
+        console.log(res);
+        this.fetched("Notified to Seller",'success')
+      }
+        
+      }
+
+  } 
+})
+       }
+        else{
+      const swalWithBootstrapButtons =  this.$swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success mx-2',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+ swalWithBootstrapButtons.fire({
+  title: 'Inform Seller',
+  text: "Inform Seller about you",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Yes,!',
+  cancelButtonText: 'No,cancel!',
+  reverseButtons: true
+}).then(async(result)=>{
+  if(result.isConfirmed){
+ this.notify.seller_metamask_address =  property.metamask_address;
+  this.notify.prop_id = property.prop_id;
+  this.notify.buyer_email = this.user.email;
+  this.notify.buyer_name = this.user.name;
+  this.notify.buyer_metamask_address = this.user.metamask_address;
+  
+  console.log(this.notify);
+  const result = await axios.post(
+        `${this.$config.BASE_URL}request_to_transfer/`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          obj: this.notify,
+        }
+      );
+      {
+        const res = result;
+        console.log(res);
+        this.fetched("Notified to Seller",'success')
+      }
+  }
+})
+}
+        }
+        else{
+          this.fetched(`Please change your metamask wallet address!`,'error')
+        }
+ }else{
+   this.fetched(`You have not done KYC yet`,'error')
+ }
+  },
+  login(){
+      window.location.href =
+        window.location.origin + "/";
   },
    async detail(){
-        let result = await axios.get(`http://localhost:3000/property_upload`);
-        this.det.props=  result.data;
-        
-        console.log(this.det.props);
+        if(localStorage.getItem("user")){
+        this.user = JSON.parse(localStorage.getItem("user"));
+        this.logdedIn = true;
+        }
+        let result = await axios.get(`${this.$config.BASE_URL}marketplace`);
+        this.properties=  result.data;
+        this.fetched(`Fetched ${this.properties.length} properties`,'success')
    },
+   clearAll(){
+  this.switchOpt = false,
+  this.user={
+  metamask_address:'',
+  name:'',
+  email:'',
+  mobile:'',
+  adharcardNo:'',
+  approved:'',
+  },
+  this.properties=[],
+  this.selected={
+    metamask_address:'',
+    _id:'',
+    prop_area:'',
+    prop_house_no:'',
+    prop_landmark:'',
+    prop_city:'',
+    prop_state:'',
+    prop_price:'',
+    prop_surveyNumber:'',
+    prop_document:'',
+  }
 }
+},
+mixins:[toast]
 }
 </script>
 
@@ -151,19 +466,29 @@ methods:{
 
 } */
 #main{
-    display: inline-flex;
     margin-right: -1rem;
     margin-left: -1rem;
     padding: 2rem;
 }
+#sidebar-right{
+    width: 50%;
+  }
  @media only screen and (max-width: 600px) {
   #main {
-    /* display: inline-flex; */
       display: flex;
     /* flex-wrap: wrap; */
     margin-right: -1rem;
     margin-left: -1rem;
     padding: 2rem;
+  }
+   .edit {
+    margin-top: 20px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: right;
+  }
+  #sidebar-right{
+    width: 70%;
   }
 }
 .col-md-4{
@@ -174,6 +499,8 @@ methods:{
     position:relative;
 }
 .card{
+   /* display: flex; */
+  /* justify-content: center; */
     box-shadow: 0 1px 6px rgba(61, 65, 84, 0.15);
     min-height: 150px;
     padding: 2rem;
@@ -181,7 +508,7 @@ methods:{
     overflow: hidden;
     border-radius: .5rem;
     transition: 0.2s ease-in-out;
-    cursor:pointer;
+    width: 100%;
 }
 .card:before{
  width: 0;
@@ -194,18 +521,18 @@ methods:{
     bottom: 0;
     left: 0;
 }
+.edit {
+  margin-top: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: right;
+}
 .col-md-4:hover .card:before{
  width: 100%;
 }
 .col-md-4:hover .card{
     top: -2px;
     box-shadow: 0px 20px 40px 0px rgba(61, 65, 84, 0.15);
-}
-.enquireBt{
-display: flex;
-/* display: inline-flex; */
-justify-content: center;
-/* padding-bottom: 10px; */
 }
 .intro{
   padding: 10px;
@@ -241,5 +568,19 @@ justify-content: center;
   line-height: 1.4em;
   text-transform: uppercase;
   text-align: center;
+}
+.enquireBt{
+display: flex;
+/* display: inline-flex; */
+justify-content: center;
+/* padding-bottom: 10px; */
+}
+
+
+/* //// */
+.imgslide{
+  /* position: initial; */
+  width: 200px;
+  height: 200px;
 }
 </style>
