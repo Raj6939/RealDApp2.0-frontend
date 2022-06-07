@@ -116,10 +116,10 @@ export default {
       if(this.everythingIsFilled() !== true){
         return this.fetched(this.everythingIsFilled(),'error')
       }
+      const web3 = await loadweb3();
       if(web3 == null){
         return this.fetched("Install metamask wallet",'error')
       }
-      const web3 = await loadweb3();
       this.accounts = await web3.eth.getAccounts();
       this.selected.metamask_address = this.accounts[0];
       const message = this.selected.adharcardNo;
@@ -140,10 +140,16 @@ export default {
         header: headers,
       });
       const res = result;
-      console.log(res);
-      localStorage.setItem("user", JSON.stringify(res.data));
+      console.log(res.data);
+      if(!res.data==false){
+              localStorage.setItem("user", JSON.stringify(res.data));
       window.location.href =
               window.location.origin + "/home";
+      }
+      else{
+        return this.fetched(`Duplicate adhar or metmamask not allowed` ,'error')
+      }
+
     
     },
     everythingIsFilled(){
