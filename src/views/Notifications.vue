@@ -2,7 +2,7 @@
   <div>
     <h3 v-if="switchOpt">Untoggle this to know who have requested to your properties</h3>
     <h3 v-else>Toggle this to know about request you have made to other properties</h3>
-    <b-form-checkbox v-model="switchOpt" @change="opt" name="check-button" switch>
+    <b-form-checkbox v-model="switchOpt" @change="opt" name="check-button" class="toggleBtn" switch>
             </b-form-checkbox>
     <b-sidebar id="sidebar-1" 
     shadow width="50%" 
@@ -546,6 +546,9 @@ mixins:[toast]
 </script>
 
 <style>
+.toggleBtn {
+  justify-content: center;
+}
 .slight-left-margin {
   margin-left: 10px;
 }
