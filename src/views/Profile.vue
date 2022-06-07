@@ -2,7 +2,7 @@
   <div>
     <h3 v-if="switchOpt">Untoggle this to get your undeployed properties</h3>
     <h3 v-else>Toggle this to get Your NFT's</h3>
-    <b-form-checkbox v-model="switchOpt" @change="opt" name="check-button" class="custom-control" switch>
+    <b-form-checkbox v-model="switchOpt" @change="opt" name="check-button" class="switch-controler" switch>
             </b-form-checkbox>
     <b-sidebar id="sidebar-1" 
     shadow width="50%" 
@@ -888,8 +888,8 @@ mixins:[toast]
 </script>
 
 <style>
-.custom-control{
-  display: flex;
+.switch-controler{
+  display: inline-block;
 }
 .slight-left-margin {
   margin-left: 5px;

@@ -1,6 +1,6 @@
 <template>
 <div id="app" class="min-h-screen w-full bg-gray-200">
-  <b-navbar toggleable="lg" class="navmain">
+  <b-navbar toggleable="lg">
     <b-navbar-brand class="centerNav" href="/"> <img src="./assets/logoonly1.png" alt="Kitten" width="60px" title="RealDApp2.0">
     </b-navbar-brand>
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -137,10 +137,6 @@ mixins: [LocalstorageMixin],
       color: #42b983;
     }
   }
-}
-.navmain{
-  position: sticky;
-  top: 0;
 }
 .centerNav{
   padding-left: 18%;
