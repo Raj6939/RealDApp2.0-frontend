@@ -141,7 +141,30 @@
             />
           </div>
         </div>
-      
+        <div class="row g-3 align-items-center w-100 mt-4" id="titles">
+          <div class="text-left col-lg-3 col-md-3 text-left">
+            <label for="propertyName" class="col-form-label"
+              >Deployed Hash :
+            </label>
+          </div>
+          <div class="col-lg-9 col-md-9 px-0">
+            <input
+              disabled
+              type="text"
+              v-model="selected.deployedHash"
+              id="title"
+              class="form-control w-100"
+            />
+          </div>
+          <button
+            class="btn btn-primary mt-3 button-theme"
+            id="slight-right"
+            type="button"
+            @click="etherescan"
+          >
+            View on etherescan
+          </button>
+        </div>
         <div
           class="row g-3 align-items-center w-100 mt-4"
           id="titles"
@@ -240,12 +263,18 @@ return{
     prop_price:'',
     prop_document:'',
     prop_surveyNumber:'',
+    deployedHash:''
   },
 }
 }, async mounted(){
   await this.detail();  
 },
 methods:{
+  etherescan(){
+    let url = `https://rinkeby.etherscan.io/tx/${this.selected.deployedHash}`
+    window.open(url, "_blank");
+    
+  },
    async preview(){
     console.log(this.selected.prop_document);
     this.$swal.fire({
@@ -446,6 +475,7 @@ const swalWithBootstrapButtons =  this.$swal.mixin({
     prop_price:'',
     prop_surveyNumber:'',
     prop_document:'',
+    deployedHash:''
   }
 }
 },
@@ -465,6 +495,10 @@ mixins:[toast]
  justify-content: center;
 
 } */
+#slight-right {
+  margin-left: auto;
+  margin-right: auto;
+}
 #main{
     margin-right: -1rem;
     margin-left: -1rem;
