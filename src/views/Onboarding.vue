@@ -113,6 +113,9 @@ export default {
       console.log(this.user)
     },
     async signUp() {
+      if(web3 == null){
+        return this.fetched("Install metamask",'error')
+      }
       if(this.everythingIsFilled() !== true){
         return this.fetched(this.everythingIsFilled(),'error')
       }
