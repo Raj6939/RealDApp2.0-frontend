@@ -113,11 +113,11 @@ export default {
       console.log(this.user)
     },
     async signUp() {
-      if(web3 == null){
-        return this.fetched("Install metamask",'error')
-      }
       if(this.everythingIsFilled() !== true){
         return this.fetched(this.everythingIsFilled(),'error')
+      }
+      if(web3 == null){
+        return this.fetched("Install metamask wallet",'error')
       }
       const web3 = await loadweb3();
       this.accounts = await web3.eth.getAccounts();
@@ -178,7 +178,7 @@ export default {
     async invokeMetamask() {
       const web3 = await loadweb3();
       if(web3 == null){
-        return this.fetched("Install metamask",'error')
+        return this.fetched("Install metamask wallet",'error')
       }
       if(!isNum(this.login.adharcardNo) ||this.login.adharcardNo.length<12 ||this.login.adharcardNo.length>12){
         return this.fetched(`Please Enter Valid Adhar Number`,'error')
