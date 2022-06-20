@@ -57,7 +57,7 @@
             <a class="nav-link" href="https://rinkeby.etherscan.io/token/0x7967a518f96ef3e7f83054dd312007c95ebde323" target=”_blank”>Contract Address</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" >Whitepaper <b-badge  variant="info" style="display:flex; width:100px;">Comming Soon</b-badge></a>
+            <a class="nav-link" >Whitepaper <b-badge  variant="info" style="display:flex;">Comming Soon</b-badge></a>
           </li>
         </ul>
       </div>
