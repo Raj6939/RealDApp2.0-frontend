@@ -50,16 +50,14 @@
           <li class="nav-item">
             <a class="nav-link" href="/home">Home</a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="#">About us</a>
-          </li> -->
           <li class="nav-item">
-            <a class="nav-link" >Whitepaper <b-badge  variant="info" style="display:flex;">Comming Soon</b-badge></a>
-            
+            <a class="nav-link" href="/marketplace">Marketplace</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="https://rinkeby.etherscan.io/token/0x7967a518f96ef3e7f83054dd312007c95ebde323" target=”_blank”>Contract Address</a>
-            
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" >Whitepaper <b-badge  variant="info" style="display:flex; width:100px;">Comming Soon</b-badge></a>
           </li>
         </ul>
       </div>
@@ -76,7 +74,7 @@
     </div>
 
 
-    <div id="copyright">
+    <div id="copyright" style="margin-top:30px;">
       <span>Powered By RealDApp Protocol</span>
       <span class="quick-links">2022&copy; RealDApp </span>
     </div>

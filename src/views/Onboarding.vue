@@ -216,7 +216,7 @@ export default {
         this.toast("signed in successfully","success")
         localStorage.setItem("user", JSON.stringify(res.data));
         window.location.href =
-        window.location.origin + "/home";
+        window.location.origin + "/marketplace";
       }
       else{
         this.login.adharcardNo = ''

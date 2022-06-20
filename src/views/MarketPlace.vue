@@ -522,7 +522,7 @@ mixins:[toast]
     justify-content: right;
   }
   #sidebar-right{
-    width: 70%;
+    width: 90%;
   }
 }
 .col-md-4{
