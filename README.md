@@ -11,4 +11,4 @@
 <img width="722" alt="realDappSellingFlow" src="https://user-images.githubusercontent.com/67961128/226177008-27f227b4-7059-4a23-abae-cead17ab4398.png">
 
 #### Keyword
-- Moderator - Moderator is an assumed government enity in the process which do KYC of buyer and seller with required documents of user and real estate.
+- Moderator - Since Real Estate asset transaction required government co-operation and involvment here Moderator is an assumed government enity in the process which do KYC of buyer and seller with required documents of user and given real estate.
