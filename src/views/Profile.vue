@@ -551,7 +551,7 @@ methods:{
 },
   etherescan(property){
     console.log(property)
-    let url = `https://rinkeby.etherscan.io/tx/${property.deployedHash}`
+    let url = `https://sepolia.etherscan.io/tx/${property.deployedHash}`
     window.open(url, "_blank");
     
   },

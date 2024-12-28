@@ -58,7 +58,7 @@
             
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://rinkeby.etherscan.io/token/0x7967a518f96ef3e7f83054dd312007c95ebde323" target=”_blank”>Contract Address</a>
+            <a class="nav-link" href="https://sepolia.etherscan.io/address/0x66E67ba9aD9761Da655D87118A2d7f70103a62a3" target=”_blank”>Contract Address</a>
             
           </li>
         </ul>
