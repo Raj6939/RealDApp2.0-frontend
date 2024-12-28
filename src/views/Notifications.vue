@@ -259,6 +259,7 @@ import axios from 'axios'
 import loadweb3 from '../utils/getWeb3'
 import {abi,address} from '../utils/contractAbi'
 import toast from "../mixins/toast"
+import BN from 'bn.js';
 export default {
 name:'Notifications',
 data(){
@@ -337,9 +338,15 @@ const result = await axios.post(
           },
           obj: this.buyInfo.prop_id,
         }
-      );
-        const res = result;        
-        this.weiPrice = res.data*1000000000000000000
+      );      
+        const res = result;       
+        const decimalValue = result.data;
+      // Scale it up to an integer (e.g., 10^18 for ether/wei conversions)
+      const scale = 10 ** 18;
+      const integerValue = Math.round(decimalValue * scale); // Convert to integer
+      // Convert to BN instance
+      const bnValue = new BN(integerValue.toString());      
+        this.weiPrice = bnValue        
          const swalWithBootstrapButtons =  this.$swal.mixin({
   customClass: {
     confirmButton: 'btn btn-success mx-2',
