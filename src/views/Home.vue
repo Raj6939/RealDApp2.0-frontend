@@ -5,8 +5,8 @@
             <section class="home" id="home">
                 <div class="home__container bd-container bd-grid">
                     <div class="home__data">
-                        <h1 class="home__title">Welcome to RealDApp</h1>
-                        <h2 class="home__subtitle">Make your Real estate <br> assets unique.</h2>
+                        <h1 class="home__title">Welcome to EstateX</h1>
+                        <h2 class="home__subtitle">Tokenize. Verify. Trade. </h2>
                     </div>
     
                     <img src="../assets/landing.jpg" alt="" class="home__img">
@@ -37,20 +37,20 @@
                         
                         <img src="../assets/seller.png" alt="" class="services__img">
                         <h3 class="services__title">Link Your Profile</h3>
-                        <p class="services__description">Link your profile with your properties by sign up on RealDApp and KYC at Moderator office</p>
+                        <p class="services__description">Link your UAE Pass with your properties by sign up on EstateX</p>
                     </div>
 
                     <div class="services__content">
                         <img src="../assets/ownershipkey.png" alt="" class="services__img">
-                        <h3 class="services__title">Get NFT Ownership </h3>
-                        <p class="services__description">Once Your Profile is linked with your existing properties, create NFT for that property.</p>
+                        <h3 class="services__title">Get Toknized Ownership </h3>
+                        <p class="services__description">Once Your Profile is linked with your existing properties, create Tokens for that property</p>
                     </div>
 
                     <div class="services__content">
                         <img src="../assets/buy.png" alt="" class="services__img"> <span style="margin:5px;"></span>
                         <img src="../assets/sell.png" alt="" class="services__img">
                         <h3 class="services__title">Buy or Sell </h3>
-                        <p class="services__description">Your Real Estate NFT will list on RealDApp Marketplace</p>
+                        <p class="services__description">Your Real Estate Properties will list on EstateX Marketplace</p>
                     </div>
                 </div>
             </section>

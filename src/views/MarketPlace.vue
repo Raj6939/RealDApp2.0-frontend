@@ -1,9 +1,9 @@
 <template>
  <div class="container-fluid">
-   <div class="intro">
-   <h1>Welcome to RealDApp Marketplace</h1>
-   <h2>First Real Estate <span style="color:teal; font-weight:bold">NFT</span> marketplace to</h2>
-   <h2>create, buy and sell your properties on blockchain</h2>
+   <div class="intro">   
+   <h1>Explore Verified Real Estate <span style="color:teal; font-weight:bold">Properties</span></h1>
+   <br>
+   <h5>Discover DLD-verified properties ready to buy, sell, or invest in Dubai</h5>
    
    </div>
   <div class="row">
@@ -175,7 +175,10 @@
               <h5 class="card-title">{{property.prop_landmark}} </h5>
               <p class="card-text" style="font-weight:bold">{{property.prop_area}}sq.ft</p>
               <p class="card-text" style="font-weight:bold">{{property.prop_city}}</p>
-              <p class="card-text"> Price {{property.prop_price}}</p>
+    <p class="card-text">
+  Price {{ Number(property.prop_price).toLocaleString('en-AE') }} AED
+</p>
+
               <div>
                 <b-badge pill variant="success"  title="Approved by Government"
                 >Verified</b-badge>

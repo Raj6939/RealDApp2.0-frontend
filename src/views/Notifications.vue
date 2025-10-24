@@ -329,6 +329,7 @@ async initiateBuy(){
     const web3 =await loadweb3();
         this.accounts = await web3.eth.getAccounts();
 if(this.user.metamask_address == this.accounts[0]){
+  console.log('in if')
  const contract = new web3.eth.Contract(abi,address);
 const result = await axios.post(
         `${this.$config.BASE_URL}get_eth`,
@@ -365,12 +366,14 @@ const result = await axios.post(
   reverseButtons: true
 }).then(async(result)=>{
   if(result.isConfirmed){
+    console.log('in buy')
     const approval = await contract.methods.buyProperty(
           this.buyInfo.seller_metamask_address,
           this.buyInfo.prop_id
           ).send({from:this.accounts[0],value:this.weiPrice})
           if(approval.status==true)
           {
+            console.log('in approval')
             this.$root.$emit("bv::toggle::collapse", "sidebar-1");
             this.fetched(`property trasnfered to you`,'success');
       this.transfertoback.buyer_metamask_address = this.buyInfo.buyer_metamask_address;  

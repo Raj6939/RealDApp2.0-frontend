@@ -28,7 +28,7 @@
         <input
           type="text"
           name="adhar"
-          placeholder="Adhar number"
+          placeholder="UAE Pass No"
           v-model="selected.adharcardNo"
           required=""
         />
@@ -41,7 +41,7 @@
         <input
           type="text"
           name="adhar"
-          placeholder="Adhar number"
+          placeholder="UAE Pass No"
           v-model="login.adharcardNo"
           required=""
         />

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3 v-if="switchOpt">Untoggle this to get your undeployed properties</h3>
-    <h3 v-else>Toggle this to get Your NFT's</h3>
+    <h3 v-else>Toggle this to get Your properties</h3>
     <b-form-checkbox v-model="switchOpt" @change="opt" name="check-button" switch>
             </b-form-checkbox>
     <b-sidebar id="sidebar-1" 
@@ -351,136 +351,124 @@
       </button> 
     </b-sidebar>
 <!--  -->
-    <section style="margin-left: 10px" v-if="!switchOpt">
-      <div class="container-fluid">
-        <div class="row" id="main">
-          <div
-            class="col-md-4 py-2"
-            v-for="property in properties"
-            :key="property._id"
-          >
-            <div class="card h-100">
-              <div class="card-body d-flex flex-column align-items-center">
-                <h5 class="card-title">{{ property.prop_landmark }}</h5>
-                <p class="card-text" style="font-weight: bold">
-                  {{ property.prop_area }}sq.ft
-                </p>
-                <p class="card-text" style="font-weight: bold">
-                  {{ property.prop_city }}
-                </p>
-                <p class="card-text" v-if="property.prop_price">Price {{ property.prop_price }}</p>
-              </div>
-              <div class="py-2">
-                <b-badge pill variant="success" title="Approved by Government"
-                  >Verified</b-badge
-                >
-              </div>
-              <div v-if="!property.deployed">
-              <div class="enquireBt" v-if="property.prop_price">
-                <button
-                  v-on:click="addProductToCart(property)"
-                  class="btn btn-primary"
-                  style="width: 200px"
-                >
-                  Deploy Property
-                </button>
-              </div>
-              <div class="enquireBt" v-else>
-                <button
-                  v-b-toggle.sidebar-1
-                  @click="setPrice(property)"
-                  class="btn btn-primary"
-                  style="width: 200px"
-                >
-                  Set Property Price
-                </button>
-              </div>
-              </div>
-              <div v-else>
-               <div class="enquireBt">
-                <button
-                  @click="etherescan(property)"
-                  class="btn btn-primary"
-                  style="width: 200px"
-                >
-                  View On Etherscan
-                </button>
-              </div>
-              </div>
-              <div class="edit">
-                <b-button
-                  v-b-toggle.sidebar-1
-                  @click="open(property)"
-                  title="View Property Details"
-                >
-                  <b-icon icon="eye-fill" font-scale="1"></b-icon>
-                </b-button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-<!--  -->
+<!-- Untoggled: show DEPLOYED (NFTproperties) -->
+<section style="margin-left: 10px" v-if="!switchOpt">
+  <div class="container-fluid">
+    <div class="row" id="main">
+      <div
+        class="col-md-4 py-2"
+        v-for="property in NFTproperties"
+        :key="property._id"
+      >
+        <div class="card h-100">
+          <div class="card-body d-flex flex-column align-items-center">
 
-<section style="margin-left: 10px" v-else>
-      <div class="container-fluid">
-        <div class="row" id="main">
-          <div
-            class="col-md-4 py-2"
-            v-for="property in NFTproperties"
-            :key="property._id"
-          >
-            <div class="card h-100">
-              <div class="card-body d-flex flex-column align-items-center">
-        
-                  <b-avatar class="mb-4"  badge="1" variant="primary" badge-variant="dark"
-                  v-if="property.buyer_address"
-                  title="You have one request for this property"
-                  ></b-avatar>
-                
-                <h5 class="card-title">{{ property.prop_landmark }}</h5>
-                <p class="card-text" style="font-weight: bold">
-                  {{ property.prop_area }}sq.ft
-                </p>
-                <p class="card-text" style="font-weight: bold">
-                  {{ property.prop_city }}
-                </p>
-                <p class="card-text" v-if="property.prop_price">Price {{ property.prop_price }}</p>
-              </div>
-              <div class="py-2">
-                <b-badge pill variant="success" title="Approved by Government"
-                  >Verified</b-badge
-                >
-              </div>
-              <div class="py-2" v-if="property.deployed">
-                <b-badge pill variant="success" title="Deployed on Blockchain"
-                  >Deployed</b-badge
-                >
-              </div>
-               <div class="py-2 enquireBt">
-                <button
-                  @click="etherescan(property)"
-                  class="btn btn-primary"
-                  style="width: 200px"
-                >
-                  View On Etherscan
-                </button>
-              </div>
-               <div class="edit">
-                <b-button
-                  v-b-toggle.sidebar-2
-                  @click="openNFT(property)"
-                  title="View Property Details"
-                >
-                  <b-icon icon="eye-fill" font-scale="1"></b-icon>
-                </b-button>
-              </div>
-            </div>
+            <b-avatar class="mb-4" badge="1" variant="primary" badge-variant="dark"
+              v-if="property.buyer_address"
+              title="You have one request for this property"
+            ></b-avatar>
+
+            <h5 class="card-title">{{ property.prop_landmark }}</h5>
+            <p class="card-text" style="font-weight: bold">
+              {{ property.prop_area }}sq.ft
+            </p>
+            <p class="card-text" style="font-weight: bold">
+              {{ property.prop_city }}
+            </p>
+            <p class="card-text" v-if="property.prop_price">Price {{ property.prop_price }}</p>
+          </div>
+
+          <div class="py-2">
+            <b-badge pill variant="success" title="Approved by Government">Verified</b-badge>
+          </div>
+
+          <div class="py-2" v-if="property.deployed">
+            <b-badge pill variant="success" title="Deployed on Blockchain">Deployed</b-badge>
+          </div>
+
+          <div class="py-2 enquireBt">
+            <button @click="etherescan(property)" class="btn btn-primary" style="width: 200px">
+              View On Etherscan
+            </button>
+          </div>
+
+          <div class="edit">
+            <b-button v-b-toggle.sidebar-2 @click="openNFT(property)" title="View Property Details">
+              <b-icon icon="eye-fill" font-scale="1"></b-icon>
+            </b-button>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
+
+<!-- Toggled: show UNDEPLOYED (properties) -->
+<section style="margin-left: 10px" v-else>
+  <div class="container-fluid">
+    <div class="row" id="main">
+      <div
+        class="col-md-4 py-2"
+        v-for="property in properties"
+        :key="property._id"
+      >
+        <div class="card h-100">
+          <div class="card-body d-flex flex-column align-items-center">
+            <h5 class="card-title">{{ property.prop_landmark }}</h5>
+            <p class="card-text" style="font-weight: bold">
+              {{ property.prop_area }}sq.ft
+            </p>
+            <p class="card-text" style="font-weight: bold">
+              {{ property.prop_city }}
+            </p>
+            <p class="card-text" v-if="property.prop_price">Price {{ property.prop_price }}</p>
+          </div>
+
+          <div class="py-2">
+            <b-badge pill variant="success" title="Approved by Government">Verified</b-badge>
+          </div>
+
+          <div v-if="!property.deployed">
+            <div class="enquireBt" v-if="property.prop_price">
+              <button
+                @click="addProductToCart(property)"
+                class="btn btn-primary"
+                style="width: 200px"
+              >
+                Deploy Property
+              </button>
+            </div>
+            <div class="enquireBt" v-else>
+              <button
+                v-b-toggle.sidebar-1
+                @click="setPrice(property)"
+                class="btn btn-primary"
+                style="width: 200px"
+              >
+                Set Property Price
+              </button>
+            </div>
+          </div>
+
+          <div v-else>
+            <div class="enquireBt">
+              <button @click="etherescan(property)" class="btn btn-primary" style="width: 200px">
+                View On Etherscan
+              </button>
+            </div>
+          </div>
+
+          <div class="edit">
+            <b-button v-b-toggle.sidebar-1 @click="open(property)" title="View Property Details">
+              <b-icon icon="eye-fill" font-scale="1"></b-icon>
+            </b-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 
 <!--  -->
@@ -688,7 +676,6 @@ if(this.user.metamask_address == this.accounts[0])
           const contract = new web3.eth.Contract(abi,address);
       const status = await contract.methods.connectMetamask(this.accounts[0]).call();
       if(status==false){
-
           const swalWithBootstrapButtons =  this.$swal.mixin({
   customClass: {
     confirmButton: 'btn btn-success mx-2',
@@ -723,7 +710,7 @@ if(this.user.metamask_address == this.accounts[0])
 
  swalWithBootstrapButtons.fire({
   title: 'Deploy Property',
-  text: "Deploy your property as NFT on Blockchain",
+  text: "Deploy your property on Blockchain",
   icon: 'warning',
   showCancelButton: true,
   confirmButtonText: 'Yes, Deploy it!',
@@ -777,7 +764,7 @@ if(this.user.metamask_address == this.accounts[0])
 
  swalWithBootstrapButtons.fire({
   title: 'Deploy Property',
-  text: "Deploy your property as NFT on Blockchain",
+  text: "Deploy your property on Blockchain",
   icon: 'warning',
   showCancelButton: true,
   confirmButtonText: 'Yes, Deploy it!',
@@ -825,32 +812,31 @@ if(this.user.metamask_address == this.accounts[0])
         }
   },
 
-  async detail(){
-        this.user = JSON.parse(localStorage.getItem("user"));    
-      let url;
-        if(this.switchOpt==true){
-          console.log("deployed")
-          url = `${this.$config.BASE_URL}deployed_property_get/${this.user.metamask_address}`
-          const result = await fetch(url, {
-          method: "GET",
-        });
-        const resp = await result.json()
-        this.NFTproperties = resp;
-        console.log(this.NFTproperties)
-        this.fetched(`You have ${this.NFTproperties.length} properties as NFT`,'success');
-        }
-        else{
-          console.log("existing")
-          url = `${this.$config.BASE_URL}existing_property_get/${this.user.metamask_address}`;
-        const result = await fetch(url, {
-          method: "GET",
-        });
-        const resp = await result.json()
-        this.properties = resp;
-        console.log(this.properties)
-        this.fetched(`You have ${this.properties.length} properties to deploy`,'success');
-        }
-   },
+  async detail() {
+  this.user = JSON.parse(localStorage.getItem("user"));    
+  let url;
+
+  if (this.switchOpt == false) {
+    // untoggled → deployed
+    console.log("deployed");
+    url = `${this.$config.BASE_URL}deployed_property_get/${this.user.metamask_address}`;
+    const result = await fetch(url, { method: "GET" });
+    const resp = await result.json();
+    this.NFTproperties = resp;
+    console.log(this.NFTproperties);
+    this.fetched(`You have ${this.NFTproperties.length} properties listed`, 'success');
+  } else {
+    // toggled → undeployed
+    console.log("existing");
+    url = `${this.$config.BASE_URL}existing_property_get/${this.user.metamask_address}`;
+    const result = await fetch(url, { method: "GET" });
+    const resp = await result.json();
+    this.properties = resp;
+    console.log(this.properties);
+    this.fetched(`You have ${this.properties.length} properties yet to list`, 'success');
+  }
+}
+,
 clearAll(){
   this.backTobackend = {
     id:'',

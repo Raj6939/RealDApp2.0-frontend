@@ -37,7 +37,7 @@
         <ul class="nav flex-column">
           <li class="nav-item" id="logoandtext">
             <img src="./assets/logoonly1.png" alt="Kitten" width="100px" title="RealDApp2.0">
-            <span class="realtext">RealDApp</span>
+            <span class="realtext">EstateX</span>
             <b-badge class="beta" variant="info" style="display:flex;">Beta</b-badge>
           </li>
         </ul>
@@ -69,7 +69,7 @@
             <span class="footer-title">Contact & Support</span>
           </li>
           <li class="nav-item">
-            <span class="nav-link">realdapp2@gmail.com</span>
+            <span class="nav-link">estatex@gmail.com</span>
           </li>
         </ul>
       </div>
@@ -77,8 +77,8 @@
 
 
     <div id="copyright">
-      <span>Powered By RealDApp Protocol</span>
-      <span class="quick-links">2022&copy; RealDApp </span>
+      <span>Powered By Hypermine Labs</span>
+      <span class="quick-links">2022&copy; EstateX </span>
     </div>
 
     
